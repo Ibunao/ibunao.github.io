@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Hello Hexo]]></title>
     <url>%2F2017%2F06%2F29%2FHello%20world%2F</url>
-    <content type="text"><![CDATA[文章md头部设置 123456789---title: test #标题名称date: 2017-06-29 11:56:02 #时间tags: #创建标签 - Testing #标签名称 - begin #标签名称categories: begin--- 添加图片 123456在source下创建images文件夹。![&apos;tupian&apos;](/images/my.jpg) images 是source下的文件夹也可以吧图片放在七牛进行引用。 使用 进入到目录没有权限的加 sudo 1/Users/echo-ding/Documents/ding/www/github-blog 创建文章1hexo new &quot;My New Post&quot; #my new post 为文章名 也可以直接在source中创建md文档 启动服务1hexo server 生成文件(md转成html)1hexo generate 推送到远端1hexo deploy 本地测试(s 就是 server的缩写) 12hexo s --debug #默认以4000端口启动sudo hexo s --debug -p 80 #以80端口启动]]></content>
+    <content type="text"><![CDATA[文章md头部设置 123456789---title: test #标题名称date: 2017-06-29 11:56:02 #时间tags: #创建标签 - Testing #标签名称 - begin #标签名称categories: begin--- 添加图片 123456在source下创建images文件夹。![&apos;tupian&apos;](/images/my.jpg) images 是source下的文件夹也可以吧图片放在七牛进行引用。 使用 进入到目录没有权限的加 sudo 1/Users/echo-ding/Documents/ding/www/github-blog 创建文章1hexo new &quot;My New Post&quot; #my new post 为文章名 也可以直接在source中创建md文档 启动服务1hexo server 生成文件(md转成html)1hexo generate 推送到远端1hexo deploy 写博客 写完之后直接。生成文件(md转成html)1hexo generate 推送到远端1hexo deploy 本地测试(s 就是 server的缩写) 12hexo s --debug #默认以4000端口启动sudo hexo s --debug -p 80 #以80端口启动]]></content>
       <categories>
         <category>hello word</category>
       </categories>
