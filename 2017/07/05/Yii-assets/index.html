@@ -112,13 +112,13 @@
 <meta name="description" content="资源包Yii在资源包中管理资源，资源包简单的说就是放在一个目录下的资源集合， 当在视图中注册一个资源包， 在渲染Web页面时会包含包中的CSS和JavaScript文件。 定义资源包资源包指定为继承 yii\web\AssetBundle 的PHP类， 包名为可自动加载的PHP类名， 在资源包类中，要指定资源所在位置， 包含哪些CSS和JavaScript文件以及和其他包的依赖关系。 如下代码定义">
 <meta name="keywords" content="yii,assets,视图注册资源">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Yii-controller">
+<meta property="og:title" content="Yii-assets">
 <meta property="og:url" content="http://bunao.win/2017/07/05/Yii-assets/index.html">
 <meta property="og:site_name" content="不孬">
 <meta property="og:description" content="资源包Yii在资源包中管理资源，资源包简单的说就是放在一个目录下的资源集合， 当在视图中注册一个资源包， 在渲染Web页面时会包含包中的CSS和JavaScript文件。 定义资源包资源包指定为继承 yii\web\AssetBundle 的PHP类， 包名为可自动加载的PHP类名， 在资源包类中，要指定资源所在位置， 包含哪些CSS和JavaScript文件以及和其他包的依赖关系。 如下代码定义">
-<meta property="og:updated_time" content="2017-07-16T12:02:47.000Z">
+<meta property="og:updated_time" content="2017-08-23T14:43:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Yii-controller">
+<meta name="twitter:title" content="Yii-assets">
 <meta name="twitter:description" content="资源包Yii在资源包中管理资源，资源包简单的说就是放在一个目录下的资源集合， 当在视图中注册一个资源包， 在渲染Web页面时会包含包中的CSS和JavaScript文件。 定义资源包资源包指定为继承 yii\web\AssetBundle 的PHP类， 包名为可自动加载的PHP类名， 在资源包类中，要指定资源所在位置， 包含哪些CSS和JavaScript文件以及和其他包的依赖关系。 如下代码定义">
 
 
@@ -153,7 +153,7 @@
 
 
 
-  <title>Yii-controller | 不孬</title>
+  <title>Yii-assets | 不孬</title>
   
 
 
@@ -353,7 +353,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Yii-controller</h2>
+          <h2 class="post-title" itemprop="name headline">Yii-assets</h2>
         
 
         <div class="post-meta">
@@ -426,7 +426,7 @@
 
           
           
-             <span id="/2017/07/05/Yii-assets/" class="leancloud_visitors" data-flag-title="Yii-controller">
+             <span id="/2017/07/05/Yii-assets/" class="leancloud_visitors" data-flag-title="Yii-assets">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -489,7 +489,7 @@
 <p> 2.2在页面中单独写JS(使用数据块)  </p>
  <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;div id=<span class="string">"mybutton"</span>&gt;点我弹出OK&lt;/div&gt;  </div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span> <span class="keyword">$this</span>-&gt;beginBlock(<span class="string">'test'</span>) <span class="meta">?&gt;</span>  </div><div class="line">    $(<span class="function"><span class="keyword">function</span><span class="params">($)</span> </span>&#123;  </div><div class="line">      $(<span class="string">'#mybutton'</span>).click(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;  </div><div class="line">        alert(<span class="string">'OK'</span>);  </div><div class="line">      &#125;);  </div><div class="line">    &#125;);  </div><div class="line"><span class="meta">&lt;?php</span> <span class="keyword">$this</span>-&gt;endBlock() <span class="meta">?&gt;</span>  </div><div class="line"><span class="meta">&lt;?php</span> <span class="keyword">$this</span>-&gt;registerJs(<span class="keyword">$this</span>-&gt;blocks[<span class="string">'test'</span>], \yii\web\View::POS_END); <span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
 <p> 或者：</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">$this</span>-&gt;registerJs(</div><div class="line">   <span class="string">'$("document").ready(function()&#123;</span></div><div class="line">        $("#login-form").validate(&#123;</div><div class="line">            errorElement : "small",</div><div class="line">            errorClass : "error",</div><div class="line">            rules: &#123;</div><div class="line">                     "AgNav[nav_cn]": &#123;</div><div class="line">                         required: true,</div><div class="line">                     &#125;,</div><div class="line">            &#125;,</div><div class="line">            messages:&#123;</div><div class="line">                   "AgNav[nav_cn]" : &#123;  </div><div class="line">                        required : "此字段不能为空.",</div><div class="line">                    &#125;,</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;);'</div><div class="line">);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$this-&gt;registerJs(</div><div class="line">   '$("document").ready(function()&#123;</div><div class="line">        $("#login-form").validate(&#123;</div><div class="line">            errorElement : "small",</div><div class="line">            errorClass : "error",</div><div class="line">            rules: &#123;</div><div class="line">                     "AgNav[nav_cn]": &#123;</div><div class="line">                         required: true,</div><div class="line">                     &#125;,</div><div class="line">            &#125;,</div><div class="line">            messages:&#123;</div><div class="line">                   "AgNav[nav_cn]" : &#123;  </div><div class="line">                        required : "此字段不能为空.",</div><div class="line">                    &#125;,</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;);'</div><div class="line">);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p><strong>视图中引入CSS/JS文件</strong></p>
@@ -559,8 +559,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/03/Yii-view/" rel="next" title="Yii-view">
-                <i class="fa fa-chevron-left"></i> Yii-view
+              <a href="/2017/07/03/Yii-Application/" rel="next" title="Yii-Application">
+                <i class="fa fa-chevron-left"></i> Yii-Application
               </a>
             
           </div>
@@ -645,7 +645,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
