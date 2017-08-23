@@ -336,7 +336,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/Yii-Application/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Yii-事件机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -355,7 +355,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/Yii-Application/" itemprop="url">Yii-Application</a></h2>
+                <a class="post-title-link" href="/2017/07/03/yii/Yii-事件机制/" itemprop="url">Yii-事件机制</a></h2>
         
 
         <div class="post-meta">
@@ -401,8 +401,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/应用主体/" itemprop="url" rel="index">
-                    <span itemprop="name">应用主体</span>
+                  <a href="/categories/yii/事件/" itemprop="url" rel="index">
+                    <span itemprop="name">事件</span>
                   </a>
                 </span>
 
@@ -418,7 +418,7 @@
 
           
           
-             <span id="/2017/07/03/Yii-Application/" class="leancloud_visitors" data-flag-title="Yii-Application">
+             <span id="/2017/07/03/yii/Yii-事件机制/" class="leancloud_visitors" data-flag-title="Yii-事件机制">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -448,16 +448,20 @@
       
         
           
-          应用主体声明周期当运行 入口脚本 处理请求时， 应用主体会经历以下生命周期:
+          
+观察者模式的升级版吧，通过维护一个事件数组，来实现事件的绑定和通知的  
 
-入口脚本加载应用主体配置数组。
-入口脚本创建一个应用主体实例：
-调用 preInit() 配置几个高级别应用主体属性， 比如yii\base\Application::basePath。
-注册 yii\base\Appl
+事件机制
+一个对象抛出事件，另一个对象监听到事件后执行相应的动作  
+
+实现方法：
+
+扫描式：一个对象发生事件，存入数组，然后另一个对象不断进行扫描
+绑定式 ：在一个数组中进行事件绑定，当一个事件发生时，直接触发对应的事件
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/Yii-Application/#more" rel="contents">
+            <a class="btn" href="/2017/07/03/yii/Yii-事件机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -503,7 +507,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/Yii-debug与gii模块/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Yii-设计模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -522,7 +526,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/Yii-debug与gii模块/" itemprop="url">Yii-debug与gii模块</a></h2>
+                <a class="post-title-link" href="/2017/07/03/yii/Yii-设计模式/" itemprop="url">Yii-设计模式</a></h2>
         
 
         <div class="post-meta">
@@ -568,19 +572,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/gii/" itemprop="url" rel="index">
-                    <span itemprop="name">gii</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/gii/debug/" itemprop="url" rel="index">
-                    <span itemprop="name">debug</span>
+                  <a href="/categories/yii/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -596,7 +589,7 @@
 
           
           
-             <span id="/2017/07/03/Yii-debug与gii模块/" class="leancloud_visitors" data-flag-title="Yii-debug与gii模块">
+             <span id="/2017/07/03/yii/Yii-设计模式/" class="leancloud_visitors" data-flag-title="Yii-设计模式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -626,11 +619,13 @@
       
         
           
-          开启两个模块123456789101112if (!YII_ENV_TEST) &#123;    // configuration adjustments for 'dev' environment    $config['bootstrap'][] = 'debug';//启动加载debug模块
+          Yii深入理解  
+Behavior
+行为是 yii\base\Behavior 或其子类的实例。 行为，也称为 mixins， 可以无须改变类继承关系即可增强一个已有的 组件component 类功能。 当行为附加到组件后，它将“注入”它的方法和属性到组件，然后可以像访问组件内定义的方法和属性一样
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/Yii-debug与gii模块/#more" rel="contents">
+            <a class="btn" href="/2017/07/03/yii/Yii-设计模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -676,7 +671,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/Yii-module模块化/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Yii-view/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -695,7 +690,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/Yii-module模块化/" itemprop="url">Yii-module模块化</a></h2>
+                <a class="post-title-link" href="/2017/07/03/yii/Yii-view/" itemprop="url">Yii-view</a></h2>
         
 
         <div class="post-meta">
@@ -737,17 +732,6 @@
 
                 
                 
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/module/" itemprop="url" rel="index">
-                    <span itemprop="name">module</span>
-                  </a>
-                </span>
-
-                
-                
               
             </span>
           
@@ -758,7 +742,7 @@
 
           
           
-             <span id="/2017/07/03/Yii-module模块化/" class="leancloud_visitors" data-flag-title="Yii-module模块化">
+             <span id="/2017/07/03/yii/Yii-view/" class="leancloud_visitors" data-flag-title="Yii-view">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -788,15 +772,15 @@
       
         
           
-          模块化技术
+          视图中访问数据  
 
-将项目分成若干个小项目，配合使用，每个模块都是一个mvc父模块下需要有相关 子模块的的开启和关闭功能的配置文件  
-
-可以使用gii快速生成模块;例如：12class:  app\modules\article\Article           module id:    artic
+通过控制器的 render() 方法传递给视图层  
+在视图层通过  $this-&gt;context 来获取所对应的控制器对象，可以访问对象中的属性值  
+在 控制器 controller 中 使用 $this-&gt;view-&gt;params[&#39;menu&#
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/Yii-module模块化/#more" rel="contents">
+            <a class="btn" href="/2017/07/03/yii/Yii-view/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -842,7 +826,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/Yii-filter/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Yii-filter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -861,7 +845,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/Yii-filter/" itemprop="url">Yii-过滤器</a></h2>
+                <a class="post-title-link" href="/2017/07/03/yii/Yii-filter/" itemprop="url">Yii-过滤器</a></h2>
         
 
         <div class="post-meta">
@@ -924,7 +908,7 @@
 
           
           
-             <span id="/2017/07/03/Yii-filter/" class="leancloud_visitors" data-flag-title="Yii-过滤器">
+             <span id="/2017/07/03/yii/Yii-filter/" class="leancloud_visitors" data-flag-title="Yii-过滤器">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -960,7 +944,7 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/Yii-filter/#more" rel="contents">
+            <a class="btn" href="/2017/07/03/yii/Yii-filter/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1006,7 +990,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/Yii-model/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Yii-controller/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -1025,7 +1009,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/Yii-model/" itemprop="url">Yii-model</a></h2>
+                <a class="post-title-link" href="/2017/07/03/yii/Yii-controller/" itemprop="url">Yii-controller</a></h2>
         
 
         <div class="post-meta">
@@ -1071,8 +1055,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/model/" itemprop="url" rel="index">
-                    <span itemprop="name">model</span>
+                  <a href="/categories/yii/controller/" itemprop="url" rel="index">
+                    <span itemprop="name">controller</span>
                   </a>
                 </span>
 
@@ -1088,7 +1072,7 @@
 
           
           
-             <span id="/2017/07/03/Yii-model/" class="leancloud_visitors" data-flag-title="Yii-model">
+             <span id="/2017/07/03/yii/Yii-controller/" class="leancloud_visitors" data-flag-title="Yii-controller">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1118,12 +1102,12 @@
       
         
           
-          简单的接收数据的表单，使用继承自  Model 类的模型即可，如果是需要增删改之类的牵扯到表的则用 Active Record 活动记录(也是继承自 Model)  
-Model 类属性1234567891011121314public function actionModel()&#123;   
+          控制器生命周期处理一个请求时， 应用主体 会根据请求路由创建一个控制器， 控制器经过以下生命周期来完成请求：
+在控制器创建和配置后，yii\base\Controller::init() 方法会被调用。控制器根据请求动作ID创建一个操作对象:如果动作ID没有指定，会使用default action 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/Yii-model/#more" rel="contents">
+            <a class="btn" href="/2017/07/03/yii/Yii-controller/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1169,7 +1153,7 @@ Model 类属性1234567891011121314public function actionModel()&#123;
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/Yii-view/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Yii-module模块化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -1188,7 +1172,7 @@ Model 类属性1234567891011121314public function actionModel()&#123;
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/Yii-view/" itemprop="url">Yii-view</a></h2>
+                <a class="post-title-link" href="/2017/07/03/yii/Yii-module模块化/" itemprop="url">Yii-module模块化</a></h2>
         
 
         <div class="post-meta">
@@ -1230,6 +1214,17 @@ Model 类属性1234567891011121314public function actionModel()&#123;
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/yii/module/" itemprop="url" rel="index">
+                    <span itemprop="name">module</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -1240,7 +1235,7 @@ Model 类属性1234567891011121314public function actionModel()&#123;
 
           
           
-             <span id="/2017/07/03/Yii-view/" class="leancloud_visitors" data-flag-title="Yii-view">
+             <span id="/2017/07/03/yii/Yii-module模块化/" class="leancloud_visitors" data-flag-title="Yii-module模块化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1270,15 +1265,15 @@ Model 类属性1234567891011121314public function actionModel()&#123;
       
         
           
-          视图中访问数据  
+          模块化技术
 
-通过控制器的 render() 方法传递给视图层  
-在视图层通过  $this-&gt;context 来获取所对应的控制器对象，可以访问对象中的属性值  
-在 控制器 controller 中 使用 $this-&gt;view-&gt;params[&#39;menu&#
+将项目分成若干个小项目，配合使用，每个模块都是一个mvc父模块下需要有相关 子模块的的开启和关闭功能的配置文件  
+
+可以使用gii快速生成模块;例如：12class:  app\modules\article\Article           module id:    artic
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/Yii-view/#more" rel="contents">
+            <a class="btn" href="/2017/07/03/yii/Yii-module模块化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1375,7 +1370,7 @@ Model 类属性1234567891011121314public function actionModel()&#123;
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1386,7 +1381,7 @@ Model 类属性1234567891011121314public function actionModel()&#123;
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

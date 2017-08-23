@@ -336,7 +336,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/网站优化-静态化/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/01/js/JS-闭包/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -355,7 +355,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/网站优化-静态化/" itemprop="url">网站优化-静态化</a></h2>
+                <a class="post-title-link" href="/2017/07/01/js/JS-闭包/" itemprop="url">js-闭包</a></h2>
         
 
         <div class="post-meta">
@@ -367,8 +367,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T09:00:02+08:00">
-                2017-07-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T11:56:02+08:00">
+                2017-07-01
               </time>
             
 
@@ -390,8 +390,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网站优化/" itemprop="url" rel="index">
-                    <span itemprop="name">网站优化</span>
+                  <a href="/categories/闭包/" itemprop="url" rel="index">
+                    <span itemprop="name">闭包</span>
                   </a>
                 </span>
 
@@ -407,7 +407,7 @@
 
           
           
-             <span id="/2017/07/03/网站优化-静态化/" class="leancloud_visitors" data-flag-title="网站优化-静态化">
+             <span id="/2017/07/01/js/JS-闭包/" class="leancloud_visitors" data-flag-title="js-闭包">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -437,16 +437,14 @@
       
         
           
-          ab测试工具
--n 请求的总数量
--c 并发数
--t 请求的总时间 单位秒
-
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960
+          闭包
+闭包：函数返回的值是一个函数，并且这个函数使用了父函数中的变量
+注意到返回的函数在其定义内部引用了局部变量arr，所以，当一个函数返回了一个函数后，其内部的局部变量还被新函数引用，所以，闭包用起来简单，实现起来可不容易。
+另一个需要注意的问题是，返回的函数并没有立刻执行，而是直到调用了f()才
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/网站优化-静态化/#more" rel="contents">
+            <a class="btn" href="/2017/07/01/js/JS-闭包/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -492,7 +490,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/02/Yii-安全篇/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/01/js/JS-this/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -511,7 +509,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/02/Yii-安全篇/" itemprop="url">Yii-安全篇</a></h2>
+                <a class="post-title-link" href="/2017/07/01/js/JS-this/" itemprop="url">js-this</a></h2>
         
 
         <div class="post-meta">
@@ -523,8 +521,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T11:56:02+08:00">
-                2017-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T11:56:02+08:00">
+                2017-07-01
               </time>
             
 
@@ -546,8 +544,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安全/" itemprop="url" rel="index">
-                    <span itemprop="name">安全</span>
+                  <a href="/categories/this/" itemprop="url" rel="index">
+                    <span itemprop="name">this</span>
                   </a>
                 </span>
 
@@ -563,7 +561,7 @@
 
           
           
-             <span id="/2017/07/02/Yii-安全篇/" class="leancloud_visitors" data-flag-title="Yii-安全篇">
+             <span id="/2017/07/01/js/JS-this/" class="leancloud_visitors" data-flag-title="js-this">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -593,14 +591,12 @@
       
         
           
-          xss攻击
-想方设法把js注入到页面中，可以通过url(反射性)或者 提交数据(提交的数据会保存在后台，显示在页面)跨站脚本攻击(Cross Site Scripting)将js代码插入到给用户使用的页面中，从而对用户进行攻击  
-
-盗取用户账号(使用cookie登陆)将下面代码出入页面，当用户访问
+          this
+在一个独立的函数调用中，根据是否是strict模式，this指向undefined或window对象的方法中的this指向对象，但是方法中的函数this指向的是window或undefinedthis 指向函数外层，外层如果是对象，则指向此对象，如果不是则指向 undefined 或 wi
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/02/Yii-安全篇/#more" rel="contents">
+            <a class="btn" href="/2017/07/01/js/JS-this/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -646,7 +642,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/02/Yii-安装advanced版本/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/01/js/JS-面向对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -665,7 +661,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/02/Yii-安装advanced版本/" itemprop="url">Yii-安装advanced版本</a></h2>
+                <a class="post-title-link" href="/2017/07/01/js/JS-面向对象/" itemprop="url">js-面向对象</a></h2>
         
 
         <div class="post-meta">
@@ -677,8 +673,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T11:56:02+08:00">
-                2017-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T11:56:02+08:00">
+                2017-07-01
               </time>
             
 
@@ -700,19 +696,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/" itemprop="url" rel="index">
-                    <span itemprop="name">yii</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/composer/" itemprop="url" rel="index">
-                    <span itemprop="name">composer</span>
+                  <a href="/categories/js面向对象/" itemprop="url" rel="index">
+                    <span itemprop="name">js面向对象</span>
                   </a>
                 </span>
 
@@ -728,7 +713,7 @@
 
           
           
-             <span id="/2017/07/02/Yii-安装advanced版本/" class="leancloud_visitors" data-flag-title="Yii-安装advanced版本">
+             <span id="/2017/07/01/js/JS-面向对象/" class="leancloud_visitors" data-flag-title="js-面向对象">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -758,12 +743,14 @@
       
         
           
-          composer安装首先确保composer可用进入到  php库 查找要安装的插件或项目如：yii2-app-advanced,点击进入查询出的条目，会显示安装的命令1composer create-project yiisoft/yii2-app-advanced
-进入终端,进入到要放置项目的目
+          对象操作
+访问属性是通过 . 操作符完成的，但这要求属性名必须是一个有效的变量名。如果属性名包含特殊字符，就必须用 &#39;&#39; 括起来：
+
+1234var xiaohong = &#123;    name: '小红',    'middle-school': 'No.1 Middle S
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/02/Yii-安装advanced版本/#more" rel="contents">
+            <a class="btn" href="/2017/07/01/js/JS-面向对象/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -809,7 +796,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/02/网站优化-Mysql/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/01/vue/Vue.js-begin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -828,7 +815,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/02/网站优化-Mysql/" itemprop="url">网站优化-Mysql</a></h2>
+                <a class="post-title-link" href="/2017/07/01/vue/Vue.js-begin/" itemprop="url">vue 学习</a></h2>
         
 
         <div class="post-meta">
@@ -840,8 +827,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T09:00:02+08:00">
-                2017-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T11:56:02+08:00">
+                2017-07-01
               </time>
             
 
@@ -863,8 +850,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网站优化/" itemprop="url" rel="index">
-                    <span itemprop="name">网站优化</span>
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -880,7 +867,7 @@
 
           
           
-             <span id="/2017/07/02/网站优化-Mysql/" class="leancloud_visitors" data-flag-title="网站优化-Mysql">
+             <span id="/2017/07/01/vue/Vue.js-begin/" class="leancloud_visitors" data-flag-title="vue 学习">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -910,20 +897,14 @@
       
         
           
-          4个方向的优化
-其一：设计方面。存储引擎的选择，列类型的选择
-其二：功能方面。索引，查询缓存，分区。
-其三：架构层面。读写分离，负载均衡。
-其四：SQL层面。经验。
+          
+vue中 数据和DOM 是绑定的，动态响应的，数据改变，对应的DOM也会发生改变  
 
-设计方面存储引擎的选择
-存储数据的格式，方式常用的有两种，innodb 和 MyISAM  
-
-查看mysql支持的引擎情况1sho
+属性与方法每个 Vue 实例都会代理其 data 对象里所有的属性：1234567891011var data = &#123; a: 1 &#125;var vm = new Vue(&#123;  data
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/02/网站优化-Mysql/#more" rel="contents">
+            <a class="btn" href="/2017/07/01/vue/Vue.js-begin/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -969,7 +950,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/01/mysql/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/01/mysql/mysql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -988,7 +969,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/01/mysql/" itemprop="url">mysql基础操作</a></h2>
+                <a class="post-title-link" href="/2017/07/01/mysql/mysql/" itemprop="url">mysql基础操作</a></h2>
         
 
         <div class="post-meta">
@@ -1040,7 +1021,7 @@
 
           
           
-             <span id="/2017/07/01/mysql/" class="leancloud_visitors" data-flag-title="mysql基础操作">
+             <span id="/2017/07/01/mysql/mysql/" class="leancloud_visitors" data-flag-title="mysql基础操作">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1075,7 +1056,7 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/01/mysql/#more" rel="contents">
+            <a class="btn" href="/2017/07/01/mysql/mysql/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1328,7 +1309,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1339,7 +1320,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
