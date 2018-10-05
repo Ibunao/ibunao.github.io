@@ -1,31 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
 
 
 
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next gemini use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
 
-<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
-<style>
-    .pace .pace-progress {
-        background: #1E92FB; /*进度条颜色*/
-        height: 3px;
-    }
-    .pace .pace-progress-inner {
-         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
-    }
-    .pace .pace-activity {
-        border-top-color: #1E92FB;    /*上边框颜色*/
-        border-left-color: #1E92FB;    /*左边框颜色*/
-    }
-</style>
+
+
 
 
 
@@ -52,36 +49,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -90,34 +58,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="bunao, echo-ding, ibunao" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/images/bunao.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
 
 
 
-<meta name="description" content="生命的意义在于寻找意义">
-<meta property="og:type" content="website">
-<meta property="og:title" content="不孬">
-<meta property="og:url" content="http://bunao.win/index.html">
-<meta property="og:site_name" content="不孬">
-<meta property="og:description" content="生命的意义在于寻找意义">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不孬">
-<meta name="twitter:description" content="生命的意义在于寻找意义">
+
+
+
 
 
 
@@ -125,14 +84,14 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -144,15 +103,39 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="less is more">
+<meta property="og:type" content="website">
+<meta property="og:title" content="不孬">
+<meta property="og:url" content="http://bunao.win/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="less is more">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="不孬">
+<meta name="twitter:description" content="less is more">
+
+
+
+
+
 
   <link rel="canonical" href="http://bunao.win/"/>
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>不孬</title>
   
+
 
 
 
@@ -171,11 +154,32 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
-
-
-
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -187,8 +191,7 @@
   
 
   <div class="container sidebar-position-left 
-   page-home 
- ">
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -197,19 +200,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">不孬</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <h1 class="site-subtitle" itemprop="description">echo-ding</h1>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -217,76 +222,66 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home menu-item-active">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
 
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -302,7 +297,7 @@
     </span>
     <div class="local-search-input-wrapper">
       <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
+             placeholder="Searching..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
   </div>
@@ -317,12 +312,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -335,12 +341,18 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/07/yii/Yii-开发第三方/">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/01/18/atom/Atom上手/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="less is more">
       <meta itemprop="image" content="/images/my.jpg">
     </span>
 
@@ -355,62 +367,56 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/07/yii/Yii-开发第三方/" itemprop="url">Yii-开发第三方</a></h2>
+                <a class="post-title-link" href="/2018/01/18/atom/Atom上手/" itemprop="url">
+                  Untitled
+                </a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-07T11:56:02+08:00">
-                2017-07-07
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-01-18 20:32:59" itemprop="dateCreated datePublished" datetime="2018-01-18T20:32:59+08:00">2018-01-18</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-05 15:29:45" itemprop="dateModified" datetime="2018-10-05T15:29:45+08:00">2018-10-05</time>
+              
             
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/" itemprop="url" rel="index">
-                    <span itemprop="name">yii</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/开发第三方/" itemprop="url" rel="index">
-                    <span itemprop="name">开发第三方</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -418,13 +424,13 @@
 
           
           
-             <span id="/2017/07/07/yii/Yii-开发第三方/" class="leancloud_visitors" data-flag-title="Yii-开发第三方">
+             <span id="/2018/01/18/atom/Atom上手/" class="leancloud_visitors" data-flag-title="">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">阅读次数 </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
              </span>
@@ -440,6 +446,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -447,22 +456,200 @@
 
       
         
-          
-          yii扩展文档  
-
-开发yii的第三方插件，放在 packagist.org 上供下载安装  
-创建仓库
-
-
-最好还是创建仓库的时候创建 readme.md ，这样就可以直接 clone 了
-
-开发
-以 yii 的 advance 版本为例，开发富文本编辑器，富文本编辑器以 WangEidtor 
-          ...
+          <h1 id="Atom使用教程"><a href="#Atom使用教程" class="headerlink" title="Atom使用教程"></a>Atom使用教程</h1><p><a href="http://wiki.jikexueyuan.com/project/atom/" target="_blank" rel="external">极客学院</a> <a href="https://www.w3cschool.cn/atom/z3fq1hr1.html" target="_blank" rel="external">W3C</a></p>
+<h1 id="win7环境"><a href="#win7环境" class="headerlink" title="win7环境"></a>win7环境</h1><h2 id="删除Atom"><a href="#删除Atom" class="headerlink" title="删除Atom"></a>删除Atom</h2><p>使用的360进行删除，删除后会发现 <code>C:\Users\你的用户名\</code> 有一个隐藏的文件夹 <code>.atom</code> 将其删除，不删除的话重新安装atom的时候依旧会保留原来的配置及插件</p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>安装完 Atom 之后自带了79个插件，基本的功能都已经可以使用了<br><br><strong>安装插件</strong></p>
+<blockquote>
+<p>在 setting 页面可以看到 <code>Packages</code> 和 <code>Install</code> 两个选项， <code>Packages</code> 查看已经安装的插件， <code>Install</code> 来安装插件的，可以使用 <code>ctrl+Shift+p</code> 进入这个页面</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">插件</th>
+<th style="text-align:left">是否安装</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">file-icons</td>
+<td style="text-align:left">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">pigments</td>
+<td style="text-align:left">no</td>
+</tr>
+<tr>
+<td style="text-align:left">minimap</td>
+<td style="text-align:left">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">autocomplete-paths</td>
+<td style="text-align:left">no</td>
+</tr>
+<tr>
+<td style="text-align:left">atom-ternjs</td>
+<td style="text-align:left">no</td>
+</tr>
+<tr>
+<td style="text-align:left">emmet</td>
+<td style="text-align:left">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">docblockr</td>
+<td style="text-align:left">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">vim-mode</td>
+<td style="text-align:left">no</td>
+</tr>
+<tr>
+<td style="text-align:left">platformio-ide-terminal</td>
+<td style="text-align:left">no</td>
+</tr>
+<tr>
+<td style="text-align:left">atom-beautify</td>
+<td style="text-align:left">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">php-debug</td>
+<td style="text-align:left">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">linter-jshint</td>
+<td style="text-align:left">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">simplified-chinese-menu</td>
+<td style="text-align:left">no</td>
+</tr>
+<tr>
+<td style="text-align:left">goto-definition</td>
+<td style="text-align:left">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Highlight Selected</td>
+<td style="text-align:left">yes</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><a href="https://atom.io/packages/file-icons" target="_blank" rel="external">file-icons</a> 显示文件类型对应的图标</li>
+<li><a href="https://atom.io/packages/pigments" target="_blank" rel="external">pigments</a> css/less 写表示颜色时显示颜色</li>
+<li><a href="https://atom.io/packages/minimap" target="_blank" rel="external">minimap</a> 右边代码预览框</li>
+<li><a href="https://atom.io/packages/autocomplete-paths" target="_blank" rel="external">autocomplete-paths</a> 补全路径</li>
+<li><a href="https://atom.io/packages/atom-ternjs" target="_blank" rel="external">atom-ternjs</a> 补全Js</li>
+<li><a href="https://atom.io/packages/emmet" target="_blank" rel="external">emmet</a> 前端实用工具 <a href="http://wiki.jikexueyuan.com/project/atom/emmet.html" target="_blank" rel="external">教程</a></li>
+<li><p><a href="https://atom.io/packages/docblockr" target="_blank" rel="external">docblockr</a> 代码注释</p>
+</li>
+<li><p><a href="https://atom.io/packages/vim-mode" target="_blank" rel="external">vim-mode</a> 在 Atom 上使用 Vim</p>
+</li>
+<li><p><a href="https://atom.io/packages/highlight-selected" target="_blank" rel="external">Highlight Selected</a> 选中单词所有相同的高亮</p>
+</li>
+<li><p><a href="https://atom.io/packages/platformio-ide-terminal" target="_blank" rel="external">platformio-ide-terminal</a> Atom 中集成终端</p>
+</li>
+<li><p><a href="https://atom.io/packages/atom-beautify" target="_blank" rel="external">atom-beautify</a> 美化代码段 快捷键 <code>ctrl + alt + b</code> ，如果弹出出错信息，可能是需要依赖一些其他插件，比如 php的 就需要装 <a href="https://atom.io/packages/php-cs-fixer" target="_blank" rel="external">php-cs-fixer</a> 插件</p>
+</li>
+<li><p><a href="https://atom.io/packages/linter-php" target="_blank" rel="external">linter-php</a> 检查php语法错误 ，可能需要将php配置成全局 ，安装它的时候会让安装一些依赖插件，按照提示安装即可</p>
+</li>
+<li><p><a href="https://atom.io/packages/linter-jshint" target="_blank" rel="external">linter-jshint</a> 检查js语法错误 ，需要安装node，使用npm 全局安装jshint (没有配置成功，报错incompatible values for the esversion and es3 linting option ，配置文件写错了) 相关资料 <a href="http://www.jianshu.com/p/4cb23f9e19d3" target="_blank" rel="external">jshint配置</a> <strong>linter-jshint配置</strong></p>
+</li>
+<li><p>首先安装 node ，使用npm 全局安装jshint</p>
+</li>
+<li><p>在 <code>~</code> (<code>~</code>,表示用户目录，在windows下是<code>C:\Users\dingran</code>)文件下放置js配置文件 <code>.jshintrc</code> <a href="/images/atom/.jshintrc">配置文件</a></p>
+</li>
+<li><p>atom 配置插件，如下图<br><br>勾选lint inline javaScript,可以在html或php中检查js<br><br><img src="/images/atom/atom-jshint1.png" alt="js配置"><br><br>点击 <code>open config folder</code> 找到配置文件，查看配置文件 <code>config.cson</code><br><br><img src="/images/atom/atom-jshint2.png" alt="js配置"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;linter-jshint&quot;:</div><div class="line"> disableWhenNoJshintrcFileInPath: false</div><div class="line"> lintInlineJavaScript: true</div></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://atom.io/packages/php-debug" target="_blank" rel="external">php-debug</a> xdebug调试</p>
+</li>
+<li><p><a href="https://atom.io/packages/simplified-chinese-menu" target="_blank" rel="external">simplified-chinese-menu</a> 汉化</p>
+</li>
+<li><p><a href="https://atom.io/packages/goto-definition" target="_blank" rel="external">goto-definition</a> 文件跳转，放到方法或类名上右键 <code>goto definition</code> 就会出现列表，选择跳转，有快捷键，还是不用了</p>
+</li>
+<li><p><a href="https://atom.io/packages/remote-ftp" target="_blank" rel="external">remote-ftp</a> sftp上传工具<br><br>插件配置：把 <code>auto upload on save</code> 由 <code>aways</code> 改为 <code>nerver</code></p>
+</li>
+</ul>
+<p>可以在 <code>packages-&gt;Remote-Ftp-&gt;Create ……</code> 来生成配置文件 <code>.ftpconfig</code> (生成在添加到Atom项目文件根目录，上传的时候也是在根目录中寻找配置文件，限制啊)，上传只能在左边 <code>menu</code> 菜单来选中上传和下载 (限制啊)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;protocol&quot;: &quot;sftp&quot;, # 协议</div><div class="line">    &quot;port&quot;: 22, # 端口</div><div class="line">    &quot;host&quot;: &quot;128.128.1.79&quot;, # ip</div><div class="line">    &quot;user&quot;: &quot;root&quot;, # 用户</div><div class="line">    &quot;pass&quot;: &quot;******&quot;, # 密码</div><div class="line">    &quot;promptForPass&quot;: false,</div><div class="line">    &quot;remote&quot;: &quot;/usr/share/nginx/html/protected&quot;, # 对应的项目文件地址</div><div class="line">    &quot;local&quot;: &quot;&quot;,</div><div class="line">    &quot;agent&quot;: &quot;&quot;,</div><div class="line">    &quot;privatekey&quot;: &quot;&quot;,</div><div class="line">    &quot;passphrase&quot;: &quot;&quot;,</div><div class="line">    &quot;hosthash&quot;: &quot;&quot;,</div><div class="line">    &quot;ignorehost&quot;: true,</div><div class="line">    &quot;connTimeout&quot;: 10000,</div><div class="line">    &quot;keepalive&quot;: 10000,</div><div class="line">    &quot;keyboardInteractive&quot;: false,</div><div class="line">    &quot;remoteCommand&quot;: &quot;&quot;,</div><div class="line">    &quot;remoteShell&quot;: &quot;&quot;,</div><div class="line">    &quot;watch&quot;: [],</div><div class="line">    &quot;watchTimeout&quot;: 500</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Markdown相关<br><br><a href="http://www.cnblogs.com/libin-1/p/6638165.html" target="_blank" rel="external">Markdown相关</a><br><br><a href="http://www.jianshu.com/p/b4c8479cfaa5" target="_blank" rel="external">Markdown相关</a></p>
+<p><a href="https://atom.io/packages/markdown-scroll-sync" target="_blank" rel="external">markdown-scroll-sync</a> 预览同步滚动<br><br><a href="https://atom.io/packages/tidy-markdown" target="_blank" rel="external">tidy-markdown</a> Markdown美化，在保存的时候或者主动调用插件时触发</p>
+<p>python相关<br>编辑器里运行直接运行代码 <code>js、python</code> 等都可以<br><a href="https://atom.io/packages/atom-runner" target="_blank" rel="external">atom-runer编辑器运行代码</a><br>快捷键看插件介绍<br>win配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">File-&gt;Config...</div><div class="line">末尾添加  </div><div class="line">runner:</div><div class="line">  scopes:</div><div class="line">    python: &quot;D:\\ding\\python&quot;</div></pre></td></tr></table></figure></p>
+<p>mac配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Atom-&gt;Config...</div><div class="line">末尾添加  </div><div class="line">    runner:</div><div class="line">        python: &quot;/usr/local/bin/python3&quot;</div></pre></td></tr></table></figure></p>
+<p><a href="https://atom.io/packages/autocomplete-python" target="_blank" rel="external">autocomplete-python自动提示</a></p>
+<h3 id="装逼神奇"><a href="#装逼神奇" class="headerlink" title="装逼神奇"></a>装逼神奇</h3><ul>
+<li><a href="https://atom.io/packages/activate-power-mode" target="_blank" rel="external">activate-power-mode</a> 颤抖吧</li>
+</ul>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p><a href="http://www.imooc.com/article/1370" target="_blank" rel="external">慕课ATOM编辑器快捷键大全</a></p>
+<blockquote>
+<p>Atom 兼容sublime快捷键，同时也有自己的快捷键</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Ctrl + /                启用注释            同sublime</div><div class="line">Ctrl + \                展示隐藏目录树       同时也可以 ctrl+k ctrl+b</div><div class="line">Ctrl + Alt + I          打开Chrome调试器     nb</div><div class="line">Ctrl + [                向右缩进</div><div class="line">Ctrl + ]                向左缩进</div><div class="line">Shift + Home            选定光标至行首</div><div class="line">Shift + End             选定光标至行尾</div><div class="line">Shift + PageUp          选定光标至页首</div><div class="line">Shift + PageDown        选定光标至页尾</div><div class="line">Ctrl + Home             光标到页首</div><div class="line">Ctrl + End              光标至页尾</div><div class="line">Ctrl + PageUp           切换上一个打开的标签</div><div class="line">Ctrl + PageDown         切换下一个打开的标签</div><div class="line">Ctrl + D                匹配选定下一个       同sublime</div><div class="line">Alt + F3                匹配选定所有</div><div class="line">Ctrl + ↑                选中行上移           和sublime有区别，sulime为ctrl+Shift+↑</div><div class="line">Ctrl + ↓                选中行下移</div><div class="line">cmd + b                 在打开的文件之间切换</div><div class="line">Ctrl + Shift + L        切换文本内容类型，例如 html/php   和sublime不同  </div><div class="line">cmd + shift + b         只搜索从上次git commit后修改或者新增的文件</div><div class="line">cmd + shift + d         复制选中代码并粘贴到选中的后面</div><div class="line">cmd + shift + u         选择文件编码格式</div></pre></td></tr></table></figure>
+<h3 id="折叠"><a href="#折叠" class="headerlink" title="折叠"></a>折叠</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Alt + Ctrl + [          折叠</div><div class="line">Alt + Ctrl + ]          展开</div><div class="line">Alt + Ctrl + Shift + &#123;  折叠全部</div><div class="line">Alt + Ctrl + Shift + &#125;  展开全部</div></pre></td></tr></table></figure>
+<h3 id="Markdown-写作"><a href="#Markdown-写作" class="headerlink" title="Markdown 写作"></a>Markdown 写作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Ctrl + Shift + M        Markdown预览</div></pre></td></tr></table></figure>
+<h4 id="Markdown-语法补全"><a href="#Markdown-语法补全" class="headerlink" title="Markdown 语法补全"></a>Markdown 语法补全</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">b                       **加粗**</div><div class="line">legal                   Copyright (c) 2017 Copyright Holder All Rights Reserved.</div><div class="line">img                     ![]()</div><div class="line">l                       []()</div><div class="line">i                       **</div><div class="line">code                    \```code\```\</div><div class="line">t                       - [ ]   多选按钮</div><div class="line">table  </div><div class="line">| Header One     | Header Two     |</div><div class="line">| :------------- | :------------- |</div><div class="line">| Item One       | Item Two       |</div></pre></td></tr></table></figure>
+<h2 id="更改快捷键"><a href="#更改快捷键" class="headerlink" title="更改快捷键"></a>更改快捷键</h2><blockquote>
+<p>有些时候需要更改快捷键，比如快捷键冲突时</p>
+</blockquote>
+<ol>
+<li>打开快捷键设置，如图<br><br><img src="/images/atom/atom-kuaijiejian1.png" alt="自定义快捷键"><br><br>搜索要改的快捷键 如 <code>ctrl-shift-m</code>,发现有两个，出现了冲突，这时可以自定义一个(优先级最高)将其覆盖<br><br>点击需要自定义快捷键的最左边的小按钮进行复制</li>
+<li>打开自定义文件(点击链接 your keymap file)</li>
+<li>将复制的快捷键定义粘贴在自定义文件中，如图<br><br><img src="/images/atom/atom-kuaijiejian2.png" alt="自定义快捷键"></li>
+</ol>
+<h2 id="备份插件"><a href="#备份插件" class="headerlink" title="备份插件"></a>备份插件</h2><p><a href="https://zhuanlan.zhihu.com/p/26175781?group_id=832895479217004544" target="_blank" rel="external">备份插件教程</a></p>
+<blockquote>
+<p>将配置文件上传到github</p>
+</blockquote>
+<p>备份<br><br>使用快捷键 <code>Ctrl + Shift + P</code> 呼出命令栏，输入 <code>sync backup</code><br><br>恢复备份<br><br>使用快捷键 <code>Ctrl + Shift + P</code> 呼出命令栏，输入 <code>sync restore</code> <strong>补充</strong> 获取 <code>Gist Id</code></p>
+<ol>
+<li>进入到github，点击你的头像会看到 <code>Your gists</code>,点击进去</li>
+<li>如果没有，则需要创建一个：起个名称(用途)，写个简介</li>
+<li>获取 <code>Gist Id</code>，进入创建好的 <code>Gist</code> 看到连接 <code>https://gist.github.com/Ibunao/654a98d3e154348eaebba448312b0152</code> 其中 <code>654a98d3e154348eaebba448312b0152</code> 就是 <code>Gist Id</code></li>
+</ol>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><code>ctrl+,</code> 快捷键无法打开 setting ,可能是因为快捷键冲突</li>
+</ol>
+<h2 id="xdebug调试"><a href="#xdebug调试" class="headerlink" title="xdebug调试"></a>xdebug调试</h2><p><strong>相关教程</strong></p>
+<ol>
+<li>atom 安装 <code>php-debug</code> 插件，不用配置</li>
+<li>php开启xdebug<br><br>win上安装的是wamp所以xdebug都是有的<br><br>php.ini 配置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[xdebug]</div><div class="line">zend_extension =&quot;D:/ding/wamp64/bin/php/php5.6.25/zend_ext/php_xdebug-2.4.1-5.6-vc11-x86_64.dll&quot;</div><div class="line">;xdebug.remote_enable = Off</div><div class="line">xdebug.profiler_enable = On</div><div class="line">xdebug.profiler_enable_trigger = off</div><div class="line">xdebug.profiler_output_name = cachegrind.out.%t.%p</div><div class="line">xdebug.profiler_output_dir =&quot;D:/ding/wamp64/tmp&quot;</div><div class="line">xdebug.show_local_vars=0</div><div class="line"></div><div class="line">xdebug.remote_enable=1</div><div class="line">xdebug.remote_host=127.0.0.1</div><div class="line">xdebug.remote_connect_back=1</div><div class="line">xdebug.remote_port=9000</div><div class="line">xdebug.remote_handler=dbgp</div><div class="line">xdebug.remote_mode=req</div><div class="line">xdebug.remote_autostart=true</div></pre></td></tr></table></figure>
+<ol>
+<li><p>调试</p>
+<ol>
+<li>开启debug插件 atom左下角debug按钮打开debug，没有监听到时显示的是 <code>Listening on address:port 127.0.0.1:9000</code></li>
+<li>在方法中打断点 (断点要注意了，如果打到空行，或者for循环里面将会无法监听到) 如图<br><br><img src="/images/atom/atom-debug1.png" alt="debug"></li>
+<li>浏览器中访问能进入到打断点的方法中 ，如 <code>www.basic.com/test/test</code><br><br>如果操作正确将会看到监听状态由 <code>Listening on address:port 127.0.0.1:9000</code> 改变成 <code>Connected</code> ,此时就可以使用debug调试了</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>如果没有改变监听状态，可能就是断点打错了，请检查<br><br>如果atom的debug启动不起来，可能是9000端口被占用了，更改插件端口和php.ini 中的xdebug配置的端口即可</p>
+</blockquote>
+<p><strong>操作详解</strong><br><br>进入到断点将会输出一下内容，如下图<br><br><img src="/images/atom/atom-debug2.png" alt="debug"><br><br>其中，主要的有两部分内容 栈信息<code>Stack</code> 和变量值信息 <code>Context</code><br><br>其中 <code>Stack</code> 显示的是走到这个断点所经过的方法，如图从7到0，可以点击不同的栈来查看他的 变量值信息 <code>Context</code></p>
+<p><code>Context</code> 中显示的是变量信息，<br><br>其中 <code>Locals</code> 显示的是方法中的变量值信息<br><br><code>Superglobals</code> 显示的是全局的信息 ，如 <code>$_COOKLE、$_POST</code> 等一些全局的信息<br><br><code>User defined constants</code> 显示的是定义的常量</p>
+<p><strong>操作</strong> 添加断点<br><br>在代码的左边栏上点击，因为比较窄不好点击，也可以使用快捷键 <code>alt + f9</code></p>
+<p><code>Stop</code> 释放掉监听 <code>alt + f5</code><br><br><code>Continue</code> 走向下一个断点 <code>Step Over</code> 一步一步往下走 <code>alt + f6</code><br><br><code>Step In</code> 进入到方法内 <code>alt + f7</code><br><br><code>Step Out</code> 跳出方法 <code>alt + f8</code></p>
+<p><code>Restore Panels</code> 恢复原始的展示窗口<br><br>其他两个就是切换展示位置的</p>
+<p><a href="http://blog.csdn.net/frycn/article/details/68925991" target="_blank" rel="external">xdebug使用</a> <a href="http://www.jianshu.com/p/74a1d60ab5ef" target="_blank" rel="external">xdebug使用</a> <a href="http://www.jianshu.com/p/e9ad4c99d118" target="_blank" rel="external">xdebug使用</a> <a href="http://www.taovq.com/index.php/archives/102/" target="_blank" rel="external">xdebug使用</a> <a href="http://philix.iteye.com/blog/960606" target="_blank" rel="external">xdebug相关</a> <a href="https://segmentfault.com/a/1190000009500015" target="_blank" rel="external">xdebug相关</a> <a href="http://www.alliedjeep.com/139216.htm" target="_blank" rel="external">mac 安装</a></p>
+<h2 id="设置代码段-snippet-代码块"><a href="#设置代码段-snippet-代码块" class="headerlink" title="设置代码段 snippet 代码块"></a>设置代码段 snippet 代码块</h2><blockquote>
+<p>有一点不好的是，只能在某个语言环境中触发为某个语言设置的代码段</p>
+</blockquote>
+<p><a href="http://www.jianshu.com/p/ee5c4eacf807" target="_blank" rel="external">教程</a></p>
+<p>实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&apos;.text.html.php&apos;: # 语言类型的 scope</div><div class="line">  &apos;php&apos;: # 随便</div><div class="line">    &apos;prefix&apos;: &apos;header&apos; #触发单词</div><div class="line">    &apos;body&apos;: &apos;header(&quot;Content-Type:text/html;charset=utf-8&quot;);\n&apos; #\n 换行</div><div class="line">&apos;.text.html.php&apos;:</div><div class="line">  &apos;yii&apos;:</div><div class="line">    &apos;prefix&apos;: &apos;vy&apos;</div><div class="line">    &apos;body&apos;: &apos;&lt;?=$$&#123;1:this&#125; ;?&gt;&apos;</div></pre></td></tr></table></figure>
+<h2 id="Atom问题与解决"><a href="#Atom问题与解决" class="headerlink" title="Atom问题与解决"></a>Atom问题与解决</h2><ol>
+<li><p>打开多个窗口时，在一个窗口添加项目，项目目录变的不可见点击并会报错<br><br>解决 ： <a href="https://github.com/atom/atom/issues/14716" target="_blank" rel="external">参考</a></p>
+<blockquote>
+<p>注意：先保存任何未保存的作业</p>
+</blockquote>
+</li>
+</ol>
+<p>win系统cmd运行 <code>atom --clear-window-state</code> 即可</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/07/yii/Yii-开发第三方/#more" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2018/01/18/atom/Atom上手/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -470,17 +657,17 @@
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -494,6 +681,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -506,12 +697,18 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/05/yii/Yii-assets/">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/01/18/atom/小技巧/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="less is more">
       <meta itemprop="image" content="/images/my.jpg">
     </span>
 
@@ -526,62 +723,56 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/05/yii/Yii-assets/" itemprop="url">Yii-assets</a></h2>
+                <a class="post-title-link" href="/2018/01/18/atom/小技巧/" itemprop="url">
+                  Untitled
+                </a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T11:56:02+08:00">
-                2017-07-05
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-01-18 20:32:59" itemprop="dateCreated datePublished" datetime="2018-01-18T20:32:59+08:00">2018-01-18</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-05 15:29:35" itemprop="dateModified" datetime="2018-10-05T15:29:35+08:00">2018-10-05</time>
+              
             
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/" itemprop="url" rel="index">
-                    <span itemprop="name">yii</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/assets/" itemprop="url" rel="index">
-                    <span itemprop="name">assets</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -589,13 +780,13 @@
 
           
           
-             <span id="/2017/07/05/yii/Yii-assets/" class="leancloud_visitors" data-flag-title="Yii-assets">
+             <span id="/2018/01/18/atom/小技巧/" class="leancloud_visitors" data-flag-title="">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">阅读次数 </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
              </span>
@@ -611,6 +802,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -618,14 +812,12 @@
 
       
         
-          
-          资源包Yii在资源包中管理资源，资源包简单的说就是放在一个目录下的资源集合， 当在视图中注册一个资源包， 在渲染Web页面时会包含包中的CSS和JavaScript文件。
-定义资源包资源包指定为继承 yii\web\AssetBundle 的PHP类， 包名为可自动加载的PHP类名， 在资源包类中，
-          ...
+          <h2 id="关于代码高亮"><a href="#关于代码高亮" class="headerlink" title="关于代码高亮"></a>关于代码高亮</h2><p>``` 后面跟上语言如 php、js等  如 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">但是有时 `php` 在 Atom 上并不会高亮，这时在首航添加 `&lt;?php` 即可  </div><div class="line">```php</div><div class="line">&lt;?php</div><div class="line">/**</div><div class="line">*</div><div class="line">*/</div><div class="line">class ClassName extends AnotherClass</div><div class="line">&#123;</div><div class="line"></div><div class="line">	function __construct(argument)</div><div class="line">	&#123;</div><div class="line">		# code...</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="插件使用方法"><a href="#插件使用方法" class="headerlink" title="插件使用方法"></a>插件使用方法</h2><p>每个插件的使用方法都可以在 <code>setting-&gt;packages</code> 中点击插件名来进入到插件的介绍也面  </p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/05/yii/Yii-assets/#more" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2018/01/18/atom/小技巧/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -633,17 +825,17 @@
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -657,6 +849,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -669,12 +865,18 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Yii-Application/">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/12/28/php/迭代器-Iterator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="less is more">
       <meta itemprop="image" content="/images/my.jpg">
     </span>
 
@@ -689,62 +891,40 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/yii/Yii-Application/" itemprop="url">Yii-Application</a></h2>
+                <a class="post-title-link" href="/2017/12/28/php/迭代器-Iterator/" itemprop="url">
+                  Untitled
+                </a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T11:56:02+08:00">
-                2017-07-03
-              </time>
-            
 
+              
+                
+              
+
+              <time title="Created: 2017-12-28 20:57:48" itemprop="dateCreated datePublished" datetime="2017-12-28T20:57:48+08:00">2017-12-28</time>
             
 
             
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/" itemprop="url" rel="index">
-                    <span itemprop="name">yii</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/应用主体/" itemprop="url" rel="index">
-                    <span itemprop="name">应用主体</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -752,13 +932,13 @@
 
           
           
-             <span id="/2017/07/03/yii/Yii-Application/" class="leancloud_visitors" data-flag-title="Yii-Application">
+             <span id="/2017/12/28/php/迭代器-Iterator/" class="leancloud_visitors" data-flag-title="">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">阅读次数 </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
              </span>
@@ -774,6 +954,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -782,17 +965,16 @@
       
         
           
-          应用主体声明周期当运行 入口脚本 处理请求时， 应用主体会经历以下生命周期:
+          
+迭代器是让对象可以像数组一样 foreach 遍历   
 
-入口脚本加载应用主体配置数组。
-入口脚本创建一个应用主体实例：
-调用 preInit() 配置几个高级别应用主体属性， 比如yii\base\Application::basePath。
-注册 yii\base\Appl
+PHP文档
+Iterator接口12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758Iterator extends Traversable &#123;      //重置索引游标      abstract public void rewind ( void )      //移动当前索引游标到下一元素      abstract public void next ( 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/yii/Yii-Application/#more" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2017/12/28/php/迭代器-Iterator/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -800,17 +982,17 @@
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -824,6 +1006,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -836,12 +1022,18 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Yii-缓存/">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/12/28/php/ArrayAccess/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="less is more">
       <meta itemprop="image" content="/images/my.jpg">
     </span>
 
@@ -856,62 +1048,40 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/yii/Yii-缓存/" itemprop="url">Yii-缓存</a></h2>
+                <a class="post-title-link" href="/2017/12/28/php/ArrayAccess/" itemprop="url">
+                  Untitled
+                </a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T11:56:02+08:00">
-                2017-07-03
-              </time>
-            
 
+              
+                
+              
+
+              <time title="Created: 2017-12-28 20:57:48" itemprop="dateCreated datePublished" datetime="2017-12-28T20:57:48+08:00">2017-12-28</time>
             
 
             
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/" itemprop="url" rel="index">
-                    <span itemprop="name">yii</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/缓存/" itemprop="url" rel="index">
-                    <span itemprop="name">缓存</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -919,13 +1089,13 @@
 
           
           
-             <span id="/2017/07/03/yii/Yii-缓存/" class="leancloud_visitors" data-flag-title="Yii-缓存">
+             <span id="/2017/12/28/php/ArrayAccess/" class="leancloud_visitors" data-flag-title="">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">阅读次数 </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
              </span>
@@ -941,6 +1111,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -949,12 +1122,15 @@
       
         
           
-          123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798
+          
+让对象像数组一样操作参考  
+
+ArrayAccess接口1234567891011&lt;?phpArrayAccess &#123;    // isset判断的时候自动调用    abstract public boolean offsetExists ( mixed $offset )    // 获取数组数据的时候自动调用    abstract public mixed offsetGet ( mixed $offset )    // 添加数据的时候自动调用    abstract public void offsetSet ( mixed $offset , mixed $v
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/yii/Yii-缓存/#more" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2017/12/28/php/ArrayAccess/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -962,17 +1138,17 @@
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -986,6 +1162,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -998,12 +1178,18 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Yii-widgets/">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/11/25/js/JS-流水账/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="less is more">
       <meta itemprop="image" content="/images/my.jpg">
     </span>
 
@@ -1018,62 +1204,56 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/yii/Yii-widgets/" itemprop="url">Yii-widgets</a></h2>
+                <a class="post-title-link" href="/2017/11/25/js/JS-流水账/" itemprop="url">
+                  Untitled
+                </a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T11:56:02+08:00">
-                2017-07-03
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2017-11-25 21:50:16" itemprop="dateCreated datePublished" datetime="2017-11-25T21:50:16+08:00">2017-11-25</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2017-11-26 21:27:07" itemprop="dateModified" datetime="2017-11-26T21:27:07+08:00">2017-11-26</time>
+              
             
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/" itemprop="url" rel="index">
-                    <span itemprop="name">yii</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/widgets/" itemprop="url" rel="index">
-                    <span itemprop="name">widgets</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -1081,13 +1261,13 @@
 
           
           
-             <span id="/2017/07/03/yii/Yii-widgets/" class="leancloud_visitors" data-flag-title="Yii-widgets">
+             <span id="/2017/11/25/js/JS-流水账/" class="leancloud_visitors" data-flag-title="">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">阅读次数 </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
              </span>
@@ -1103,6 +1283,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1112,14 +1295,17 @@
         
           
           
-可以当作是一个动作 action 加载视图   
+参考阮雪峰教程  
 
-创建小部件继承 yii\base\Widget 类并覆盖 yii\base\Widget::init() 和/或 yii\base\Widget::run() 方法可创建小部件。通常 init() 方法处理小部件属性， run() 方法包含小部件
+变量提升JavaScript引擎的工作方式是，先解析代码，获取所有被声明的变量，然后再一行一行地运行。这造成的结果，就是所有的变量的声明语句，都会被提升到代码的头部，这就叫做变量提升（hoisting）。请注意，变量提升只对var命令声明的变量有效，如果一个变量不是用var命令声明的，就不会发生变量提升。  
+12console.log(a);var a = 1;
+真正运行的是下面的这段代码123var a;console.log(a);a = 1;
+注意，对于var命令来说，局部变量只能在函数内部声明，在其他区块中声明，一律都是全局变量。1234if (true) &
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/yii/Yii-widgets/#more" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2017/11/25/js/JS-流水账/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1127,17 +1313,17 @@
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1151,6 +1337,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1163,12 +1353,18 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Yii-model/">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/11/25/js/JS-易忽略点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="less is more">
       <meta itemprop="image" content="/images/my.jpg">
     </span>
 
@@ -1183,62 +1379,40 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/yii/Yii-model/" itemprop="url">Yii-model</a></h2>
+                <a class="post-title-link" href="/2017/11/25/js/JS-易忽略点/" itemprop="url">
+                  Untitled
+                </a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T11:56:02+08:00">
-                2017-07-03
-              </time>
-            
 
+              
+                
+              
+
+              <time title="Created: 2017-11-25 21:47:58" itemprop="dateCreated datePublished" datetime="2017-11-25T21:47:58+08:00">2017-11-25</time>
             
 
             
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/" itemprop="url" rel="index">
-                    <span itemprop="name">yii</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yii/model/" itemprop="url" rel="index">
-                    <span itemprop="name">model</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -1246,13 +1420,13 @@
 
           
           
-             <span id="/2017/07/03/yii/Yii-model/" class="leancloud_visitors" data-flag-title="Yii-model">
+             <span id="/2017/11/25/js/JS-易忽略点/" class="leancloud_visitors" data-flag-title="">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">阅读次数 </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
              </span>
@@ -1268,6 +1442,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1276,13 +1453,12 @@
       
         
           
-          简单的接收数据的表单，使用继承自  Model 类的模型即可，如果是需要增删改之类的牵扯到表的则用 Active Record 活动记录(也是继承自 Model)  
-Model 类属性1234567891011121314public function actionModel()&#123;   
-          ...
+          
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/yii/Yii-model/#more" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2017/11/25/js/JS-易忽略点/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1290,17 +1466,17 @@ Model 类属性1234567891011121314public function actionModel()&#123;
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1314,6 +1490,10 @@ Model 类属性1234567891011121314public function actionModel()&#123;
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1322,15 +1502,12 @@ Model 类属性1234567891011121314public function actionModel()&#123;
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
 
           </div>
-          
-
-
           
 
         </div>
@@ -1346,97 +1523,254 @@ Model 类属性1234567891011121314public function actionModel()&#123;
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/my.jpg"
-               alt="echo-ding" />
-          <p class="site-author-name" itemprop="name">echo-ding</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-           
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">24</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
             
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">27</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">43</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/echo-ding" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              Links
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.bunao.me/" title="bunao" target="_blank">bunao</a>
-                </li>
-              
-            </ul>
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">less is more</p>
           </div>
-        
 
-        
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
 
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/your-user-name" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
       </section>
 
       
@@ -1453,18 +1787,39 @@ Model 类属性1234567891011121314public function actionModel()&#123;
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
 </div>
 
 
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.3.7</div>
+
+
+
+
+
+
+
+
         
+
+
+
+
+
+
+
 
         
       </div>
@@ -1477,6 +1832,11 @@ Model 类属性1234567891011121314public function actionModel()&#123;
       </div>
     
 
+    
+	
+    
+
+    
   </div>
 
   
@@ -1495,7 +1855,6 @@ Model 类属性1234567891011121314public function actionModel()&#123;
 
 
 
-  
 
 
 
@@ -1504,88 +1863,63 @@ Model 类属性1234567891011121314public function actionModel()&#123;
 
 
 
-  
-  
 
 
 
 
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
-
-
-
-  
-  
-
-  
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
 
 
 
 
 
   
-    
-    <script>
-      var cloudTieConfig = {
-        url: document.location.href, 
-        sourceId: "",
-        productKey: "90ce058cd0354ec1b6dd68e95c8bf7ef",
-        target: "cloud-tie-wrapper"
-      };
-    </script>
-    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
   
 
 
@@ -1648,6 +1982,8 @@ Model 类属性1234567891011121314public function actionModel()&#123;
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -1681,6 +2017,7 @@ Model 类属性1234567891011121314public function actionModel()&#123;
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
                 var articleUrl = decodeURIComponent(data.url);
                 var indexOfTitle = [];
@@ -1923,11 +2260,9 @@ Model 类属性1234567891011121314public function actionModel()&#123;
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz", "IEzrlKqyuxO8jhwp2ds1P0Rf");</script>
   <script>
+    
     function showTime(Counter) {
-      var query = new AV.Query(Counter);
       var entries = [];
       var $visitors = $(".leancloud_visitors");
 
@@ -1935,9 +2270,8 @@ Model 类属性1234567891011121314public function actionModel()&#123;
         entries.push( $(this).attr("id").trim() );
       });
 
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url: { "$in": entries } }) })
+        .done(function ({ results }) {
           var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
 
           if (results.length === 0) {
@@ -1947,8 +2281,8 @@ Model 类属性1234567891011121314public function actionModel()&#123;
 
           for (var i = 0; i < results.length; i++) {
             var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
+            var url = item.url;
+            var time = item.time;
             var element = document.getElementById(url);
 
             $(element).find(COUNT_CONTAINER_REF).text(time);
@@ -1962,72 +2296,46 @@ Model 类属性1234567891011121314public function actionModel()&#123;
             }
           }
         })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
+        .fail(function ({ responseJSON }) {
+          console.log("LeanCloud Counter Error: " + responseJSON.code + " " + responseJSON.error);
         });
     }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          if ($('.post-title-link').length >= 1) {
+            showTime(Counter);
+          }
+          
+        })
     });
   </script>
 
 
+
+  
+
+  
+
+  
+
+  
+  
 
   
 

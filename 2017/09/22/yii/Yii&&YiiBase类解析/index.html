@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Yii.php主要任务    定义Yii类，只是继承了 BaseYii类   注册自动加载   定义自动加载 映射 数组   赋值容器  123456789class Yii extends \yii\BaseYii&amp;#123;&amp;#125;//注册自动加载spl_autoload_register([&apos;Yii&apos;, &apos;autoload&apos;], true, true);//设置类与路径的加载映射Yii:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不孬">
+<meta property="og:url" content="http://bunao.win/2017/09/22/yii/Yii&&YiiBase类解析/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="Yii.php主要任务    定义Yii类，只是继承了 BaseYii类   注册自动加载   定义自动加载 映射 数组   赋值容器  123456789class Yii extends \yii\BaseYii&amp;#123;&amp;#125;//注册自动加载spl_autoload_register([&apos;Yii&apos;, &apos;autoload&apos;], true, true);//设置类与路径的加载映射Yii:">
+<meta property="og:updated_time" content="2017-09-22T12:30:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="不孬">
+<meta name="twitter:description" content="Yii.php主要任务    定义Yii类，只是继承了 BaseYii类   注册自动加载   定义自动加载 映射 数组   赋值容器  123456789class Yii extends \yii\BaseYii&amp;#123;&amp;#125;//注册自动加载spl_autoload_register([&apos;Yii&apos;, &apos;autoload&apos;], true, true);//设置类与路径的加载映射Yii:">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2017/09/22/yii/Yii&&YiiBase类解析/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">echo-ding</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/09/22/yii/Yii&&YiiBase类解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="less is more">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-09-22 20:30:59" itemprop="dateCreated datePublished" datetime="2017-09-22T20:30:59+08:00">2017-09-22</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/22/yii/Yii&&YiiBase类解析/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Yii-php"><a href="#Yii-php" class="headerlink" title="Yii.php"></a>Yii.php</h2><p>主要任务  </p>
+<ol>
+<li>定义Yii类，只是继承了 BaseYii类  </li>
+<li>注册自动加载  </li>
+<li>定义自动加载 映射 数组  </li>
+<li>赋值容器  <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Yii</span> <span class="keyword">extends</span> \<span class="title">yii</span>\<span class="title">BaseYii</span></span></div><div class="line">&#123;</div><div class="line">&#125;</div><div class="line"><span class="comment">//注册自动加载</span></div><div class="line">spl_autoload_register([<span class="string">'Yii'</span>, <span class="string">'autoload'</span>], <span class="keyword">true</span>, <span class="keyword">true</span>);</div><div class="line"><span class="comment">//设置类与路径的加载映射</span></div><div class="line">Yii::$classMap = <span class="keyword">require</span>(<span class="keyword">__DIR__</span> . <span class="string">'/classes.php'</span>);</div><div class="line"><span class="comment">// 容器</span></div><div class="line">Yii::$container = <span class="keyword">new</span> yii\di\Container();</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="YiiBase"><a href="#YiiBase" class="headerlink" title="YiiBase"></a>YiiBase</h2><h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@var</span> array class map used by the Yii autoloading mechanism.</div><div class="line"> * The array keys are the class names (without leading backslashes), and the array values</div><div class="line"> * are the corresponding class file paths (or [path aliases](guide:concept-aliases)). This property mainly affects</div><div class="line"> * how [[autoload()]] works.</div><div class="line"> * <span class="doctag">@see</span> autoload()</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> $classMap = [];</div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@var</span> \yii\console\Application|\yii\web\Application the application instance</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> $app;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@var</span> array registered path aliases</div><div class="line"> * <span class="doctag">@see</span> getAlias()</div><div class="line"> * <span class="doctag">@see</span> setAlias()</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> $aliases = [<span class="string">'@yii'</span> =&gt; <span class="keyword">__DIR__</span>];</div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@var</span> Container the dependency injection (DI) container used by [[createObject()]].</div><div class="line"> * You may use [[Container::set()]] to set up the needed dependencies of classes and</div><div class="line"> * their initial property values.</div><div class="line"> * <span class="doctag">@see</span> createObject()</div><div class="line"> * <span class="doctag">@see</span> Container</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> $container;</div></pre></td></tr></table></figure>
+<h4 id="获取Yii版本"><a href="#获取Yii版本" class="headerlink" title="获取Yii版本"></a>获取Yii版本</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getVersion</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'2.0.12'</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><h4 id="设置别名-setAlias"><a href="#设置别名-setAlias" class="headerlink" title="设置别名 setAlias"></a>设置别名 setAlias</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">setAlias</span><span class="params">($alias, $path)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//如果不是以 @ 开头的添加 @</span></div><div class="line">    <span class="keyword">if</span> (strncmp($alias, <span class="string">'@'</span>, <span class="number">1</span>)) &#123;</div><div class="line">        $alias = <span class="string">'@'</span> . $alias;</div><div class="line">    &#125;</div><div class="line">		<span class="comment">// 别名是否带有 / ;例如：@yii/ding</span></div><div class="line">    $pos = strpos($alias, <span class="string">'/'</span>);</div><div class="line">    $root = $pos === <span class="keyword">false</span> ? $alias : substr($alias, <span class="number">0</span>, $pos);</div><div class="line">    <span class="keyword">if</span> ($path !== <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="comment">//$alias 的第一个字符和 @ 比较，如果相等返回0，不相等返回的结果可能是1或-1 为 true</span></div><div class="line">				<span class="comment">// 如果 $path 中含有别名，获取别名路径</span></div><div class="line">        $path = strncmp($path, <span class="string">'@'</span>, <span class="number">1</span>) ? rtrim($path, <span class="string">'\\/'</span>) : <span class="keyword">static</span>::getAlias($path);</div><div class="line">        <span class="keyword">if</span> (!<span class="keyword">isset</span>(<span class="keyword">static</span>::$aliases[$root])) &#123;</div><div class="line">            <span class="keyword">if</span> ($pos === <span class="keyword">false</span>) &#123;</div><div class="line">                <span class="keyword">static</span>::$aliases[$root] = $path;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">								<span class="comment">// 别名中如果带有 / ;存为二维数组</span></div><div class="line">                <span class="keyword">static</span>::$aliases[$root] = [$alias =&gt; $path];</div><div class="line">            &#125;</div><div class="line">				<span class="comment">// 如果已经设置过别名，而且为字符串</span></div><div class="line">        &#125; <span class="keyword">elseif</span> (is_string(<span class="keyword">static</span>::$aliases[$root])) &#123;</div><div class="line">            <span class="keyword">if</span> ($pos === <span class="keyword">false</span>) &#123;</div><div class="line">								<span class="comment">// 直接覆盖</span></div><div class="line">                <span class="keyword">static</span>::$aliases[$root] = $path;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">								<span class="comment">// 字符串改成数组形式</span></div><div class="line">                <span class="keyword">static</span>::$aliases[$root] = [</div><div class="line">                    $alias =&gt; $path,</div><div class="line">                    $root =&gt; <span class="keyword">static</span>::$aliases[$root],</div><div class="line">                ];</div><div class="line">            &#125;</div><div class="line">				<span class="comment">// 本身就是数组，则直接添加，并排序</span></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">static</span>::$aliases[$root][$alias] = $path;</div><div class="line">            krsort(<span class="keyword">static</span>::$aliases[$root]);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">elseif</span> (<span class="keyword">isset</span>(<span class="keyword">static</span>::$aliases[$root])) &#123;</div><div class="line">        <span class="comment">//删除</span></div><div class="line">        <span class="keyword">if</span> (is_array(<span class="keyword">static</span>::$aliases[$root])) &#123;</div><div class="line">            <span class="keyword">unset</span>(<span class="keyword">static</span>::$aliases[$root][$alias]);</div><div class="line">        &#125; <span class="keyword">elseif</span> ($pos === <span class="keyword">false</span>) &#123;</div><div class="line">            <span class="keyword">unset</span>(<span class="keyword">static</span>::$aliases[$root]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="获取别名-getAlias"><a href="#获取别名-getAlias" class="headerlink" title="获取别名 getAlias"></a>获取别名 getAlias</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getAlias</span><span class="params">($alias, $throwException = true)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//$alias 的第一个字符和 @ 比较，如果相等返回0，不相等返回的结果可能是1或-1进入if</span></div><div class="line">    <span class="keyword">if</span> (strncmp($alias, <span class="string">'@'</span>, <span class="number">1</span>)) &#123;</div><div class="line">        <span class="comment">// not an alias</span></div><div class="line">				<span class="comment">// 不是别名，不是以 @ 开头</span></div><div class="line">        <span class="keyword">return</span> $alias;</div><div class="line">    &#125;</div><div class="line">		<span class="comment">// 别名是否带有 / ;例如：@yii/ding</span></div><div class="line">    $pos = strpos($alias, <span class="string">'/'</span>);</div><div class="line">    $root = $pos === <span class="keyword">false</span> ? $alias : substr($alias, <span class="number">0</span>, $pos);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">static</span>::$aliases[$root])) &#123;</div><div class="line">				<span class="comment">// 如果是字符串，则表示存的是路径</span></div><div class="line">        <span class="keyword">if</span> (is_string(<span class="keyword">static</span>::$aliases[$root])) &#123;</div><div class="line">            <span class="keyword">return</span> $pos === <span class="keyword">false</span> ? <span class="keyword">static</span>::$aliases[$root] : <span class="keyword">static</span>::$aliases[$root] . substr($alias, $pos);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">foreach</span> (<span class="keyword">static</span>::$aliases[$root] <span class="keyword">as</span> $name =&gt; $path) &#123;</div><div class="line">						<span class="comment">// 在 $alias/ 中匹配 $name/ ,如果存在，就截取路径</span></div><div class="line">            <span class="keyword">if</span> (strpos($alias . <span class="string">'/'</span>, $name . <span class="string">'/'</span>) === <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">return</span> $path . substr($alias, strlen($name));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> ($throwException) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidParamException(<span class="string">"Invalid path alias: $alias"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="自动加载"><a href="#自动加载" class="headerlink" title="自动加载"></a>自动加载</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">autoload</span><span class="params">($className)</span></span></div><div class="line">&#123;		</div><div class="line">		<span class="comment">// 是否在定义的 类加载映射文件  </span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">static</span>::$classMap[$className])) &#123;</div><div class="line">        $classFile = <span class="keyword">static</span>::$classMap[$className];</div><div class="line">        <span class="keyword">if</span> ($classFile[<span class="number">0</span>] === <span class="string">'@'</span>) &#123;</div><div class="line">            $classFile = <span class="keyword">static</span>::getAlias($classFile);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">elseif</span> (strpos($className, <span class="string">'\\'</span>) !== <span class="keyword">false</span>) &#123;</div><div class="line">        $classFile = <span class="keyword">static</span>::getAlias(<span class="string">'@'</span> . str_replace(<span class="string">'\\'</span>, <span class="string">'/'</span>, $className) . <span class="string">'.php'</span>, <span class="keyword">false</span>);</div><div class="line">        <span class="keyword">if</span> ($classFile === <span class="keyword">false</span> || !is_file($classFile)) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">		<span class="comment">// 加载类文件</span></div><div class="line">    <span class="keyword">include</span>($classFile);</div><div class="line">		<span class="comment">// 判断类、接口、trait类是否存在  </span></div><div class="line">    <span class="keyword">if</span> (YII_DEBUG &amp;&amp; !class_exists($className, <span class="keyword">false</span>) &amp;&amp; !interface_exists($className, <span class="keyword">false</span>) &amp;&amp; !trait_exists($className, <span class="keyword">false</span>)) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnknownClassException(<span class="string">"Unable to find '$className' in file: $classFile. Namespace missing?"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">createObject</span><span class="params">($type, array $params = [])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 字符串，代表一个类名、接口名、别名。</span></div><div class="line">    <span class="keyword">if</span> (is_string($type)) &#123;</div><div class="line">        <span class="comment">// 全局容器获取实例，并解决其依赖关系</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">static</span>::$container-&gt;get($type, $params);</div><div class="line">    <span class="comment">// 是个数组，代表配置数组，必须含有 class 元素。</span></div><div class="line">    &#125; <span class="keyword">elseif</span> (is_array($type) &amp;&amp; <span class="keyword">isset</span>($type[<span class="string">'class'</span>])) &#123;</div><div class="line">        $class = $type[<span class="string">'class'</span>];</div><div class="line">        <span class="keyword">unset</span>($type[<span class="string">'class'</span>]);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">static</span>::$container-&gt;get($class, $params, $type);</div><div class="line">    <span class="comment">// 是个PHP callable则调用其返回一个具体实例。</span></div><div class="line">    &#125; <span class="keyword">elseif</span> (is_callable($type, <span class="keyword">true</span>)) &#123;</div><div class="line">        <span class="comment">// 解决回调函数的依赖</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">static</span>::$container-&gt;invoke($type, $params);</div><div class="line">    &#125; <span class="keyword">elseif</span> (is_array($type)) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidConfigException(<span class="string">'Object configuration must be an array containing a "class" element.'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> InvalidConfigException(<span class="string">'Unsupported configuration type: '</span> . gettype($type));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="配置对象属性值"><a href="#配置对象属性值" class="headerlink" title="配置对象属性值"></a>配置对象属性值</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">configure</span><span class="params">($object, $properties)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">foreach</span> ($properties <span class="keyword">as</span> $name =&gt; $value) &#123;</div><div class="line">        $object-&gt;$name = $value;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> $object;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="获取对象属性与值-数组"><a href="#获取对象属性与值-数组" class="headerlink" title="获取对象属性与值 数组"></a>获取对象属性与值 数组</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getObjectVars</span><span class="params">($object)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> get_object_vars($object);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">t</span><span class="params">($category, $message, $params = [], $language = null)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">static</span>::$app !== <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">static</span>::$app-&gt;getI18n()-&gt;translate($category, $message, $params, $language ?: <span class="keyword">static</span>::$app-&gt;language);</div><div class="line">    &#125;</div><div class="line">    $placeholders = [];</div><div class="line">    <span class="keyword">foreach</span> ((<span class="keyword">array</span>) $params <span class="keyword">as</span> $name =&gt; $value) &#123;</div><div class="line">        $placeholders[<span class="string">'&#123;'</span> . $name . <span class="string">'&#125;'</span>] = $value;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//字符串替换</span></div><div class="line">    <span class="keyword">return</span> ($placeholders === []) ? $message : strtr($message, $placeholders);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/22/yii/Module类解析/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/22/yii/Application类解析/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">less is more</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/your-user-name" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Yii-php"><span class="nav-number">1.</span> <span class="nav-text">Yii.php</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#YiiBase"><span class="nav-number">2.</span> <span class="nav-text">YiiBase</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">2.1.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取Yii版本"><span class="nav-number">2.1.1.</span> <span class="nav-text">获取Yii版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#别名"><span class="nav-number">2.2.</span> <span class="nav-text">别名</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置别名-setAlias"><span class="nav-number">2.2.1.</span> <span class="nav-text">设置别名 setAlias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取别名-getAlias"><span class="nav-number">2.2.2.</span> <span class="nav-text">获取别名 getAlias</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动加载"><span class="nav-number">2.3.</span> <span class="nav-text">自动加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建对象"><span class="nav-number">2.4.</span> <span class="nav-text">创建对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置对象属性值"><span class="nav-number">2.5.</span> <span class="nav-text">配置对象属性值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取对象属性与值-数组"><span class="nav-number">2.6.</span> <span class="nav-text">获取对象属性与值 数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#国际化"><span class="nav-number">2.7.</span> <span class="nav-text">国际化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志"><span class="nav-number">2.8.</span> <span class="nav-text">日志</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

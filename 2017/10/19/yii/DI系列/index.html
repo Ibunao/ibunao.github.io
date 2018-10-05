@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="DI目录： 12345678/vander    /yiisoft        /yii2            /di                .Container.php                .instance.php                .NotInstantiableException.php                .ServiceLocator.php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不孬">
+<meta property="og:url" content="http://bunao.win/2017/10/19/yii/DI系列/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="DI目录： 12345678/vander    /yiisoft        /yii2            /di                .Container.php                .instance.php                .NotInstantiableException.php                .ServiceLocator.php">
+<meta property="og:updated_time" content="2017-10-19T11:51:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="不孬">
+<meta name="twitter:description" content="DI目录： 12345678/vander    /yiisoft        /yii2            /di                .Container.php                .instance.php                .NotInstantiableException.php                .ServiceLocator.php">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2017/10/19/yii/DI系列/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">echo-ding</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/10/19/yii/DI系列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="less is more">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-10-19 19:51:54" itemprop="dateCreated datePublished" datetime="2017-10-19T19:51:54+08:00">2017-10-19</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/10/19/yii/DI系列/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>DI目录：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/vander</div><div class="line">    /yiisoft</div><div class="line">        /yii2</div><div class="line">            /di</div><div class="line">                .Container.php</div><div class="line">                .instance.php</div><div class="line">                .NotInstantiableException.php</div><div class="line">                .ServiceLocator.php</div></pre></td></tr></table></figure>
+<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><ol>
+<li><code>Container</code> DI 容器负责自动解决构造函数中参数(对象性的)的依赖关系</li>
+<li><code>ServiceLocator</code> 服务定位器，注册组件和实例化组件的</li>
+<li>两者的组合使用是发生在 <code>Yii::createObject()</code> 方法，<code>ServiceLocator</code> 的 <code>get()</code> 方法中调用了 <code>Yii::createObject()</code> 方法里使用了容器 <code>Container</code></li>
+</ol>
+<h1 id="Instance-类"><a href="#Instance-类" class="headerlink" title="Instance 类"></a>Instance 类</h1><p><strong>作用</strong><br><br>供Container使用，保存对象的类名，并通过创建它来判断参数是否是对象型的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Instance</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">         * 保存 组件id、类名、接口名、别名</div><div class="line">     * <span class="doctag">@var</span> string the component ID, class name, interface name or alias name</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $id;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Constructor.</div><div class="line">     * <span class="doctag">@param</span> string $id the component ID</div><div class="line">     */</div><div class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($id)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;id = $id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 创建Instance实例</div><div class="line">     * <span class="doctag">@param</span> string $id the component ID</div><div class="line">     * <span class="doctag">@return</span> Instance the new Instance object.</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">of</span><span class="params">($id)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">static</span>($id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 创建对象，并确保它是指定的类型.</div><div class="line">     *</div><div class="line">     * The reference may be specified as a string or an Instance object. If the former,</div><div class="line">     * it will be treated as a component ID, a class/interface name or an alias, depending on the container type.</div><div class="line">     *</div><div class="line">     * If you do not specify a container, the method will first try `Yii::$app` followed by `Yii::$container`.</div><div class="line">     *</div><div class="line">     * For example,</div><div class="line">     *</div><div class="line">     * ```php</div><div class="line">     * use yii\db\Connection;</div><div class="line">     *</div><div class="line">     * // returns Yii::$app-&gt;db</div><div class="line">     * $db = Instance::ensure('db', Connection::className());</div><div class="line">     * // returns an instance of Connection using the given configuration</div><div class="line">     * $db = Instance::ensure(['dsn' =&gt; 'sqlite:path/to/my.db'], Connection::className());</div><div class="line">     *</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"> *</div><div class="line"> * @param object|string|array|static $reference 一个对象或者数组，数组中如果没有 class 将会用 $type 参数</div><div class="line"> * @param string $type 检查class和interface，如果为null将不检查</div><div class="line"> * @param ServiceLocator|Container $container the container. This will be passed to [[get()]].</div><div class="line"> * @return object the object referenced by the Instance, or `$reference` itself if it is an object.</div><div class="line"> * @throws InvalidConfigException if the reference is invalid</div><div class="line"> */</div><div class="line">public static function ensure($reference, $type = null, $container = null)</div><div class="line">&#123;</div><div class="line">    if (is_array($reference)) &#123;</div><div class="line">        $class = isset($reference['class']) ? $reference['class'] : $type;</div><div class="line">                    //定义容器</div><div class="line">        if (!$container instanceof Container) &#123;</div><div class="line">            $container = Yii::$container;</div><div class="line">        &#125;</div><div class="line">        unset($reference['class']);</div><div class="line">                    // 获取对象</div><div class="line">        $component = $container-&gt;get($class, [], $reference);</div><div class="line">        if ($type === null || $component instanceof $type) &#123;</div><div class="line">            return $component;</div><div class="line">        &#125; else &#123;</div><div class="line">            throw new InvalidConfigException('Invalid data type: ' . $class .'. ' . $type . ' is expected.');</div><div class="line">        &#125;</div><div class="line">    &#125; elseif (empty($reference)) &#123;</div><div class="line">        throw new InvalidConfigException('The required component is not specified.');</div><div class="line">    &#125;</div><div class="line">            //$reference 为component id</div><div class="line">    if (is_string($reference)) &#123;</div><div class="line">                    // 创建Instance/继承与Instance 的对象</div><div class="line">        $reference = new static($reference);</div><div class="line">    &#125; elseif ($type === null || $reference instanceof $type) &#123;</div><div class="line">        return $reference;</div><div class="line">    &#125;</div><div class="line">            // $reference 为对象(instance 或 子类)</div><div class="line">    if ($reference instanceof self) &#123;</div><div class="line">        try &#123;</div><div class="line">            $component = $reference-&gt;get($container);</div><div class="line">        &#125; catch (\ReflectionException $e) &#123;</div><div class="line">            throw new InvalidConfigException('Failed to instantiate component or class "' . $reference-&gt;id . '".', 0, $e);</div><div class="line">        &#125;</div><div class="line">        if ($type === null || $component instanceof $type) &#123;</div><div class="line">            return $component;</div><div class="line">        &#125; else &#123;</div><div class="line">            throw new InvalidConfigException('"' . $reference-&gt;id . '" refers to a ' . get_class($component) . " component. $type is expected.");</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $valueType = is_object($reference) ? get_class($reference) : gettype($reference);</div><div class="line">    throw new InvalidConfigException("Invalid data type: $valueType. $type is expected.");</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 通过容器获取id对应的对象</div><div class="line"> * @param ServiceLocator|Container $container the container used to locate the referenced object.</div><div class="line"> * If null, the method will first try `Yii::$app` then `Yii::$container`.</div><div class="line"> * @return object the actual object referenced by this Instance object.</div><div class="line"> */</div><div class="line">public function get($container = null)</div><div class="line">&#123;</div><div class="line">    if ($container) &#123;</div><div class="line">        return $container-&gt;get($this-&gt;id);</div><div class="line">    &#125;</div><div class="line">    if (Yii::$app &amp;&amp; Yii::$app-&gt;has($this-&gt;id)) &#123;</div><div class="line">        return Yii::$app-&gt;get($this-&gt;id);</div><div class="line">    &#125; else &#123;</div><div class="line">        return Yii::$container-&gt;get($this-&gt;id);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Restores class state after using `var_export()`</div><div class="line"> *</div><div class="line"> * @param array $state</div><div class="line"> * @return Instance</div><div class="line"> * @throws InvalidConfigException when $state property does not contain `id` parameter</div><div class="line"> * @see var_export()</div><div class="line"> * @since 2.0.12</div><div class="line"> */</div><div class="line">public static function __set_state($state)</div><div class="line">&#123;</div><div class="line">    if (!isset($state['id'])) &#123;</div><div class="line">        throw new InvalidConfigException('Failed to instantiate class "Instance". Required parameter "id" is missing');</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return new self($state['id']);</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Container-类"><a href="#Container-类" class="headerlink" title="Container 类"></a>Container 类</h2><p><strong>作用</strong><br><br>为了简化依赖注入，实现依赖注入，需要先创建所依赖的对象，而如果依赖的层级不叫多的时候，一级一级的创建将会变得十分麻烦， 容器就很好的解决了创建对象的问题</p>
+<p><code>Containner</code> 解决的是实例化时的依赖</p>
+<p><strong>问题</strong><br><br><code>$_singletons</code> 在Containner类中并没有用</p>
+<blockquote>
+<p>依赖注入，简单的理解就是将依赖(需要)的对象当做参数传递进去，而不是在一个类中实例化去需要的对象</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div><div class="line">334</div><div class="line">335</div><div class="line">336</div><div class="line">337</div><div class="line">338</div><div class="line">339</div><div class="line">340</div><div class="line">341</div><div class="line">342</div><div class="line">343</div><div class="line">344</div><div class="line">345</div><div class="line">346</div><div class="line">347</div><div class="line">348</div><div class="line">349</div><div class="line">350</div><div class="line">351</div><div class="line">352</div><div class="line">353</div><div class="line">354</div><div class="line">355</div><div class="line">356</div><div class="line">357</div><div class="line">358</div><div class="line">359</div><div class="line">360</div><div class="line">361</div><div class="line">362</div><div class="line">363</div><div class="line">364</div><div class="line">365</div><div class="line">366</div><div class="line">367</div><div class="line">368</div><div class="line">369</div><div class="line">370</div><div class="line">371</div><div class="line">372</div><div class="line">373</div><div class="line">374</div><div class="line">375</div><div class="line">376</div><div class="line">377</div><div class="line">378</div><div class="line">379</div><div class="line">380</div><div class="line">381</div><div class="line">382</div><div class="line">383</div><div class="line">384</div><div class="line">385</div><div class="line">386</div><div class="line">387</div><div class="line">388</div><div class="line">389</div><div class="line">390</div><div class="line">391</div><div class="line">392</div><div class="line">393</div><div class="line">394</div><div class="line">395</div><div class="line">396</div><div class="line">397</div><div class="line">398</div><div class="line">399</div><div class="line">400</div><div class="line">401</div><div class="line">402</div><div class="line">403</div><div class="line">404</div><div class="line">405</div><div class="line">406</div><div class="line">407</div><div class="line">408</div><div class="line">409</div><div class="line">410</div><div class="line">411</div><div class="line">412</div><div class="line">413</div><div class="line">414</div><div class="line">415</div><div class="line">416</div><div class="line">417</div><div class="line">418</div><div class="line">419</div><div class="line">420</div><div class="line">421</div><div class="line">422</div><div class="line">423</div><div class="line">424</div><div class="line">425</div><div class="line">426</div><div class="line">427</div><div class="line">428</div><div class="line">429</div><div class="line">430</div><div class="line">431</div><div class="line">432</div><div class="line">433</div><div class="line">434</div><div class="line">435</div><div class="line">436</div><div class="line">437</div><div class="line">438</div><div class="line">439</div><div class="line">440</div><div class="line">441</div><div class="line">442</div><div class="line">443</div><div class="line">444</div><div class="line">445</div><div class="line">446</div><div class="line">447</div><div class="line">448</div><div class="line">449</div><div class="line">450</div><div class="line">451</div><div class="line">452</div><div class="line">453</div><div class="line">454</div><div class="line">455</div><div class="line">456</div><div class="line">457</div><div class="line">458</div><div class="line">459</div><div class="line">460</div><div class="line">461</div><div class="line">462</div><div class="line">463</div><div class="line">464</div><div class="line">465</div><div class="line">466</div><div class="line">467</div><div class="line">468</div><div class="line">469</div><div class="line">470</div><div class="line">471</div><div class="line">472</div><div class="line">473</div><div class="line">474</div><div class="line">475</div><div class="line">476</div><div class="line">477</div><div class="line">478</div><div class="line">479</div><div class="line">480</div><div class="line">481</div><div class="line">482</div><div class="line">483</div><div class="line">484</div><div class="line">485</div><div class="line">486</div><div class="line">487</div><div class="line">488</div><div class="line">489</div><div class="line">490</div><div class="line">491</div><div class="line">492</div><div class="line">493</div><div class="line">494</div><div class="line">495</div><div class="line">496</div><div class="line">497</div><div class="line">498</div><div class="line">499</div><div class="line">500</div><div class="line">501</div><div class="line">502</div><div class="line">503</div><div class="line">504</div><div class="line">505</div><div class="line">506</div><div class="line">507</div><div class="line">508</div><div class="line">509</div><div class="line">510</div><div class="line">511</div><div class="line">512</div><div class="line">513</div><div class="line">514</div><div class="line">515</div><div class="line">516</div><div class="line">517</div><div class="line">518</div><div class="line">519</div><div class="line">520</div><div class="line">521</div><div class="line">522</div><div class="line">523</div><div class="line">524</div><div class="line">525</div><div class="line">526</div><div class="line">527</div><div class="line">528</div><div class="line">529</div><div class="line">530</div><div class="line">531</div><div class="line">532</div><div class="line">533</div><div class="line">534</div><div class="line">535</div><div class="line">536</div><div class="line">537</div><div class="line">538</div><div class="line">539</div><div class="line">540</div><div class="line">541</div><div class="line">542</div><div class="line">543</div><div class="line">544</div><div class="line">545</div><div class="line">546</div><div class="line">547</div><div class="line">548</div><div class="line">549</div><div class="line">550</div><div class="line">551</div><div class="line">552</div><div class="line">553</div><div class="line">554</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *</div><div class="line"> * 示例</div><div class="line"> *</div><div class="line"> *</div><div class="line"> * namespace app\models;</div><div class="line"> *</div><div class="line"> * use yii\base\Object;</div><div class="line"> * use yii\db\Connection;</div><div class="line"> * use yii\di\Container;</div><div class="line"> *</div><div class="line"> * interface UserFinderInterface</div><div class="line"> * &#123;</div><div class="line"> *     function findUser();</div><div class="line"> * &#125;</div><div class="line"> *</div><div class="line"> * class UserFinder extends Object implements UserFinderInterface</div><div class="line"> * &#123;</div><div class="line"> *     public $db;</div><div class="line"> *</div><div class="line"> *     public function __construct(Connection $db, $config = [])</div><div class="line"> *     &#123;</div><div class="line"> *         $this-&gt;db = $db;</div><div class="line"> *         parent::__construct($config);</div><div class="line"> *     &#125;</div><div class="line"> *</div><div class="line"> *     public function findUser()</div><div class="line"> *     &#123;</div><div class="line"> *     &#125;</div><div class="line"> * &#125;</div><div class="line"> *</div><div class="line"> * class UserLister extends Object</div><div class="line"> * &#123;</div><div class="line"> *     public $finder;</div><div class="line"> *</div><div class="line"> *     public function __construct(UserFinderInterface $finder, $config = [])</div><div class="line"> *     &#123;</div><div class="line"> *         $this-&gt;finder = $finder;</div><div class="line"> *         parent::__construct($config);</div><div class="line"> *     &#125;</div><div class="line"> * &#125;</div><div class="line"> *</div><div class="line"> * $container = new Container;</div><div class="line"> * $container-&gt;set('yii\db\Connection', [</div><div class="line"> *     'dsn' =&gt; '...',</div><div class="line"> * ]);</div><div class="line"> * $container-&gt;set('app\models\UserFinderInterface', [</div><div class="line"> *     'class' =&gt; 'app\models\UserFinder',</div><div class="line"> * ]);</div><div class="line"> * $container-&gt;set('userLister', 'app\models\UserLister');</div><div class="line"> *</div><div class="line"> * $lister = $container-&gt;get('userLister');</div><div class="line"> *</div><div class="line"> * 和下面的相同</div><div class="line"> * // which is equivalent to:</div><div class="line"> *</div><div class="line"> * $db = new \yii\db\Connection(['dsn' =&gt; '...']);</div><div class="line"> * $finder = new UserFinder($db);</div><div class="line"> * $lister = new UserLister($finder);</div><div class="line"> *</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Container</span> <span class="keyword">extends</span> <span class="title">Component</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">         * 用于保存单例Singleton对象，以对象类型为键</div><div class="line">     * <span class="doctag">@var</span> array singleton objects indexed by their types</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> $_singletons = [];</div><div class="line">    <span class="comment">/**</span></div><div class="line">         * 用于保存依赖的定义，以对象类型为键</div><div class="line">     * <span class="doctag">@var</span> array object definitions indexed by their types</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> $_definitions = [];</div><div class="line">    <span class="comment">/**</span></div><div class="line">         * 用于保存构造函数的参数，以对象类型为键</div><div class="line">     * <span class="doctag">@var</span> array constructor parameters indexed by object types</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> $_params = [];</div><div class="line">    <span class="comment">/**</span></div><div class="line">         * 用于缓存ReflectionClass(反射)对象，以类名或接口名为键</div><div class="line">     * <span class="doctag">@var</span> array cached ReflectionClass objects indexed by class/interface names</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> $_reflections = [];</div><div class="line">    <span class="comment">/**</span></div><div class="line">         * 用于缓存依赖信息，以类名或接口名为键</div><div class="line">     * <span class="doctag">@var</span> array cached dependencies indexed by class/interface names. Each class name</div><div class="line">     * is associated with a list of constructor parameter types or default values.</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> $_dependencies = [];</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 在容器中注册类的依赖，类型与类型之间的依赖关系</div><div class="line">     * Registers a class definition with this container.</div><div class="line">     *</div><div class="line">     * 示例</div><div class="line">     *</div><div class="line">     *</div><div class="line">     * // register a class name as is. This can be skipped.</div><div class="line">     * $container-&gt;set('yii\db\Connection');</div><div class="line">     *</div><div class="line">     * // register an interface</div><div class="line">     * // When a class depends on the interface, the corresponding class</div><div class="line">     * // will be instantiated as the dependent object</div><div class="line">     * $container-&gt;set('yii\mail\MailInterface', 'yii\swiftmailer\Mailer');</div><div class="line">     *</div><div class="line">     * // register an alias name. You can use $container-&gt;get('foo')</div><div class="line">     * // to create an instance of Connection</div><div class="line">     * $container-&gt;set('foo', 'yii\db\Connection');</div><div class="line">     *</div><div class="line">     * // register a class with configuration. The configuration</div><div class="line">     * // will be applied when the class is instantiated by get()</div><div class="line">     * $container-&gt;set('yii\db\Connection', [</div><div class="line">     *     'dsn' =&gt; 'mysql:host=127.0.0.1;dbname=demo',</div><div class="line">     *     'username' =&gt; 'root',</div><div class="line">     *     'password' =&gt; '',</div><div class="line">     *     'charset' =&gt; 'utf8',</div><div class="line">     * ]);</div><div class="line">     *</div><div class="line">     * // register an alias name with class configuration</div><div class="line">     * // In this case, a "class" element is required to specify the class</div><div class="line">     * $container-&gt;set('db', [</div><div class="line">     *     'class' =&gt; 'yii\db\Connection',</div><div class="line">     *     'dsn' =&gt; 'mysql:host=127.0.0.1;dbname=demo',</div><div class="line">     *     'username' =&gt; 'root',</div><div class="line">     *     'password' =&gt; '',</div><div class="line">     *     'charset' =&gt; 'utf8',</div><div class="line">     * ]);</div><div class="line">     *</div><div class="line">     * // register a PHP callable</div><div class="line">     * // The callable will be executed when $container-&gt;get('db') is called</div><div class="line">     * $container-&gt;set('db', function ($container, $params, $config) &#123;</div><div class="line">     *     return new \yii\db\Connection($config);</div><div class="line">     * &#125;);</div><div class="line">     *</div><div class="line">     *</div><div class="line">     * If a class definition with the same name already exists, it will be overwritten with the new one.</div><div class="line">     * You may use [[has()]] to check if a class definition already exists.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> string $class class name, interface name or alias name</div><div class="line">     * <span class="doctag">@param</span> mixed $definition the definition associated with `$class`. It can be one of the following:</div><div class="line">     *</div><div class="line">     * - a PHP callable: The callable will be executed when [[get()]] is invoked. The signature of the callable</div><div class="line">     *   should be `function ($container, $params, $config)`, where `$params` stands for the list of constructor</div><div class="line">     *   parameters, `$config` the object configuration, and `$container` the container object. The return value</div><div class="line">     *   of the callable will be returned by [[get()]] as the object instance requested.</div><div class="line">     * - a configuration array: the array contains name-value pairs that will be used to initialize the property</div><div class="line">     *   values of the newly created object when [[get()]] is called. The `class` element stands for the</div><div class="line">     *   the class of the object to be created. If `class` is not specified, `$class` will be used as the class name.</div><div class="line">     * - a string: a class name, an interface name or an alias name.</div><div class="line">     * <span class="doctag">@param</span> array $params the list of constructor parameters. The parameters will be passed to the class</div><div class="line">     * constructor when [[get()]] is called.</div><div class="line">     * <span class="doctag">@return</span> $this the container itself</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">set</span><span class="params">($class, $definition = [], array $params = [])</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">//保存依赖</span></div><div class="line">        <span class="comment">// 规范化 $definition 并写入 $_definitions[$class]</span></div><div class="line">        <span class="keyword">$this</span>-&gt;_definitions[$class] = <span class="keyword">$this</span>-&gt;normalizeDefinition($class, $definition);</div><div class="line">        <span class="comment">// 保存参数</span></div><div class="line">        <span class="comment">// 将构造函数参数写入 $_params[$class]</span></div><div class="line">        <span class="keyword">$this</span>-&gt;_params[$class] = $params;</div><div class="line">        <span class="comment">// 删除$_singletons[$class]</span></div><div class="line">        <span class="keyword">unset</span>(<span class="keyword">$this</span>-&gt;_singletons[$class]);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>;</div><div class="line">    &#125;</div><div class="line">=======================================================</div><div class="line">示例   </div><div class="line">$container = <span class="keyword">new</span> \yii\di\Container;</div><div class="line"></div><div class="line"><span class="comment">// 直接以类名注册一个依赖，虽然这么做没什么意义。</span></div><div class="line"><span class="comment">// $_definition['yii\db\Connection'] = ['class' =&gt; 'yii\db\Connetcion']</span></div><div class="line">$container-&gt;set(<span class="string">'yii\db\Connection'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 注册一个接口，当一个类依赖于该接口时，定义中的类会自动被实例化，并供</span></div><div class="line"><span class="comment">// 有依赖需要的类使用。</span></div><div class="line"><span class="comment">// $_definition['yii\mail\MailInterface'] = ['class' =&gt; 'yii\swiftmailer\Mailer']</span></div><div class="line">$container-&gt;set(<span class="string">'yii\mail\MailInterface'</span>, <span class="string">'yii\swiftmailer\Mailer'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 注册一个别名，当调用$container-&gt;get('foo')时，可以得到一个</span></div><div class="line"><span class="comment">// yii\db\Connection 实例。</span></div><div class="line"><span class="comment">// $_definition['foo'] = ['class' =&gt; 'yii\db\Connection']</span></div><div class="line">$container-&gt;set(<span class="string">'foo'</span>, <span class="string">'yii\db\Connection'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 用一个配置数组来注册一个类，需要这个类的实例时，这个配置数组会发生作用。</span></div><div class="line"><span class="comment">// $_definition['yii\db\Connection'] = [</span></div><div class="line"><span class="comment">//    'class' =&gt; 'yii\db\Connection',</span></div><div class="line"><span class="comment">//    'dsn' =&gt; 'mysql:host=127.0.0.1;dbname=demo',</span></div><div class="line"><span class="comment">//    'username' =&gt; 'root',</span></div><div class="line"><span class="comment">//    'password' =&gt; '',</span></div><div class="line"><span class="comment">//    'charset' =&gt; 'utf8',</span></div><div class="line"><span class="comment">//];</span></div><div class="line">$container-&gt;set(<span class="string">'yii\db\Connection'</span>, [</div><div class="line">    <span class="string">'dsn'</span> =&gt; <span class="string">'mysql:host=127.0.0.1;dbname=demo'</span>,</div><div class="line">    <span class="string">'username'</span> =&gt; <span class="string">'root'</span>,</div><div class="line">    <span class="string">'password'</span> =&gt; <span class="string">''</span>,</div><div class="line">    <span class="string">'charset'</span> =&gt; <span class="string">'utf8'</span>,</div><div class="line">]);</div><div class="line"></div><div class="line"><span class="comment">// 用一个配置数组来注册一个别名，由于别名的类型不详，因此配置数组中需要</span></div><div class="line"><span class="comment">// 有 class 元素。</span></div><div class="line"><span class="comment">// $_definition['db'] = [</span></div><div class="line"><span class="comment">//    'class' =&gt; 'yii\db\Connection',</span></div><div class="line"><span class="comment">//    'dsn' =&gt; 'mysql:host=127.0.0.1;dbname=demo',</span></div><div class="line"><span class="comment">//    'username' =&gt; 'root',</span></div><div class="line"><span class="comment">//    'password' =&gt; '',</span></div><div class="line"><span class="comment">//    'charset' =&gt; 'utf8',</span></div><div class="line"><span class="comment">//];</span></div><div class="line">$container-&gt;set(<span class="string">'db'</span>, [</div><div class="line">    <span class="string">'class'</span> =&gt; <span class="string">'yii\db\Connection'</span>,</div><div class="line">    <span class="string">'dsn'</span> =&gt; <span class="string">'mysql:host=127.0.0.1;dbname=demo'</span>,</div><div class="line">    <span class="string">'username'</span> =&gt; <span class="string">'root'</span>,</div><div class="line">    <span class="string">'password'</span> =&gt; <span class="string">''</span>,</div><div class="line">    <span class="string">'charset'</span> =&gt; <span class="string">'utf8'</span>,</div><div class="line">]);</div><div class="line"></div><div class="line"><span class="comment">// 用一个PHP callable来注册一个别名，每次引用这个别名时，这个callable都会被调用。</span></div><div class="line"><span class="comment">// $_definition['db'] = function(...)&#123;...&#125;</span></div><div class="line">$container-&gt;set(<span class="string">'db'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($container, $params, $config)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> \yii\db\Connection($config);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 用一个对象来注册一个别名，每次引用这个别名时，这个对象都会被引用。</span></div><div class="line"><span class="comment">// $_definition['pageCache'] = anInstanceOfFileCache</span></div><div class="line">$container-&gt;set(<span class="string">'pageCache'</span>, <span class="keyword">new</span> FileCache);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">=======================================================</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Registers a class definition with this container and marks the class as a singleton class.</div><div class="line">     *</div><div class="line">     * This method is similar to [[set()]] except that classes registered via this method will only have one</div><div class="line">     * instance. Each time [[get()]] is called, the same instance of the specified class will be returned.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> string $class class name, interface name or alias name</div><div class="line">     * <span class="doctag">@param</span> mixed $definition the definition associated with `$class`. See [[set()]] for more details.</div><div class="line">     * <span class="doctag">@param</span> array $params the list of constructor parameters. The parameters will be passed to the class</div><div class="line">     * constructor when [[get()]] is called.</div><div class="line">     * <span class="doctag">@return</span> $this the container itself</div><div class="line">     * <span class="doctag">@see</span> set()</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setSingleton</span><span class="params">($class, $definition = [], array $params = [])</span></span></div><div class="line">    &#123;</div><div class="line">                <span class="comment">// 规范化 $definition 并写入 $_definitions[$class]</span></div><div class="line">        <span class="keyword">$this</span>-&gt;_definitions[$class] = <span class="keyword">$this</span>-&gt;normalizeDefinition($class, $definition);</div><div class="line">        <span class="keyword">$this</span>-&gt;_params[$class] = $params;</div><div class="line">                <span class="comment">// 将$_singleton[$class]置为null，表示还未实例化</span></div><div class="line">        <span class="keyword">$this</span>-&gt;_singletons[$class] = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Returns a value indicating whether the container has the definition of the specified name.</div><div class="line">     * <span class="doctag">@param</span> string $class class name, interface name or alias name</div><div class="line">     * <span class="doctag">@return</span> bool whether the container has the definition of the specified name..</div><div class="line">     * <span class="doctag">@see</span> set()</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">has</span><span class="params">($class)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_definitions[$class]);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Returns a value indicating whether the given name corresponds to a registered singleton.</div><div class="line">     * <span class="doctag">@param</span> string $class class name, interface name or alias name</div><div class="line">     * <span class="doctag">@param</span> bool $checkInstance whether to check if the singleton has been instantiated.</div><div class="line">     * <span class="doctag">@return</span> bool whether the given name corresponds to a registered singleton. If `$checkInstance` is true,</div><div class="line">     * the method should return a value indicating whether the singleton has been instantiated.</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">hasSingleton</span><span class="params">($class, $checkInstance = false)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> $checkInstance ? <span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_singletons[$class]) : array_key_exists($class, <span class="keyword">$this</span>-&gt;_singletons);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Removes the definition for the specified name.</div><div class="line">     * <span class="doctag">@param</span> string $class class name, interface name or alias name</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">clear</span><span class="params">($class)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">unset</span>(<span class="keyword">$this</span>-&gt;_definitions[$class], <span class="keyword">$this</span>-&gt;_singletons[$class]);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 规范依赖类的定义.规范依赖数组$_definition格式</div><div class="line">     * <span class="doctag">@param</span> string $class class name</div><div class="line">     * <span class="doctag">@param</span> string|array|callable $definition the class definition</div><div class="line">     * <span class="doctag">@return</span> array the normalized class definition</div><div class="line">     * <span class="doctag">@throws</span> InvalidConfigException if the definition is invalid.</div><div class="line">     */</div><div class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">normalizeDefinition</span><span class="params">($class, $definition)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// $definition 是空的转换成 ['class' =&gt; $class] 形式</span></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>($definition)) &#123;</div><div class="line">            <span class="keyword">return</span> [<span class="string">'class'</span> =&gt; $class];</div><div class="line">        <span class="comment">// $definition 是字符串，转换成 ['class' =&gt; $definition] 形式</span></div><div class="line">        &#125; <span class="keyword">elseif</span> (is_string($definition)) &#123;</div><div class="line">            <span class="keyword">return</span> [<span class="string">'class'</span> =&gt; $definition];</div><div class="line">        <span class="comment">// $definition 是PHP callable 或对象，则直接将其作为依赖的定义</span></div><div class="line">        &#125; <span class="keyword">elseif</span> (is_callable($definition, <span class="keyword">true</span>) || is_object($definition)) &#123;</div><div class="line">            <span class="keyword">return</span> $definition;</div><div class="line">        &#125; <span class="keyword">elseif</span> (is_array($definition)) &#123;</div><div class="line">            <span class="keyword">if</span> (!<span class="keyword">isset</span>($definition[<span class="string">'class'</span>])) &#123;</div><div class="line">                <span class="comment">// 判断是不是类名</span></div><div class="line">                <span class="keyword">if</span> (strpos($class, <span class="string">'\\'</span>) !== <span class="keyword">false</span>) &#123;</div><div class="line">                    $definition[<span class="string">'class'</span>] = $class;</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> InvalidConfigException(<span class="string">"A class definition requires a \"class\" member."</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> $definition;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidConfigException(<span class="string">"Unsupported definition type for \"$class\": "</span> . gettype($definition));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Returns the list of the object definitions or the loaded shared objects.</div><div class="line">     * <span class="doctag">@return</span> array the list of the object definitions or the loaded shared objects (type or ID =&gt; definition or instance).</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getDefinitions</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_definitions;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 获取实例，自动解析依赖</div><div class="line">     * Returns an instance of the requested class.</div><div class="line">     *</div><div class="line">     * You may provide constructor parameters (`$params`) and object configurations (`$config`)</div><div class="line">     * that will be used during the creation of the instance.</div><div class="line">     *</div><div class="line">     * If the class implements [[\yii\base\Configurable]], the `$config` parameter will be passed as the last</div><div class="line">     * parameter to the class constructor; Otherwise, the configuration will be applied *after* the object is</div><div class="line">     * instantiated.</div><div class="line">     *</div><div class="line">     * Note that if the class is declared to be singleton by calling [[setSingleton()]],</div><div class="line">     * the same instance of the class will be returned each time this method is called.</div><div class="line">     * In this case, the constructor parameters and object configurations will be used</div><div class="line">     * only if the class is instantiated the first time.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> string $class the class name or an alias name (e.g. `foo`) that was previously registered via [[set()]]</div><div class="line">     * or [[setSingleton()]].</div><div class="line">     * <span class="doctag">@param</span> array $params a list of constructor parameter values. The parameters should be provided in the order</div><div class="line">     * they appear in the constructor declaration. If you want to skip some parameters, you should index the remaining</div><div class="line">     * ones with the integers that represent their positions in the constructor parameter list.</div><div class="line">     构造方法的参数值，要按顺序来 []</div><div class="line">     * <span class="doctag">@param</span> array $config a list of name-value pairs that will be used to initialize the object properties.</div><div class="line">     要给实例属性赋值的配置数组 如 ：['id' =&gt; 11];</div><div class="line">     * <span class="doctag">@return</span> object an instance of the requested class.</div><div class="line">     * <span class="doctag">@throws</span> InvalidConfigException if the class cannot be recognized or correspond to an invalid definition</div><div class="line">     * <span class="doctag">@throws</span> NotInstantiableException If resolved to an abstract class or an interface (since 2.0.9)</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">($class, $params = [], $config = [])</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_singletons[$class])) &#123;</div><div class="line">            <span class="comment">// singleton</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_singletons[$class];</div><div class="line">        <span class="comment">// 是个尚未注册过的依赖，说明它不依赖其他单元，或者依赖信息不用定义，</span></div><div class="line">        <span class="comment">// 则根据传入的参数创建一个实例</span></div><div class="line">        &#125; <span class="keyword">elseif</span> (!<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_definitions[$class])) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;build($class, $params, $config);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 获取依赖  </span></div><div class="line">        $definition = <span class="keyword">$this</span>-&gt;_definitions[$class];</div><div class="line">        <span class="comment">// 依赖是匿名函数</span></div><div class="line">        <span class="keyword">if</span> (is_callable($definition, <span class="keyword">true</span>)) &#123;</div><div class="line">            <span class="comment">//合并参数</span></div><div class="line">            $params = <span class="keyword">$this</span>-&gt;resolveDependencies(<span class="keyword">$this</span>-&gt;mergeParams($class, $params));</div><div class="line">            <span class="comment">//执行回调函数</span></div><div class="line">            $object = call_user_func($definition, <span class="keyword">$this</span>, $params, $config);</div><div class="line">        <span class="comment">// 依赖为数组格式</span></div><div class="line">        &#125; <span class="keyword">elseif</span> (is_array($definition)) &#123;</div><div class="line">            $concrete = $definition[<span class="string">'class'</span>];</div><div class="line">            <span class="keyword">unset</span>($definition[<span class="string">'class'</span>]);</div><div class="line"></div><div class="line">            <span class="comment">//合并属性值</span></div><div class="line">            $config = array_merge($definition, $config);</div><div class="line">            <span class="comment">// 合并 $class 构造函数参数的值</span></div><div class="line">            $params = <span class="keyword">$this</span>-&gt;mergeParams($class, $params);</div><div class="line">            <span class="comment">// 依赖是否和自己相等</span></div><div class="line">            <span class="keyword">if</span> ($concrete === $class) &#123;</div><div class="line">                <span class="comment">//创建对象</span></div><div class="line">                $object = <span class="keyword">$this</span>-&gt;build($class, $params, $config);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">//递归获取依赖</span></div><div class="line">                $object = <span class="keyword">$this</span>-&gt;get($concrete, $params, $config);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">elseif</span> (is_object($definition)) &#123;</div><div class="line">            <span class="comment">// 将存入到单利</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_singletons[$class] = $definition;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidConfigException(<span class="string">'Unexpected object definition type: '</span> . gettype($definition));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (array_key_exists($class, <span class="keyword">$this</span>-&gt;_singletons)) &#123;</div><div class="line">            <span class="comment">// singleton</span></div><div class="line">            <span class="keyword">$this</span>-&gt;_singletons[$class] = $object;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> $object;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 创建实例</div><div class="line">     * Creates an instance of the specified class.</div><div class="line">     * This method will resolve dependencies of the specified class, instantiate them, and inject</div><div class="line">     * them into the new instance of the specified class.</div><div class="line">     * <span class="doctag">@param</span> string $class the class name</div><div class="line">     * <span class="doctag">@param</span> array $params constructor parameters</div><div class="line">     * <span class="doctag">@param</span> array $config configurations to be applied to the new instance</div><div class="line">     * <span class="doctag">@return</span> object the newly created instance of the specified class</div><div class="line">     * <span class="doctag">@throws</span> NotInstantiableException If resolved to an abstract class or an interface (since 2.0.9)</div><div class="line">     */</div><div class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">build</span><span class="params">($class, $params, $config)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">/* <span class="doctag">@var</span> $reflection ReflectionClass */</span></div><div class="line">        <span class="keyword">list</span> ($reflection, $dependencies) = <span class="keyword">$this</span>-&gt;getDependencies($class);</div><div class="line">        <span class="comment">// 给构造函数参数赋值</span></div><div class="line">        <span class="keyword">foreach</span> ($params <span class="keyword">as</span> $index =&gt; $param) &#123;</div><div class="line">            $dependencies[$index] = $param;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 解析依赖</span></div><div class="line">        $dependencies = <span class="keyword">$this</span>-&gt;resolveDependencies($dependencies, $reflection);</div><div class="line">        <span class="comment">// 检查类是否可实例化, 排除抽象类abstract和对象接口interface</span></div><div class="line">        <span class="keyword">if</span> (!$reflection-&gt;isInstantiable()) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NotInstantiableException($reflection-&gt;name);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>($config)) &#123;</div><div class="line">            <span class="comment">// 实例化对象</span></div><div class="line">            <span class="keyword">return</span> $reflection-&gt;newInstanceArgs($dependencies);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 检查它是否实现了一个Configurable接口，也就是继承自Object对象  </span></div><div class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>($dependencies) &amp;&amp; $reflection-&gt;implementsInterface(<span class="string">'yii\base\Configurable'</span>)) &#123;</div><div class="line">            <span class="comment">// set $config as the last parameter (existing one will be overwritten)</span></div><div class="line">            <span class="comment">// 继承object后，规则上，是要在构造函数中最后一个参数和Object中的一直，并调用Object中的构造函数  </span></div><div class="line">            $dependencies[count($dependencies) - <span class="number">1</span>] = $config;</div><div class="line">            <span class="keyword">return</span> $reflection-&gt;newInstanceArgs($dependencies);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">// 不是继承Object的话，手动配置参数</span></div><div class="line">            $object = $reflection-&gt;newInstanceArgs($dependencies);</div><div class="line">            <span class="keyword">foreach</span> ($config <span class="keyword">as</span> $name =&gt; $value) &#123;</div><div class="line">                $object-&gt;$name = $value;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> $object;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 合并set时和get是传递的params参数</div><div class="line">     * Merges the user-specified constructor parameters with the ones registered via [[set()]].</div><div class="line">     * <span class="doctag">@param</span> string $class class name, interface name or alias name</div><div class="line">     * <span class="doctag">@param</span> array $params the constructor parameters</div><div class="line">     * <span class="doctag">@return</span> array the merged parameters</div><div class="line">     */</div><div class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">mergeParams</span><span class="params">($class, $params)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>(<span class="keyword">$this</span>-&gt;_params[$class])) &#123;</div><div class="line">            <span class="keyword">return</span> $params;</div><div class="line">        &#125; <span class="keyword">elseif</span> (<span class="keyword">empty</span>($params)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_params[$class];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            $ps = <span class="keyword">$this</span>-&gt;_params[$class];</div><div class="line">            <span class="keyword">foreach</span> ($params <span class="keyword">as</span> $index =&gt; $value) &#123;</div><div class="line">                $ps[$index] = $value;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> $ps;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 获取依赖信息</div><div class="line">     * Returns the dependencies of the specified class.</div><div class="line">     * <span class="doctag">@param</span> string $class class name, interface name or alias name</div><div class="line">     * <span class="doctag">@return</span> array the dependencies of the specified class.</div><div class="line">     */</div><div class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">getDependencies</span><span class="params">($class)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 获取反射类，依赖信息</span></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_reflections[$class])) &#123;</div><div class="line">            <span class="keyword">return</span> [<span class="keyword">$this</span>-&gt;_reflections[$class], <span class="keyword">$this</span>-&gt;_dependencies[$class]];</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        $dependencies = [];</div><div class="line">        <span class="comment">//反射</span></div><div class="line">        $reflection = <span class="keyword">new</span> ReflectionClass($class);</div><div class="line">        <span class="comment">// 获取构造函数</span></div><div class="line">        $constructor = $reflection-&gt;getConstructor();</div><div class="line">        <span class="keyword">if</span> ($constructor !== <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="comment">//遍历参数</span></div><div class="line">            <span class="keyword">foreach</span> ($constructor-&gt;getParameters() <span class="keyword">as</span> $param) &#123;</div><div class="line">                <span class="comment">//是否有默认值，有默认值的肯定是普通类型不是对象</span></div><div class="line">                <span class="keyword">if</span> ($param-&gt;isDefaultValueAvailable()) &#123;</div><div class="line">                    $dependencies[] = $param-&gt;getDefaultValue();</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="comment">// 获取强制类型的类，如 function ding(RanClass ran)</span></div><div class="line">                    $c = $param-&gt;getClass();</div><div class="line">                    <span class="comment">// 创建Instance对象</span></div><div class="line">                    $dependencies[] = Instance::of($c === <span class="keyword">null</span> ? <span class="keyword">null</span> : $c-&gt;getName());</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">$this</span>-&gt;_reflections[$class] = $reflection;</div><div class="line">        <span class="keyword">$this</span>-&gt;_dependencies[$class] = $dependencies;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> [$reflection, $dependencies];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 解析依赖</div><div class="line">     * Resolves dependencies by replacing them with the actual object instances.</div><div class="line">     * <span class="doctag">@param</span> array $dependencies the dependencies</div><div class="line">     * <span class="doctag">@param</span> ReflectionClass $reflection the class reflection associated with the dependencies</div><div class="line">     * <span class="doctag">@return</span> array the resolved dependencies</div><div class="line">     * <span class="doctag">@throws</span> InvalidConfigException if a dependency cannot be resolved or if a dependency cannot be fulfilled.</div><div class="line">     */</div><div class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">resolveDependencies</span><span class="params">($dependencies, $reflection = null)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">foreach</span> ($dependencies <span class="keyword">as</span> $index =&gt; $dependency) &#123;</div><div class="line">            <span class="keyword">if</span> ($dependency <span class="keyword">instanceof</span> Instance) &#123;</div><div class="line">                <span class="keyword">if</span> ($dependency-&gt;id !== <span class="keyword">null</span>) &#123;</div><div class="line">                    <span class="comment">// 递归调用，获取依赖</span></div><div class="line">                    $dependencies[$index] = <span class="keyword">$this</span>-&gt;get($dependency-&gt;id);</div><div class="line">                &#125; <span class="keyword">elseif</span> ($reflection !== <span class="keyword">null</span>) &#123;</div><div class="line">                    $name = $reflection-&gt;getConstructor()-&gt;getParameters()[$index]-&gt;getName();</div><div class="line">                    $class = $reflection-&gt;getName();</div><div class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> InvalidConfigException(<span class="string">"Missing required parameter \"$name\" when instantiating \"$class\"."</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> $dependencies;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 解析匿名函数的参数的依赖</div><div class="line">     * Invoke a callback with resolving dependencies in parameters.</div><div class="line">     *</div><div class="line">     * This methods allows invoking a callback and let type hinted parameter names to be</div><div class="line">     * resolved as objects of the Container. It additionally allow calling function using named parameters.</div><div class="line">     *</div><div class="line">     * For example, the following callback may be invoked using the Container to resolve the formatter dependency:</div><div class="line">     *</div><div class="line">     * ```php</div><div class="line">     * $formatString = function($string, \yii\i18n\Formatter $formatter) &#123;</div><div class="line">     *    // ...</div><div class="line">     * &#125;</div><div class="line">     * Yii::$container-&gt;invoke($formatString, ['string' =&gt; 'Hello World!']);</div><div class="line">     *</div><div class="line">`</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div></pre></td><td class="code"><pre><div class="line"> *</div><div class="line"> * This will pass the string `<span class="string">'Hello World!'</span>` <span class="keyword">as</span> the first param, <span class="keyword">and</span> a formatter instance created</div><div class="line"> * by the DI container <span class="keyword">as</span> the second param to the callable.</div><div class="line"> *</div><div class="line"> * @param callable $callback callable to be invoked.</div><div class="line"> * @param <span class="keyword">array</span> $params The <span class="keyword">array</span> of parameters <span class="keyword">for</span> the <span class="function"><span class="keyword">function</span>.</span></div><div class="line"> * <span class="title">This</span> <span class="title">can</span> <span class="title">be</span> <span class="title">either</span> <span class="title">a</span> <span class="title">list</span> <span class="title">of</span> <span class="title">parameters</span>, <span class="title">or</span> <span class="title">an</span> <span class="title">associative</span> <span class="title">array</span> <span class="title">representing</span> <span class="title">named</span> <span class="title">function</span> <span class="title">parameters</span>.</div><div class="line"> * @<span class="title">return</span> <span class="title">mixed</span> <span class="title">the</span> <span class="title">callback</span> <span class="title">return</span> <span class="title">value</span>.</div><div class="line"> * @<span class="title">throws</span> <span class="title">InvalidConfigException</span> <span class="title">if</span> <span class="title">a</span> <span class="title">dependency</span> <span class="title">cannot</span> <span class="title">be</span> <span class="title">resolved</span> <span class="title">or</span> <span class="title">if</span> <span class="title">a</span> <span class="title">dependency</span> <span class="title">cannot</span> <span class="title">be</span> <span class="title">fulfilled</span>.</div><div class="line"> * @<span class="title">throws</span> <span class="title">NotInstantiableException</span> <span class="title">If</span> <span class="title">resolved</span> <span class="title">to</span> <span class="title">an</span> <span class="title">abstract</span> <span class="title">class</span> <span class="title">or</span> <span class="title">an</span> <span class="title">interface</span> <span class="params">(since <span class="number">2.0</span><span class="number">.9</span>)</span></div><div class="line"> * @<span class="title">since</span> 2.0.7</div><div class="line"> */</div><div class="line"><span class="title">public</span> <span class="title">function</span> <span class="title">invoke</span><span class="params">(callable $callback, $params = [])</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (is_callable($callback)) &#123;</div><div class="line">        <span class="keyword">return</span> call_user_func_array($callback, <span class="keyword">$this</span>-&gt;resolveCallableDependencies($callback, $params));</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> call_user_func_array($callback, $params);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Resolve dependencies for a function.</div><div class="line"> *</div><div class="line"> * This method can be used to implement similar functionality as provided by [[invoke()]] in other</div><div class="line"> * components.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> callable $callback callable to be invoked.</div><div class="line"> * <span class="doctag">@param</span> array $params The array of parameters for the function, can be either numeric or associative.</div><div class="line"> * <span class="doctag">@return</span> array The resolved dependencies.</div><div class="line"> * <span class="doctag">@throws</span> InvalidConfigException if a dependency cannot be resolved or if a dependency cannot be fulfilled.</div><div class="line"> * <span class="doctag">@throws</span> NotInstantiableException If resolved to an abstract class or an interface (since 2.0.9)</div><div class="line"> * <span class="doctag">@since</span> 2.0.7</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">resolveCallableDependencies</span><span class="params">(callable $callback, $params = [])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (is_array($callback)) &#123;</div><div class="line">        $reflection = <span class="keyword">new</span> \ReflectionMethod($callback[<span class="number">0</span>], $callback[<span class="number">1</span>]);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">// 反射方法</span></div><div class="line">        $reflection = <span class="keyword">new</span> \ReflectionFunction($callback);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $args = [];</div><div class="line">    <span class="comment">// 判断是否是关联数组</span></div><div class="line">    $associative = ArrayHelper::isAssociative($params);</div><div class="line">    <span class="comment">// 遍历参数</span></div><div class="line">    <span class="keyword">foreach</span> ($reflection-&gt;getParameters() <span class="keyword">as</span> $param) &#123;</div><div class="line">        $name = $param-&gt;getName();</div><div class="line">        <span class="comment">// 是否是class</span></div><div class="line">        <span class="keyword">if</span> (($class = $param-&gt;getClass()) !== <span class="keyword">null</span>) &#123;</div><div class="line">            $className = $class-&gt;getName();</div><div class="line">            <span class="comment">//是关联数组 and 是给参数赋值的值 and 继承关系</span></div><div class="line">            <span class="keyword">if</span> ($associative &amp;&amp; <span class="keyword">isset</span>($params[$name]) &amp;&amp; $params[$name] <span class="keyword">instanceof</span> $className) &#123;</div><div class="line">                $args[] = $params[$name];</div><div class="line">                <span class="keyword">unset</span>($params[$name]);</div><div class="line">            <span class="comment">// 如果不是关联数组，则第一参数为对象型的</span></div><div class="line">            &#125; <span class="keyword">elseif</span> (!$associative &amp;&amp; <span class="keyword">isset</span>($params[<span class="number">0</span>]) &amp;&amp; $params[<span class="number">0</span>] <span class="keyword">instanceof</span> $className) &#123;</div><div class="line">                $args[] = array_shift($params);</div><div class="line">            &#125; <span class="keyword">elseif</span> (<span class="keyword">isset</span>(Yii::$app) &amp;&amp; Yii::$app-&gt;has($name) &amp;&amp; ($obj = Yii::$app-&gt;get($name)) <span class="keyword">instanceof</span> $className) &#123;</div><div class="line">                $args[] = $obj;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">// If the argument is optional we catch not instantiable exceptions</span></div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    $args[] = <span class="keyword">$this</span>-&gt;get($className);</div><div class="line">                &#125; <span class="keyword">catch</span> (NotInstantiableException $e) &#123;</div><div class="line">                    <span class="keyword">if</span> ($param-&gt;isDefaultValueAvailable()) &#123;</div><div class="line">                        $args[] = $param-&gt;getDefaultValue();</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        <span class="keyword">throw</span> $e;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">elseif</span> ($associative &amp;&amp; <span class="keyword">isset</span>($params[$name])) &#123;</div><div class="line">            $args[] = $params[$name];</div><div class="line">            <span class="keyword">unset</span>($params[$name]);</div><div class="line">        &#125; <span class="keyword">elseif</span> (!$associative &amp;&amp; count($params)) &#123;</div><div class="line">            $args[] = array_shift($params);</div><div class="line">        &#125; <span class="keyword">elseif</span> ($param-&gt;isDefaultValueAvailable()) &#123;</div><div class="line">            $args[] = $param-&gt;getDefaultValue();</div><div class="line">        &#125; <span class="keyword">elseif</span> (!$param-&gt;isOptional()) &#123;</div><div class="line">            $funcName = $reflection-&gt;getName();</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidConfigException(<span class="string">"Missing required parameter \"$name\" when calling \"$funcName\"."</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">foreach</span> ($params <span class="keyword">as</span> $value) &#123;</div><div class="line">        $args[] = $value;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> $args;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Registers class definitions within this container.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> array $definitions array of definitions. There are two allowed formats of array.</div><div class="line"> * The first format:</div><div class="line"> *  - key: class name, interface name or alias name. The key will be passed to the [[set()]] method</div><div class="line"> *    as a first argument `$class`.</div><div class="line"> *  - value: the definition associated with `$class`. Possible values are described in</div><div class="line"> *    [[set()]] documentation for the `$definition` parameter. Will be passed to the [[set()]] method</div><div class="line"> *    as the second argument `$definition`.</div><div class="line"> *</div><div class="line"> * Example:</div><div class="line"> * php</div><div class="line"> * $container-&gt;setDefinitions([</div><div class="line"> *     'yii\web\Request' =&gt; 'app\components\Request',</div><div class="line"> *     'yii\web\Response' =&gt; [</div><div class="line"> *         'class' =&gt; 'app\components\Response',</div><div class="line"> *         'format' =&gt; 'json'</div><div class="line"> *     ],</div><div class="line"> *     'foo\Bar' =&gt; function () &#123;</div><div class="line"> *         $qux = new Qux;</div><div class="line"> *         $foo = new Foo($qux);</div><div class="line"> *         return new Bar($foo);</div><div class="line"> *     &#125;</div><div class="line"> * ]);</div><div class="line"> *</div><div class="line">*</div><div class="line"></div><div class="line">- The second format:</div><div class="line">- - key: class name, interface name or alias name. The key will be passed to the [[set()]] method</div><div class="line"></div><div class="line">- as a first argument `$class`.</div><div class="line"></div><div class="line">- - value: array of two elements. The first element will be passed the [[set()]] method as the</div><div class="line"></div><div class="line">- second argument `$definition`, the second one -- as `$params`. *</div><div class="line"></div><div class="line">- Example:</div><div class="line">- php</div><div class="line">- $container-&gt;setDefinitions([</div><div class="line">- 'foo\Bar' =&gt; [</div><div class="line">- ['class' =&gt; 'app\Bar'],</div><div class="line">- [Instance::of('baz')]</div><div class="line">- ]</div><div class="line">- ]);</div><div class="line">- *</div><div class="line">- <span class="doctag">@see</span> set() to know more about possible values of definitions</div><div class="line">- <span class="doctag">@since</span> 2.0.11 */ <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setDefinitions</span><span class="params">(array $definitions)</span> </span>&#123; <span class="keyword">foreach</span> ($definitions <span class="keyword">as</span> $class =&gt; $definition) &#123;</div><div class="line"></div><div class="line"></div><div class="line">   <span class="keyword">if</span> (count($definition) === <span class="number">2</span> &amp;&amp; array_values($definition) === $definition) &#123;</div><div class="line">       <span class="keyword">$this</span>-&gt;set($class, $definition[<span class="number">0</span>], $definition[<span class="number">1</span>]);</div><div class="line">       <span class="keyword">continue</span>;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="keyword">$this</span>-&gt;set($class, $definition);</div><div class="line"></div><div class="line">  &#125; &#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"></div><div class="line">- Registers class definitions as singletons within this container by calling [[setSingleton()]] *</div><div class="line">- <span class="doctag">@param</span> array $singletons array of singleton definitions. See [[setDefinitions()]]</div><div class="line">- for allowed formats of array. *</div><div class="line">- <span class="doctag">@see</span> setDefinitions() for allowed formats of $singletons parameter</div><div class="line">- <span class="doctag">@see</span> setSingleton() to know more about possible values of definitions</div><div class="line">- <span class="doctag">@since</span> 2.0.11 */ <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setSingletons</span><span class="params">(array $singletons)</span> </span>&#123; <span class="keyword">foreach</span> ($singletons <span class="keyword">as</span> $class =&gt; $definition) &#123;</div><div class="line"></div><div class="line">   <span class="keyword">if</span> (count($definition) === <span class="number">2</span> &amp;&amp; array_values($definition) === $definition) &#123;</div><div class="line">       <span class="keyword">$this</span>-&gt;setSingleton($class, $definition[<span class="number">0</span>], $definition[<span class="number">1</span>]);</div><div class="line">       <span class="keyword">continue</span>;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="keyword">$this</span>-&gt;setSingleton($class, $definition);</div><div class="line"></div><div class="line"></div><div class="line">  &#125; &#125; &#125;</div></pre></td></tr></table></figure>
+<p><a href="http://www.digpage.com/di.html#id7" target="_blank" rel="external">参考</a></p>
+<h2 id="服务定位器"><a href="#服务定位器" class="headerlink" title="服务定位器"></a>服务定位器</h2><p>注册组件用的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * ServiceLocator implements a [service locator](http://en.wikipedia.org/wiki/Service_locator_pattern).</div><div class="line"> *</div><div class="line"> * To use ServiceLocator, you first need to register component IDs with the corresponding component</div><div class="line"> * definitions with the locator by calling [[set()]] or [[setComponents()]].</div><div class="line"> * You can then call [[get()]] to retrieve a component with the specified ID. The locator will automatically</div><div class="line"> * instantiate and configure the component according to the definition.</div><div class="line"> *</div><div class="line"> * For example,</div><div class="line"> *</div><div class="line"> *</div><div class="line"> * $locator = new \yii\di\ServiceLocator;</div><div class="line"> * $locator-&gt;setComponents([</div><div class="line"> *     'db' =&gt; [</div><div class="line"> *         'class' =&gt; 'yii\db\Connection',</div><div class="line"> *         'dsn' =&gt; 'sqlite:path/to/file.db',</div><div class="line"> *     ],</div><div class="line"> *     'cache' =&gt; [</div><div class="line"> *         'class' =&gt; 'yii\caching\DbCache',</div><div class="line"> *         'db' =&gt; 'db',</div><div class="line"> *     ],</div><div class="line"> * ]);</div><div class="line"> *</div><div class="line"> * $db = $locator-&gt;get('db');  // or $locator-&gt;db</div><div class="line"> * $cache = $locator-&gt;get('cache');  // or $locator-&gt;cache</div><div class="line"> *</div><div class="line"> *</div><div class="line"> * Because [[\yii\base\Module]] extends from ServiceLocator, modules and the application are all service locators.</div><div class="line"> *</div><div class="line"> * For more details and usage information on ServiceLocator, see the [guide article on service locators](guide:concept-service-locator).</div><div class="line"> *</div><div class="line"> * <span class="doctag">@property</span> array $components The list of the component definitions or the loaded component instances (ID =&gt;</div><div class="line"> * definition or instance).</div><div class="line"> *</div><div class="line"> * <span class="doctag">@author</span> Qiang Xue &lt;qiang.xue<span class="doctag">@gmail</span>.com&gt;</div><div class="line"> * <span class="doctag">@since</span> 2.0</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ServiceLocator</span> <span class="keyword">extends</span> <span class="title">Component</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 用于缓存服务、组件等的实例</div><div class="line">     * <span class="doctag">@var</span> array shared component instances indexed by their IDs</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> $_components = [];</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 用于保存服务和组件的定义，通常为配置数组，可以用来创建具体的实例</div><div class="line">     * <span class="doctag">@var</span> array component definitions indexed by their IDs</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> $_definitions = [];</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 重载了父类的方法</div><div class="line">     * Getter magic method.</div><div class="line">     * This method is overridden to support accessing components like reading properties.</div><div class="line">     * <span class="doctag">@param</span> string $name component or property name</div><div class="line">     * <span class="doctag">@return</span> mixed the named property value</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">($name)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// has() 方法就是判断 $_definitions 数组中是否已经保存了服务或组件的定义</span></div><div class="line">        <span class="comment">// 请留意，这个时候服务或组件仅是完成定义，不一定已经实例化</span></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;has($name)) &#123;</div><div class="line">            <span class="comment">// get() 方法用于返回服务或组件的实例</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;get($name);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">// 未定义的服务或组件，那么视为正常的属性、行为，</span></div><div class="line">            <span class="comment">// 调用 yii\base\Component::__get()</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">parent</span>::__get($name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Checks if a property value is null.</div><div class="line">     * This method overrides the parent implementation by checking if the named component is loaded.</div><div class="line">     * <span class="doctag">@param</span> string $name the property name or the event name</div><div class="line">     * <span class="doctag">@return</span> bool whether the property value is null</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__isset</span><span class="params">($name)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;has($name)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">parent</span>::__isset($name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 当 $checkInstance === false 时，用于判断是否已经定义了某个服务或组件</div><div class="line">     * 当 $checkInstance === true 时，用于判断是否已经有了某人服务或组件的实例</div><div class="line">     * Returns a value indicating whether the locator has the specified component definition or has instantiated the component.</div><div class="line">     * This method may return different results depending on the value of `$checkInstance`.</div><div class="line">     *</div><div class="line">     * - If `$checkInstance` is false (default), the method will return a value indicating whether the locator has the specified</div><div class="line">     *   component definition.</div><div class="line">     * - If `$checkInstance` is true, the method will return a value indicating whether the locator has</div><div class="line">     *   instantiated the specified component.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> string $id component ID (e.g. `db`).</div><div class="line">     * <span class="doctag">@param</span> bool $checkInstance whether the method should check if the component is shared and instantiated.</div><div class="line">     * <span class="doctag">@return</span> bool whether the locator has the specified component definition or has instantiated the component.</div><div class="line">     * <span class="doctag">@see</span> set()</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">has</span><span class="params">($id, $checkInstance = false)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> $checkInstance ? <span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_components[$id]) : <span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_definitions[$id]);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 根据 $id 获取对应的组件实例</div><div class="line">     * Returns the component instance with the specified ID.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> string $id component ID (e.g. `db`).</div><div class="line">     * <span class="doctag">@param</span> bool $throwException whether to throw an exception if `$id` is not registered with the locator before.</div><div class="line">     * <span class="doctag">@return</span> object|null the component of the specified ID. If `$throwException` is false and `$id`</div><div class="line">     * is not registered before, null will be returned.</div><div class="line">     * <span class="doctag">@throws</span> InvalidConfigException if `$id` refers to a nonexistent component ID</div><div class="line">     * <span class="doctag">@see</span> has()</div><div class="line">     * <span class="doctag">@see</span> set()</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">($id, $throwException = true)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 如果已经有实例化好的组件或服务，直接使用缓存中的就OK了</span></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_components[$id])) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_components[$id];</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 如果还没有实例化好，那么再看看是不是已经定义好</span></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_definitions[$id])) &#123;</div><div class="line">            $definition = <span class="keyword">$this</span>-&gt;_definitions[$id];</div><div class="line">            <span class="comment">// 如果定义是个对象，且不是Closure对象，那么直接将这个对象返回</span></div><div class="line">            <span class="keyword">if</span> (is_object($definition) &amp;&amp; !$definition <span class="keyword">instanceof</span> Closure) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_components[$id] = $definition;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">// 是个数组或者PHP callable，调用 Yii::createObject()来创建一个实例</span></div><div class="line">                <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_components[$id] = Yii::createObject($definition);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">elseif</span> ($throwException) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidConfigException(<span class="string">"Unknown component ID: $id"</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 用于注册一个组件或服务，其中 $id 用于标识服务或组件。</div><div class="line">     * $definition 可以是一个类名，一个配置数组，一个PHP callable，或者一个对象</div><div class="line">     * Registers a component definition with this locator.</div><div class="line">     *</div><div class="line">     * For example,</div><div class="line">     *</div><div class="line">     *</div><div class="line">     * // a class name</div><div class="line">     * $locator-&gt;set('cache', 'yii\caching\FileCache');</div><div class="line">     *</div><div class="line">     * // a configuration array</div><div class="line">     * $locator-&gt;set('db', [</div><div class="line">     *     'class' =&gt; 'yii\db\Connection',</div><div class="line">     *     'dsn' =&gt; 'mysql:host=127.0.0.1;dbname=demo',</div><div class="line">     *     'username' =&gt; 'root',</div><div class="line">     *     'password' =&gt; '',</div><div class="line">     *     'charset' =&gt; 'utf8',</div><div class="line">     * ]);</div><div class="line">     *</div><div class="line">     * // an anonymous function</div><div class="line">     * $locator-&gt;set('cache', function ($params) &#123;</div><div class="line">     *     return new \yii\caching\FileCache;</div><div class="line">     * &#125;);</div><div class="line">     *</div><div class="line">     * // an instance</div><div class="line">     * $locator-&gt;set('cache', new \yii\caching\FileCache);</div><div class="line">     *</div><div class="line">     *</div><div class="line">     * If a component definition with the same ID already exists, it will be overwritten.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> string $id component ID (e.g. `db`).</div><div class="line">     * <span class="doctag">@param</span> mixed $definition the component definition to be registered with this locator.</div><div class="line">     * It can be one of the following:</div><div class="line">     *</div><div class="line">     * - a class name</div><div class="line">     * - a configuration array: the array contains name-value pairs that will be used to</div><div class="line">     *   initialize the property values of the newly created object when [[get()]] is called.</div><div class="line">     *   The `class` element is required and stands for the the class of the object to be created.</div><div class="line">     * - a PHP callable: either an anonymous function or an array representing a class method (e.g. `['Foo', 'bar']`).</div><div class="line">     *   The callable will be called by [[get()]] to return an object associated with the specified component ID.</div><div class="line">     * - an object: When [[get()]] is called, this object will be returned.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@throws</span> InvalidConfigException if the definition is an invalid configuration array</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">set</span><span class="params">($id, $definition)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 确保服务或组件ID的唯一性</span></div><div class="line">        <span class="keyword">unset</span>(<span class="keyword">$this</span>-&gt;_components[$id]);</div><div class="line"></div><div class="line">        <span class="comment">// 当定义为 null 时，表示要从Service Locator中删除一个服务或组件</span></div><div class="line">        <span class="keyword">if</span> ($definition === <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">unset</span>(<span class="keyword">$this</span>-&gt;_definitions[$id]);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 定义如果是个对象或PHP callable，或类名，直接作为定义保存</span></div><div class="line">        <span class="comment">// 留意这里 is_callable的第二个参数为true，所以，类名也可以。</span></div><div class="line">        <span class="keyword">if</span> (is_object($definition) || is_callable($definition, <span class="keyword">true</span>)) &#123;</div><div class="line">            <span class="comment">// an object, a class name, or a PHP callable</span></div><div class="line">            <span class="keyword">$this</span>-&gt;_definitions[$id] = $definition;</div><div class="line">        <span class="comment">// 定义如果是个数组，要确保数组中具有 class 元素</span></div><div class="line">        &#125; <span class="keyword">elseif</span> (is_array($definition)) &#123;</div><div class="line">            <span class="comment">// a configuration array</span></div><div class="line">            <span class="keyword">if</span> (<span class="keyword">isset</span>($definition[<span class="string">'class'</span>])) &#123;</div><div class="line">                <span class="keyword">$this</span>-&gt;_definitions[$id] = $definition;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> InvalidConfigException(<span class="string">"The configuration for the \"$id\" component must contain a \"class\" element."</span>);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidConfigException(<span class="string">"Unexpected configuration type for the \"$id\" component: "</span> . gettype($definition));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Removes the component from the locator.</div><div class="line">     * <span class="doctag">@param</span> string $id the component ID</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">clear</span><span class="params">($id)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">unset</span>(<span class="keyword">$this</span>-&gt;_definitions[$id], <span class="keyword">$this</span>-&gt;_components[$id]);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Returns the list of the component definitions or the loaded component instances.</div><div class="line">     * <span class="doctag">@param</span> bool $returnDefinitions whether to return component definitions instead of the loaded component instances.</div><div class="line">     * <span class="doctag">@return</span> array the list of the component definitions or the loaded component instances (ID =&gt; definition or instance).</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getComponents</span><span class="params">($returnDefinitions = true)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> $returnDefinitions ? <span class="keyword">$this</span>-&gt;_definitions : <span class="keyword">$this</span>-&gt;_components;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 循环调用 set()</div><div class="line">     * Registers a set of component definitions in this locator.</div><div class="line">     *</div><div class="line">     * This is the bulk version of [[set()]]. The parameter should be an array</div><div class="line">     * whose keys are component IDs and values the corresponding component definitions.</div><div class="line">     *</div><div class="line">     * For more details on how to specify component IDs and definitions, please refer to [[set()]].</div><div class="line">     *</div><div class="line">     * If a component definition with the same ID already exists, it will be overwritten.</div><div class="line">     *</div><div class="line">     * The following is an example for registering two component definitions:</div><div class="line">     *</div><div class="line">     *</div><div class="line">     * [</div><div class="line">     *     'db' =&gt; [</div><div class="line">     *         'class' =&gt; 'yii\db\Connection',</div><div class="line">     *         'dsn' =&gt; 'sqlite:path/to/file.db',</div><div class="line">     *     ],</div><div class="line">     *     'cache' =&gt; [</div><div class="line">     *         'class' =&gt; 'yii\caching\DbCache',</div><div class="line">     *         'db' =&gt; 'db',</div><div class="line">     *     ],</div><div class="line">     * ]</div><div class="line">     *</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> array $components component definitions or instances</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setComponents</span><span class="params">($components)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">foreach</span> ($components <span class="keyword">as</span> $id =&gt; $component) &#123;</div><div class="line">            <span class="keyword">$this</span>-&gt;set($id, $component);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">`</div></pre></td></tr></table></figure>
+<p><a href="http://www.digpage.com/service_locator.html" target="_blank" rel="external">参考</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/22/yii/Application类解析/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/06/yii/路由规则/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">less is more</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/your-user-name" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Instance-类"><span class="nav-number">2.</span> <span class="nav-text">Instance 类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Container-类"><span class="nav-number">2.1.</span> <span class="nav-text">Container 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务定位器"><span class="nav-number">2.2.</span> <span class="nav-text">服务定位器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

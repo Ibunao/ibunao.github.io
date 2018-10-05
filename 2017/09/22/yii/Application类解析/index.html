@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="yii\web\Application继承关系12345yii\web\Application    extends yii\base\Application        extends yii\base\Module            extends yii\di\ServiceLocator                …… class 解析1234567891011121314151">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不孬">
+<meta property="og:url" content="http://bunao.win/2017/09/22/yii/Application类解析/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="yii\web\Application继承关系12345yii\web\Application    extends yii\base\Application        extends yii\base\Module            extends yii\di\ServiceLocator                …… class 解析1234567891011121314151">
+<meta property="og:updated_time" content="2017-09-22T12:30:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="不孬">
+<meta name="twitter:description" content="yii\web\Application继承关系12345yii\web\Application    extends yii\base\Application        extends yii\base\Module            extends yii\di\ServiceLocator                …… class 解析1234567891011121314151">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2017/09/22/yii/Application类解析/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">echo-ding</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/09/22/yii/Application类解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="less is more">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-09-22 20:30:59" itemprop="dateCreated datePublished" datetime="2017-09-22T20:30:59+08:00">2017-09-22</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/22/yii/Application类解析/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="yii-web-Application"><a href="#yii-web-Application" class="headerlink" title="yii\web\Application"></a>yii\web\Application</h2><h3 id="继承关系"><a href="#继承关系" class="headerlink" title="继承关系"></a>继承关系</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">yii\web\Application</div><div class="line">    extends yii\base\Application</div><div class="line">        extends yii\base\Module</div><div class="line">            extends yii\di\ServiceLocator</div><div class="line">                ……</div></pre></td></tr></table></figure>
+<h3 id="class-解析"><a href="#class-解析" class="headerlink" title="class 解析"></a>class 解析</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Application is the base class for all web application classes.</div><div class="line"> *</div><div class="line"> * For more details and usage information on Application, see the [guide article on applications](guide:structure-applications).</div><div class="line"> *</div><div class="line"> * <span class="doctag">@property</span> ErrorHandler $errorHandler The error handler application component. This property is read-only.</div><div class="line"> * <span class="doctag">@property</span> string $homeUrl The homepage URL.</div><div class="line"> * <span class="doctag">@property</span> Request $request The request component. This property is read-only.</div><div class="line"> * <span class="doctag">@property</span> Response $response The response component. This property is read-only.</div><div class="line"> * <span class="doctag">@property</span> Session $session The session component. This property is read-only.</div><div class="line"> * <span class="doctag">@property</span> User $user The user component. This property is read-only.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@author</span> Qiang Xue &lt;qiang.xue<span class="doctag">@gmail</span>.com&gt;</div><div class="line"> * <span class="doctag">@since</span> 2.0</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">extends</span> \<span class="title">yii</span>\<span class="title">base</span>\<span class="title">Application</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@var</span> string the default route of this application. Defaults to 'site'.</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $defaultRoute = <span class="string">'site'</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@var</span> array the configuration specifying a controller action which should handle</div><div class="line">     * all user requests. This is mainly used when the application is in maintenance mode</div><div class="line">     * and needs to handle all incoming requests via a single action.</div><div class="line">     * The configuration is an array whose first element specifies the route of the action.</div><div class="line">     * The rest of the array elements (key-value pairs) specify the parameters to be bound</div><div class="line">     * to the action. For example,</div><div class="line">     *</div><div class="line">     * ```php</div><div class="line">     * [</div><div class="line">     *     'offline/notice',</div><div class="line">     *     'param1' =&gt; 'value1',</div><div class="line">     *     'param2' =&gt; 'value2',</div><div class="line">     * ]</div><div class="line">     *</div></pre></td></tr></table></figure>
+<pre><code> *
+ * Defaults to null, meaning catch-all is not used.
+ */
+public $catchAll;
+/**
+ * @var Controller the currently active controller instance
+ */
+public $controller;
+
+
+/**
+ * @inheritdoc
+ */
+protected function bootstrap()
+{
+    $request = $this-&gt;getRequest();
+    Yii::setAlias(&apos;@webroot&apos;, dirname($request-&gt;getScriptFile()));
+    Yii::setAlias(&apos;@web&apos;, $request-&gt;getBaseUrl());
+
+    parent::bootstrap();
+}
+
+/**
+ * Handles the specified request.
+ * @param Request $request the request to be handled
+ * @return Response the resulting response
+ * @throws NotFoundHttpException if the requested route is invalid
+ */
+public function handleRequest($request)
+{
+    if (empty($this-&gt;catchAll)) {
+        try {
+            list ($route, $params) = $request-&gt;resolve();
+        } catch (UrlNormalizerRedirectException $e) {
+            $url = $e-&gt;url;
+            if (is_array($url)) {
+                if (isset($url[0])) {
+                    // ensure the route is absolute
+                    $url[0] = &apos;/&apos; . ltrim($url[0], &apos;/&apos;);
+                }
+                $url += $request-&gt;getQueryParams();
+            }
+            return $this-&gt;getResponse()-&gt;redirect(Url::to($url, $e-&gt;scheme), $e-&gt;statusCode);
+        }
+    } else {
+        $route = $this-&gt;catchAll[0];
+        $params = $this-&gt;catchAll;
+        unset($params[0]);
+    }
+    try {
+        Yii::trace(&quot;Route requested: &apos;$route&apos;&quot;, __METHOD__);
+        $this-&gt;requestedRoute = $route;
+        $result = $this-&gt;runAction($route, $params);
+        if ($result instanceof Response) {
+            return $result;
+        } else {
+            $response = $this-&gt;getResponse();
+            if ($result !== null) {
+                $response-&gt;data = $result;
+            }
+
+            return $response;
+        }
+    } catch (InvalidRouteException $e) {
+        throw new NotFoundHttpException(Yii::t(&apos;yii&apos;, &apos;Page not found.&apos;), $e-&gt;getCode(), $e);
+    }
+}
+
+private $_homeUrl;
+
+/**
+ * @return string the homepage URL
+ */
+public function getHomeUrl()
+{
+    if ($this-&gt;_homeUrl === null) {
+        if ($this-&gt;getUrlManager()-&gt;showScriptName) {
+            return $this-&gt;getRequest()-&gt;getScriptUrl();
+        } else {
+            return $this-&gt;getRequest()-&gt;getBaseUrl() . &apos;/&apos;;
+        }
+    } else {
+        return $this-&gt;_homeUrl;
+    }
+}
+
+/**
+ * @param string $value the homepage URL
+ */
+public function setHomeUrl($value)
+{
+    $this-&gt;_homeUrl = $value;
+}
+
+/**
+ * Returns the error handler component.
+ * @return ErrorHandler the error handler application component.
+ */
+public function getErrorHandler()
+{
+    return $this-&gt;get(&apos;errorHandler&apos;);
+}
+
+/**
+ * Returns the request component.
+ * @return Request the request component.
+ */
+public function getRequest()
+{
+    return $this-&gt;get(&apos;request&apos;);
+}
+
+/**
+ * Returns the response component.
+ * @return Response the response component.
+ */
+public function getResponse()
+{
+    return $this-&gt;get(&apos;response&apos;);
+}
+
+/**
+ * Returns the session component.
+ * @return Session the session component.
+ */
+public function getSession()
+{
+    return $this-&gt;get(&apos;session&apos;);
+}
+
+/**
+ * Returns the user component.
+ * @return User the user component.
+ */
+public function getUser()
+{
+    return $this-&gt;get(&apos;user&apos;);
+}
+
+/**
+ * @inheritdoc
+ */
+public function coreComponents()
+{
+    return array_merge(parent::coreComponents(), [
+        &apos;request&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\web\Request&apos;],
+        &apos;response&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\web\Response&apos;],
+        &apos;session&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\web\Session&apos;],
+        &apos;user&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\web\User&apos;],
+        &apos;errorHandler&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\web\ErrorHandler&apos;],
+    ]);
+}
+</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div></pre></td><td class="code"><pre><div class="line">## yii\base\Application</div><div class="line"></div><div class="line">```php</div><div class="line">abstract class Application extends Module</div><div class="line">&#123;</div><div class="line">    /**</div><div class="line">     * @event Event an event raised before the application starts to handle a request.</div><div class="line">     */</div><div class="line">    const EVENT_BEFORE_REQUEST = &apos;beforeRequest&apos;;</div><div class="line">    /**</div><div class="line">     * @event Event an event raised after the application successfully handles a request (before the response is sent out).</div><div class="line">     */</div><div class="line">    const EVENT_AFTER_REQUEST = &apos;afterRequest&apos;;</div><div class="line">    /**</div><div class="line">     * Application state used by [[state]]: application just started.</div><div class="line">     */</div><div class="line">    const STATE_BEGIN = 0;</div><div class="line">    /**</div><div class="line">     * Application state used by [[state]]: application is initializing.</div><div class="line">     */</div><div class="line">    const STATE_INIT = 1;</div><div class="line">    /**</div><div class="line">     * Application state used by [[state]]: application is triggering [[EVENT_BEFORE_REQUEST]].</div><div class="line">     */</div><div class="line">    const STATE_BEFORE_REQUEST = 2;</div><div class="line">    /**</div><div class="line">     * Application state used by [[state]]: application is handling the request.</div><div class="line">     */</div><div class="line">    const STATE_HANDLING_REQUEST = 3;</div><div class="line">    /**</div><div class="line">     * Application state used by [[state]]: application is triggering [[EVENT_AFTER_REQUEST]]..</div><div class="line">     */</div><div class="line">    const STATE_AFTER_REQUEST = 4;</div><div class="line">    /**</div><div class="line">     * Application state used by [[state]]: application is about to send response.</div><div class="line">     */</div><div class="line">    const STATE_SENDING_RESPONSE = 5;</div><div class="line">    /**</div><div class="line">     * Application state used by [[state]]: application has ended.</div><div class="line">     */</div><div class="line">    const STATE_END = 6;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * @var string the namespace that controller classes are located in.</div><div class="line">     * This namespace will be used to load controller classes by prepending it to the controller class name.</div><div class="line">     * The default namespace is `app\controllers`.</div><div class="line">     *</div><div class="line">     * Please refer to the [guide about class autoloading](guide:concept-autoloading.md) for more details.</div><div class="line">     */</div><div class="line">    public $controllerNamespace = &apos;app\\controllers&apos;;</div><div class="line">    /**</div><div class="line">     * @var string the application name.</div><div class="line">     */</div><div class="line">    public $name = &apos;My Application&apos;;</div><div class="line">    /**</div><div class="line">     * @var string the charset currently used for the application.</div><div class="line">     */</div><div class="line">    public $charset = &apos;UTF-8&apos;;</div><div class="line">    /**</div><div class="line">     * @var string the language that is meant to be used for end users. It is recommended that you</div><div class="line">     * use [IETF language tags](http://en.wikipedia.org/wiki/IETF_language_tag). For example, `en` stands</div><div class="line">     * for English, while `en-US` stands for English (United States).</div><div class="line">     * @see sourceLanguage</div><div class="line">     */</div><div class="line">    public $language = &apos;en-US&apos;;</div><div class="line">    /**</div><div class="line">     * @var string the language that the application is written in. This mainly refers to</div><div class="line">     * the language that the messages and view files are written in.</div><div class="line">     * @see language</div><div class="line">     */</div><div class="line">    public $sourceLanguage = &apos;en-US&apos;;</div><div class="line">    /**</div><div class="line">     * @var Controller the currently active controller instance</div><div class="line">     */</div><div class="line">    public $controller;</div><div class="line">    /**</div><div class="line">     * @var string|bool the layout that should be applied for views in this application. Defaults to &apos;main&apos;.</div><div class="line">     * If this is false, layout will be disabled.</div><div class="line">     */</div><div class="line">    public $layout = &apos;main&apos;;</div><div class="line">    /**</div><div class="line">     * @var string the requested route</div><div class="line">     */</div><div class="line">    public $requestedRoute;</div><div class="line">    /**</div><div class="line">     * @var Action the requested Action. If null, it means the request cannot be resolved into an action.</div><div class="line">     */</div><div class="line">    public $requestedAction;</div><div class="line">    /**</div><div class="line">     * @var array the parameters supplied to the requested action.</div><div class="line">     */</div><div class="line">    public $requestedParams;</div><div class="line">    /**</div><div class="line">     * @var array list of installed Yii extensions. Each array element represents a single extension</div><div class="line">     * with the following structure:</div><div class="line">     *</div><div class="line">     * ```php</div><div class="line">     * [</div><div class="line">     *     &apos;name&apos; =&gt; &apos;extension name&apos;,</div><div class="line">     *     &apos;version&apos; =&gt; &apos;version number&apos;,</div><div class="line">     *     &apos;bootstrap&apos; =&gt; &apos;BootstrapClassName&apos;,  // optional, may also be a configuration array</div><div class="line">     *     &apos;alias&apos; =&gt; [</div><div class="line">     *         &apos;@alias1&apos; =&gt; &apos;to/path1&apos;,</div><div class="line">     *         &apos;@alias2&apos; =&gt; &apos;to/path2&apos;,</div><div class="line">     *     ],</div><div class="line">     * ]</div><div class="line">     *</div></pre></td></tr></table></figure>
+<pre><code> *
+ * The &quot;bootstrap&quot; class listed above will be instantiated during the application
+ * [[bootstrap()|bootstrapping process]]. If the class implements [[BootstrapInterface]],
+ * its [[BootstrapInterface::bootstrap()|bootstrap()]] method will be also be called.
+ *
+ * If not set explicitly in the application config, this property will be populated with the contents of
+ * `@vendor/yiisoft/extensions.php`.
+ */
+public $extensions;
+/**
+ * @var array list of components that should be run during the application [[bootstrap()|bootstrapping process]].
+ *
+ * Each component may be specified in one of the following formats:
+ *
+ * - an application component ID as specified via [[components]].
+ * - a module ID as specified via [[modules]].
+ * - a class name.
+ * - a configuration array.
+ *
+ * During the bootstrapping process, each component will be instantiated. If the component class
+ * implements [[BootstrapInterface]], its [[BootstrapInterface::bootstrap()|bootstrap()]] method
+ * will be also be called.
+ */
+public $bootstrap = [];
+/**
+ * @var int the current application state during a request handling life cycle.
+ * This property is managed by the application. Do not modify this property.
+ */
+public $state;
+/**
+ * @var array list of loaded modules indexed by their class names.
+ */
+public $loadedModules = [];
+
+
+/**
+ * Constructor.
+ * @param array $config name-value pairs that will be used to initialize the object properties.
+ * Note that the configuration must contain both [[id]] and [[basePath]].
+ * @throws InvalidConfigException if either [[id]] or [[basePath]] configuration is missing.
+ */
+public function __construct($config = [])
+{
+    //赋值$app
+    Yii::$app = $this;
+    //将对象填充到Yii::$app-&gt;loadedModules[]数组
+    // Yii::$app-&gt;loadedModules[&apos;yii\web\Application&apos;] == Yii::$app
+    static::setInstance($this);
+    //设置$app状态
+    $this-&gt;state = self::STATE_BEGIN;
+    //预初始化，初始化配置信息  加载配置文件的框架信息 如：设置别名，设置框架路径等等 最为重要的是给加载默认组件
+
+    $this-&gt;preInit($config);
+    //加载配置文件中的异常组件
+    $this-&gt;registerErrorHandler($config);
+    //将配置文件中的所有信息赋值给Object，也就是Yii::$app-&gt;配置文件参数可以直接调用配置文件的内容 如：Yii::$app-&gt;vendorPath//输出框架路径  Yii::$app-&gt;components[&apos;redis&apos;]//输出redis配置信息
+    Component::__construct($config);
+}
+
+/**
+ * Pre-initializes the application.
+ * This method is called at the beginning of the application constructor.
+ * It initializes several important application properties.
+ * If you override this method, please make sure you call the parent implementation.
+ * @param array $config the application configuration
+ * @throws InvalidConfigException if either [[id]] or [[basePath]] configuration is missing.
+ */
+public function preInit(&amp;$config)
+{
+    if (!isset($config[&apos;id&apos;])) {
+        throw new InvalidConfigException(&apos;The &quot;id&quot; configuration for the Application is required.&apos;);
+    }
+    if (isset($config[&apos;basePath&apos;])) {
+        $this-&gt;setBasePath($config[&apos;basePath&apos;]);
+        unset($config[&apos;basePath&apos;]);
+    } else {
+        throw new InvalidConfigException(&apos;The &quot;basePath&quot; configuration for the Application is required.&apos;);
+    }
+
+    if (isset($config[&apos;vendorPath&apos;])) {
+        $this-&gt;setVendorPath($config[&apos;vendorPath&apos;]);
+        unset($config[&apos;vendorPath&apos;]);
+    } else {
+        // set &quot;@vendor&quot;
+        $this-&gt;getVendorPath();
+    }
+    if (isset($config[&apos;runtimePath&apos;])) {
+        $this-&gt;setRuntimePath($config[&apos;runtimePath&apos;]);
+        unset($config[&apos;runtimePath&apos;]);
+    } else {
+        // set &quot;@runtime&quot;
+        $this-&gt;getRuntimePath();
+    }
+
+    if (isset($config[&apos;timeZone&apos;])) {
+        $this-&gt;setTimeZone($config[&apos;timeZone&apos;]);
+        unset($config[&apos;timeZone&apos;]);
+    } elseif (!ini_get(&apos;date.timezone&apos;)) {
+        $this-&gt;setTimeZone(&apos;UTC&apos;);
+    }
+
+    if (isset($config[&apos;container&apos;])) {
+        $this-&gt;setContainer($config[&apos;container&apos;]);
+
+        unset($config[&apos;container&apos;]);
+    }
+
+    // merge core components with custom components
+    foreach ($this-&gt;coreComponents() as $id =&gt; $component) {
+        if (!isset($config[&apos;components&apos;][$id])) {
+            $config[&apos;components&apos;][$id] = $component;
+        } elseif (is_array($config[&apos;components&apos;][$id]) &amp;&amp; !isset($config[&apos;components&apos;][$id][&apos;class&apos;])) {
+            $config[&apos;components&apos;][$id][&apos;class&apos;] = $component[&apos;class&apos;];
+        }
+    }
+}
+
+/**
+ * @inheritdoc
+ */
+public function init()
+{
+    $this-&gt;state = self::STATE_INIT;
+    $this-&gt;bootstrap();
+}
+
+/**
+ * Initializes extensions and executes bootstrap components.
+ * This method is called by [[init()]] after the application has been fully configured.
+ * If you override this method, make sure you also call the parent implementation.
+ */
+protected function bootstrap()
+{
+    if ($this-&gt;extensions === null) {
+        $file = Yii::getAlias(&apos;@vendor/yiisoft/extensions.php&apos;);
+        $this-&gt;extensions = is_file($file) ? include($file) : [];
+    }
+    foreach ($this-&gt;extensions as $extension) {
+        if (!empty($extension[&apos;alias&apos;])) {
+            foreach ($extension[&apos;alias&apos;] as $name =&gt; $path) {
+                Yii::setAlias($name, $path);
+            }
+        }
+        if (isset($extension[&apos;bootstrap&apos;])) {
+            $component = Yii::createObject($extension[&apos;bootstrap&apos;]);
+            if ($component instanceof BootstrapInterface) {
+                Yii::trace(&apos;Bootstrap with &apos; . get_class($component) . &apos;::bootstrap()&apos;, __METHOD__);
+                $component-&gt;bootstrap($this);
+            } else {
+                Yii::trace(&apos;Bootstrap with &apos; . get_class($component), __METHOD__);
+            }
+        }
+    }
+
+    foreach ($this-&gt;bootstrap as $class) {
+        $component = null;
+        if (is_string($class)) {
+            if ($this-&gt;has($class)) {
+                $component = $this-&gt;get($class);
+            } elseif ($this-&gt;hasModule($class)) {
+                $component = $this-&gt;getModule($class);
+            } elseif (strpos($class, &apos;\\&apos;) === false) {
+                throw new InvalidConfigException(&quot;Unknown bootstrapping component ID: $class&quot;);
+            }
+        }
+        if (!isset($component)) {
+            $component = Yii::createObject($class);
+        }
+
+        if ($component instanceof BootstrapInterface) {
+            Yii::trace(&apos;Bootstrap with &apos; . get_class($component) . &apos;::bootstrap()&apos;, __METHOD__);
+            $component-&gt;bootstrap($this);
+        } else {
+            Yii::trace(&apos;Bootstrap with &apos; . get_class($component), __METHOD__);
+        }
+    }
+}
+
+/**
+ * Registers the errorHandler component as a PHP error handler.
+ * @param array $config application config
+ */
+protected function registerErrorHandler(&amp;$config)
+{
+    if (YII_ENABLE_ERROR_HANDLER) {
+        if (!isset($config[&apos;components&apos;][&apos;errorHandler&apos;][&apos;class&apos;])) {
+            echo &quot;Error: no errorHandler component is configured.\n&quot;;
+            exit(1);
+        }
+        $this-&gt;set(&apos;errorHandler&apos;, $config[&apos;components&apos;][&apos;errorHandler&apos;]);
+        unset($config[&apos;components&apos;][&apos;errorHandler&apos;]);
+        $this-&gt;getErrorHandler()-&gt;register();
+    }
+}
+
+/**
+ * Returns an ID that uniquely identifies this module among all modules within the current application.
+ * Since this is an application instance, it will always return an empty string.
+ * @return string the unique ID of the module.
+ */
+public function getUniqueId()
+{
+    return &apos;&apos;;
+}
+
+/**
+ * Sets the root directory of the application and the @app alias.
+ * This method can only be invoked at the beginning of the constructor.
+ * @param string $path the root directory of the application.
+ * @property string the root directory of the application.
+ * @throws InvalidParamException if the directory does not exist.
+ */
+public function setBasePath($path)
+{
+    parent::setBasePath($path);
+    Yii::setAlias(&apos;@app&apos;, $this-&gt;getBasePath());
+}
+
+/**
+ * Runs the application.
+ * This is the main entrance of an application.
+ * @return int the exit status (0 means normal, non-zero values mean abnormal)
+ */
+public function run()
+{
+    try {
+
+        $this-&gt;state = self::STATE_BEFORE_REQUEST;
+        $this-&gt;trigger(self::EVENT_BEFORE_REQUEST);
+
+        $this-&gt;state = self::STATE_HANDLING_REQUEST;
+        $response = $this-&gt;handleRequest($this-&gt;getRequest());
+
+        $this-&gt;state = self::STATE_AFTER_REQUEST;
+        $this-&gt;trigger(self::EVENT_AFTER_REQUEST);
+
+        $this-&gt;state = self::STATE_SENDING_RESPONSE;
+        $response-&gt;send();
+
+        $this-&gt;state = self::STATE_END;
+
+        return $response-&gt;exitStatus;
+
+    } catch (ExitException $e) {
+
+        $this-&gt;end($e-&gt;statusCode, isset($response) ? $response : null);
+        return $e-&gt;statusCode;
+
+    }
+}
+
+/**
+ * Handles the specified request.
+ *
+ * This method should return an instance of [[Response]] or its child class
+ * which represents the handling result of the request.
+ *
+ * @param Request $request the request to be handled
+ * @return Response the resulting response
+ */
+abstract public function handleRequest($request);
+
+private $_runtimePath;
+
+/**
+ * Returns the directory that stores runtime files.
+ * @return string the directory that stores runtime files.
+ * Defaults to the &quot;runtime&quot; subdirectory under [[basePath]].
+ */
+public function getRuntimePath()
+{
+    if ($this-&gt;_runtimePath === null) {
+        $this-&gt;setRuntimePath($this-&gt;getBasePath() . DIRECTORY_SEPARATOR . &apos;runtime&apos;);
+    }
+
+    return $this-&gt;_runtimePath;
+}
+
+/**
+ * Sets the directory that stores runtime files.
+ * @param string $path the directory that stores runtime files.
+ */
+public function setRuntimePath($path)
+{
+    $this-&gt;_runtimePath = Yii::getAlias($path);
+    Yii::setAlias(&apos;@runtime&apos;, $this-&gt;_runtimePath);
+}
+
+private $_vendorPath;
+
+/**
+ * Returns the directory that stores vendor files.
+ * @return string the directory that stores vendor files.
+ * Defaults to &quot;vendor&quot; directory under [[basePath]].
+ */
+public function getVendorPath()
+{
+    if ($this-&gt;_vendorPath === null) {
+        $this-&gt;setVendorPath($this-&gt;getBasePath() . DIRECTORY_SEPARATOR . &apos;vendor&apos;);
+    }
+
+    return $this-&gt;_vendorPath;
+}
+
+/**
+ * Sets the directory that stores vendor files.
+ * @param string $path the directory that stores vendor files.
+ */
+public function setVendorPath($path)
+{
+    $this-&gt;_vendorPath = Yii::getAlias($path);
+    Yii::setAlias(&apos;@vendor&apos;, $this-&gt;_vendorPath);
+    Yii::setAlias(&apos;@bower&apos;, $this-&gt;_vendorPath . DIRECTORY_SEPARATOR . &apos;bower&apos;);
+    Yii::setAlias(&apos;@npm&apos;, $this-&gt;_vendorPath . DIRECTORY_SEPARATOR . &apos;npm&apos;);
+}
+
+/**
+ * Returns the time zone used by this application.
+ * This is a simple wrapper of PHP function date_default_timezone_get().
+ * If time zone is not configured in php.ini or application config,
+ * it will be set to UTC by default.
+ * @return string the time zone used by this application.
+ * @see http://php.net/manual/en/function.date-default-timezone-get.php
+ */
+public function getTimeZone()
+{
+    return date_default_timezone_get();
+}
+
+/**
+ * Sets the time zone used by this application.
+ * This is a simple wrapper of PHP function date_default_timezone_set().
+ * Refer to the [php manual](http://www.php.net/manual/en/timezones.php) for available timezones.
+ * @param string $value the time zone used by this application.
+ * @see http://php.net/manual/en/function.date-default-timezone-set.php
+ */
+public function setTimeZone($value)
+{
+    date_default_timezone_set($value);
+}
+
+/**
+ * Returns the database connection component.
+ * @return \yii\db\Connection the database connection.
+ */
+public function getDb()
+{
+    return $this-&gt;get(&apos;db&apos;);
+}
+
+/**
+ * Returns the log dispatcher component.
+ * @return \yii\log\Dispatcher the log dispatcher application component.
+ */
+public function getLog()
+{
+    return $this-&gt;get(&apos;log&apos;);
+}
+
+/**
+ * Returns the error handler component.
+ * @return \yii\web\ErrorHandler|\yii\console\ErrorHandler the error handler application component.
+ */
+public function getErrorHandler()
+{
+    return $this-&gt;get(&apos;errorHandler&apos;);
+}
+
+/**
+ * Returns the cache component.
+ * @return \yii\caching\Cache the cache application component. Null if the component is not enabled.
+ */
+public function getCache()
+{
+    return $this-&gt;get(&apos;cache&apos;, false);
+}
+
+/**
+ * Returns the formatter component.
+ * @return \yii\i18n\Formatter the formatter application component.
+ */
+public function getFormatter()
+{
+    return $this-&gt;get(&apos;formatter&apos;);
+}
+
+/**
+ * Returns the request component.
+ * @return \yii\web\Request|\yii\console\Request the request component.
+ */
+public function getRequest()
+{
+    return $this-&gt;get(&apos;request&apos;);
+}
+
+/**
+ * Returns the response component.
+ * @return \yii\web\Response|\yii\console\Response the response component.
+ */
+public function getResponse()
+{
+    return $this-&gt;get(&apos;response&apos;);
+}
+
+/**
+ * Returns the view object.
+ * @return View|\yii\web\View the view application component that is used to render various view files.
+ */
+public function getView()
+{
+    return $this-&gt;get(&apos;view&apos;);
+}
+
+/**
+ * Returns the URL manager for this application.
+ * @return \yii\web\UrlManager the URL manager for this application.
+ */
+public function getUrlManager()
+{
+    return $this-&gt;get(&apos;urlManager&apos;);
+}
+
+/**
+ * Returns the internationalization (i18n) component
+ * @return \yii\i18n\I18N the internationalization application component.
+ */
+public function getI18n()
+{
+    return $this-&gt;get(&apos;i18n&apos;);
+}
+
+/**
+ * Returns the mailer component.
+ * @return \yii\mail\MailerInterface the mailer application component.
+ */
+public function getMailer()
+{
+    return $this-&gt;get(&apos;mailer&apos;);
+}
+
+/**
+ * Returns the auth manager for this application.
+ * @return \yii\rbac\ManagerInterface the auth manager application component.
+ * Null is returned if auth manager is not configured.
+ */
+public function getAuthManager()
+{
+    return $this-&gt;get(&apos;authManager&apos;, false);
+}
+
+/**
+ * Returns the asset manager.
+ * @return \yii\web\AssetManager the asset manager application component.
+ */
+public function getAssetManager()
+{
+    return $this-&gt;get(&apos;assetManager&apos;);
+}
+
+/**
+ * Returns the security component.
+ * @return \yii\base\Security the security application component.
+ */
+public function getSecurity()
+{
+    return $this-&gt;get(&apos;security&apos;);
+}
+
+/**
+ * Returns the configuration of core application components.
+ * @see set()
+ */
+public function coreComponents()
+{
+    return [
+        &apos;log&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\log\Dispatcher&apos;],
+        &apos;view&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\web\View&apos;],
+        &apos;formatter&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\i18n\Formatter&apos;],
+        &apos;i18n&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\i18n\I18N&apos;],
+        &apos;mailer&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\swiftmailer\Mailer&apos;],
+        &apos;urlManager&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\web\UrlManager&apos;],
+        &apos;assetManager&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\web\AssetManager&apos;],
+        &apos;security&apos; =&gt; [&apos;class&apos; =&gt; &apos;yii\base\Security&apos;],
+    ];
+}
+
+/**
+ * Terminates the application.
+ * This method replaces the `exit()` function by ensuring the application life cycle is completed
+ * before terminating the application.
+ * @param int $status the exit status (value 0 means normal exit while other values mean abnormal exit).
+ * @param Response $response the response to be sent. If not set, the default application [[response]] component will be used.
+ * @throws ExitException if the application is in testing mode
+ */
+public function end($status = 0, $response = null)
+{
+    if ($this-&gt;state === self::STATE_BEFORE_REQUEST || $this-&gt;state === self::STATE_HANDLING_REQUEST) {
+        $this-&gt;state = self::STATE_AFTER_REQUEST;
+        $this-&gt;trigger(self::EVENT_AFTER_REQUEST);
+    }
+
+    if ($this-&gt;state !== self::STATE_SENDING_RESPONSE &amp;&amp; $this-&gt;state !== self::STATE_END) {
+        $this-&gt;state = self::STATE_END;
+        $response = $response ? : $this-&gt;getResponse();
+        $response-&gt;send();
+    }
+
+    if (YII_ENV_TEST) {
+        throw new ExitException($status);
+    } else {
+        exit($status);
+    }
+}
+
+/**
+ * Configures [[Yii::$container]] with the $config
+ *
+ * @param array $config values given in terms of name-value pairs
+ * @since 2.0.11
+ */
+public function setContainer($config)
+{
+    Yii::configure(Yii::$container, $config);
+}
+</code></pre><p>}</p>
+<p>```</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/22/yii/Yii&&YiiBase类解析/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/19/yii/DI系列/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">less is more</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/your-user-name" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#yii-web-Application"><span class="nav-number">1.</span> <span class="nav-text">yii\web\Application</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#继承关系"><span class="nav-number">1.1.</span> <span class="nav-text">继承关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class-解析"><span class="nav-number">1.2.</span> <span class="nav-text">class 解析</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
