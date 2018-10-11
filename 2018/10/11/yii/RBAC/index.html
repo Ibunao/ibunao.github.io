@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="说明可以先参看 中文官方文档yii 为我们提供的两种存储方式一种是文件方式一种是数据库方式，这里我们直接使用数据库的方式，yii 文档给的是直接写代码执行的方式，这种虽然更灵活，但是不够直观，而且最常用到的地方就是后台，所以我们使用可视化的模块 yii-admin    yii-admin 扩展过的rbac 和 yii 自带的有一点区别的是权限，yii以权限为基础，而 yii-admin 是以路由">
+<meta name="keywords" content="yii,RBAC,yii-admin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yii-RBAC">
+<meta property="og:url" content="http://bunao.win/2018/10/11/yii/RBAC/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="说明可以先参看 中文官方文档yii 为我们提供的两种存储方式一种是文件方式一种是数据库方式，这里我们直接使用数据库的方式，yii 文档给的是直接写代码执行的方式，这种虽然更灵活，但是不够直观，而且最常用到的地方就是后台，所以我们使用可视化的模块 yii-admin    yii-admin 扩展过的rbac 和 yii 自带的有一点区别的是权限，yii以权限为基础，而 yii-admin 是以路由">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-route1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-permission1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-permission2.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-permission3.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-permission4.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-role1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-role2.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-role3.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-role4.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-assignment1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-assignment2.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-assignment3.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-test3.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-test3.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-test3.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-rule7.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-rule8.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-rule1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-rule2.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-rule3.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-rule4.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-rule9.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-user1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-menu1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-menu2.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-menu3.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-menu5.png">
+<meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-menu4.png">
+<meta property="og:updated_time" content="2018-10-11T12:15:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yii-RBAC">
+<meta name="twitter:description" content="说明可以先参看 中文官方文档yii 为我们提供的两种存储方式一种是文件方式一种是数据库方式，这里我们直接使用数据库的方式，yii 文档给的是直接写代码执行的方式，这种虽然更灵活，但是不够直观，而且最常用到的地方就是后台，所以我们使用可视化的模块 yii-admin    yii-admin 扩展过的rbac 和 yii 自带的有一点区别的是权限，yii以权限为基础，而 yii-admin 是以路由">
+<meta name="twitter:image" content="http://bunao.win/images/yii/rbac/admin1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2018/10/11/yii/RBAC/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Yii-RBAC | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">echo-ding</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/10/11/yii/RBAC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="less is more">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Yii-RBAC
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-11 00:00:02 / 修改时间：20:15:21" itemprop="dateCreated datePublished" datetime="2018-10-11T00:00:02+08:00">2018-10-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/11/yii/RBAC/" class="leancloud_visitors" data-flag-title="Yii-RBAC">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>可以先参看 <a href="https://www.yiichina.com/doc/guide/2.0/security-authorization" target="_blank" rel="external">中文官方文档</a><br>yii 为我们提供的两种存储方式一种是文件方式一种是数据库方式，这里我们直接使用数据库的方式，yii 文档给的是直接写代码执行的方式，这种虽然更灵活，但是不够直观，而且最常用到的地方就是后台，所以我们使用可视化的模块 <code>yii-admin</code>  </p>
+<blockquote>
+<p><code>yii-admin</code> 扩展过的rbac 和 yii 自带的有一点区别的是权限，yii以权限为基础，而 <code>yii-admin</code> 是以路由为基础的，这一点会在验证的时候进行体现, yii的是<code>Yii::$app-&gt;user-&gt;can(role||permission, params)</code> ，而 yii-admin 的是 <code>Yii::$app-&gt;user-&gt;can(route, params)</code>  </p>
+</blockquote>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>首先安装 <code>yii-admin</code> 扩展，<a href="https://github.com/mdmsoft/yii2-admin" target="_blank" rel="external">github地址</a>   </p>
+<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p>两条命令，首先创建yii自带的rbac相关表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yii migrate --migrationPath=@yii/rbac/migrations</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>将会创建四张表<br>itemTable： 该表存放授权条目（译者注：即角色和权限）。默认表名为 “auth_item” 。<br>itemChildTable： 该表存放授权条目的层次关系。默认表名为 “auth_item_child”。<br>assignmentTable： 该表存放授权条目对用户的指派情况。默认表名为 “auth_assignment”。<br>ruleTable： 该表存放规则。默认表名为 “auth_rule”。  </p>
+<p>执行yii-admin带的menu表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yii migrate --migrationPath=@mdm/admin/migrations</div></pre></td></tr></table></figure></p>
+<p>将会得到一个menu表</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 配置成中文，配置这个后将会根据国际化功能把英文映射成对应的中文  </span></div><div class="line"><span class="string">'language'</span> =&gt; <span class="string">'zh-CN'</span>,  </div><div class="line"></div><div class="line"><span class="comment">// 配置模块</span></div><div class="line"><span class="string">'modules'</span> =&gt; [</div><div class="line">	<span class="string">'admin'</span> =&gt; [</div><div class="line">		<span class="string">'class'</span> =&gt; <span class="string">'mdm\admin\Module'</span>,</div><div class="line">		<span class="string">'layout'</span> =&gt; <span class="string">'left-menu'</span>, <span class="comment">// yii2-admin的导航菜单</span></div><div class="line">	]</div><div class="line">	...</div><div class="line">],</div><div class="line"><span class="comment">// 配置权限</span></div><div class="line"><span class="string">'components'</span> =&gt; [</div><div class="line">	...</div><div class="line">	<span class="string">'authManager'</span> =&gt; [</div><div class="line">		<span class="string">'class'</span> =&gt; <span class="string">'yii\rbac\DbManager'</span>, <span class="comment">// or use 'yii\rbac\PhpManager'</span></div><div class="line">	]</div><div class="line">],</div><div class="line"><span class="comment">// 为app注册行为 这个是检验用户是否有权限进行访问的</span></div><div class="line"><span class="string">'as access'</span> =&gt; [</div><div class="line">	<span class="string">'class'</span> =&gt; <span class="string">'mdm\admin\components\AccessControl'</span>,</div><div class="line">    <span class="comment"># 配置不检查权限的路由</span></div><div class="line">	<span class="string">'allowActions'</span> =&gt; [</div><div class="line">		<span class="string">'site/*'</span>,</div><div class="line">		<span class="string">'admin/*'</span>, <span class="comment">//允许所有人访问admin节点及其子节点</span></div><div class="line">	]</div><div class="line">],</div></pre></td></tr></table></figure>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>先感受一下配置好后进入admin模块的样子  </p>
+<p><img src="/images/yii/rbac/admin1.png" alt="初始图">  </p>
+<h3 id="路由-Route"><a href="#路由-Route" class="headerlink" title="路由 Route"></a>路由 Route</h3><p>路由相当于一个资源,最小单位<br>使用很简单， <code>1</code>、<code>2</code> 通过 <code>3</code> 添加到 <code>5</code> ，其中 <code>1</code> 是自己输入路由（以 <code>/</code> 开头），<code>2</code> 为自动检测出来的路由， <code>5</code> 为添加到数据库的路由资源， <code>4</code> 为移除 <code>5</code> 的操作<br>添加的路由会添加到 <code>auth_item</code> 表 ，如下  </p>
+<p><img src="/images/yii/rbac/admin-route1.png" alt="auth_item">  </p>
+<h3 id="权限-permission"><a href="#权限-permission" class="headerlink" title="权限 permission"></a>权限 permission</h3><p>一个权限可以包含多个路由，和一个规则rule  </p>
+<h4 id="添加权限"><a href="#添加权限" class="headerlink" title="添加权限"></a>添加权限</h4><p>先创建一个权限</p>
+<p><img src="/images/yii/rbac/admin-permission1.png" alt="permission"></p>
+<p>对应表的变化  </p>
+<p><img src="/images/yii/rbac/admin-permission2.png" alt="auth_item">  </p>
+<p>然后增加路由  </p>
+<p><img src="/images/yii/rbac/admin-permission3.png" alt="permission">  </p>
+<p>对应表的变化  </p>
+<p><img src="/images/yii/rbac/admin-permission4.png" alt="auth_item_child">  </p>
+<h3 id="角色-role"><a href="#角色-role" class="headerlink" title="角色 role"></a>角色 role</h3><p>一个角色可以包含多个权限，多个路由和一个规则rule  </p>
+<h4 id="添加角色"><a href="#添加角色" class="headerlink" title="添加角色"></a>添加角色</h4><p>先创建一个角色</p>
+<p><img src="/images/yii/rbac/admin-role1.png" alt="role"></p>
+<p>对应表的变化  </p>
+<p><img src="/images/yii/rbac/admin-role2.png" alt="auth_item">  </p>
+<p>然后增加权限或者路由  </p>
+<p><img src="/images/yii/rbac/admin-role3.png" alt="role">  </p>
+<p>对应表的变化  </p>
+<p><img src="/images/yii/rbac/admin-role4.png" alt="auth_item_child">  </p>
+<h3 id="分配角色权限"><a href="#分配角色权限" class="headerlink" title="分配角色权限"></a>分配角色权限</h3><p>一个用户可以包含多个角色和权限，不能增加路由和规则rule了<br>首先我们会看到用户列表  </p>
+<p><img src="/images/yii/rbac/admin-assignment1.png" alt="assignment">  </p>
+<p>进行权限分配  </p>
+<p><img src="/images/yii/rbac/admin-assignment2.png" alt="assignment">  </p>
+<p>对应表的变化  </p>
+<p><img src="/images/yii/rbac/admin-assignment3.png" alt="assignment">  </p>
+<h4 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h4><p><img src="/images/yii/rbac/admin-test3.png" alt="test"></p>
+<p><img src="/images/yii/rbac/admin-test3.png" alt="test"></p>
+<p><img src="/images/yii/rbac/admin-test3.png" alt="test"></p>
+<h3 id="规则-rule"><a href="#规则-rule" class="headerlink" title="规则 rule"></a>规则 rule</h3><p>规则是对权限的补充，算是细分的权限，一般权限是对应这路由的，而规则可以更细一点，比方说一个角色没有更新文章的权限，但是他需要更新自己文章的权限，这时就需要给他赋值更新文章的权限，但是这样他权限就太大了，因为还可以更新别人的文章，这时就需要给他增加一个rule，来验证这篇文章是否属于自己，如果不属于自己则依旧没权限  </p>
+<p>我们以官网使用rule为例子 <a href="https://www.yiichina.com/doc/guide/2.0/security-authorization" target="_blank" rel="external">这里</a> 来用 yii-admin 的方式实现  </p>
+<p>首先创建 rule 类, 如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">backend</span>\<span class="title">rbac</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">rbac</span>\<span class="title">Rule</span>;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 创建规则，相对于路由(权限)的权限更加细分</div><div class="line"> * 如果该用户满足某个路由(权限)，但是不满足规则依旧不可以访问</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AuthorRule</span> <span class="keyword">extends</span> <span class="title">Rule</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 规则名</span></div><div class="line">    <span class="keyword">public</span> $name = <span class="string">'isAuthor'</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> string|integer $user 用户 ID.</div><div class="line">     * <span class="doctag">@param</span> Item $item 该规则相关的角色或者权限</div><div class="line">     * <span class="doctag">@param</span> array $params get参数</div><div class="line">     * <span class="doctag">@return</span> boolean 代表该规则相关的角色或者权限是否被允许</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">execute</span><span class="params">($user, $item, $params)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 请求 和参数值 route:http://admin.yiilearn.com/test/index3?id=10</div><div class="line">&#123;</div><div class="line">    "user": 2,</div><div class="line">    "item": &#123;</div><div class="line">        "type": "2",</div><div class="line">        "name": "updateOwnPost",</div><div class="line">        "description": "更新自己的",</div><div class="line">        "ruleName": "isAuthor",</div><div class="line">        "data": &#123;</div><div class="line">            "abc": "cba"</div><div class="line">        &#125;,</div><div class="line">        "createdAt": "1539229574",</div><div class="line">        "updatedAt": "1539229574"</div><div class="line">    &#125;,</div><div class="line">    "params": &#123;</div><div class="line">        "id": "10"</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">         */</div><div class="line">        <span class="comment">// echo json_encode(['user' =&gt; $user, 'item' =&gt; $item, 'params' =&gt; $params]);exit;</span></div><div class="line">        <span class="comment">// 直接返回false表示拒绝，具体的实现可以通过参数进行逻辑判断  </span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们现在已经有 ibunao 用户了，角色(role1)、权限、路由如下<br><img src="/images/yii/rbac/admin-rule7.png" alt="rule"><br><img src="/images/yii/rbac/admin-rule8.png" alt="rule">  </p>
+<p>现在我们添加用户 jidan 用户，为了让其访问 <code>/test/index3</code>  </p>
+<p>添加rule  </p>
+<p><img src="/images/yii/rbac/admin-rule1.png" alt="rule"></p>
+<p>对应表的变化  </p>
+<p><img src="/images/yii/rbac/admin-rule2.png" alt="rule">  </p>
+<p>增加权限绑定rule  </p>
+<p><img src="/images/yii/rbac/admin-rule3.png" alt="rule"></p>
+<p>对应表的变化  </p>
+<p><img src="/images/yii/rbac/admin-rule4.png" alt="rule"></p>
+<p>然后就是创建角色 role2, 并绑定用户 jidan    </p>
+<p><img src="/images/yii/rbac/admin-rule9.png" alt="rule"></p>
+<h4 id="Rule类进行检验"><a href="#Rule类进行检验" class="headerlink" title="Rule类进行检验"></a>Rule类进行检验</h4><p>我们可以直接在 <code>execute()</code> 方法中返回 <code>true</code> 或 <code>false</code> , 请求 <code>http://admin.yiilearn.com/test/index3?id=10</code> 会发现分别是可以访问和拒绝访问，表示我们设置的rule已经生效了<br>我们可以根据传过来的参数来进行自己的逻辑判断，来进行拒绝和通过<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">请求:http:<span class="comment">//admin.yiilearn.com/test/index3?id=10  </span></div><div class="line">execute 方法接收到的参数</div><div class="line">&#123;</div><div class="line">    <span class="string">"user"</span>: <span class="number">2</span>, <span class="comment"># 用户id</span></div><div class="line">    <span class="string">"item"</span>: &#123; <span class="comment"># 权限信息</span></div><div class="line">        <span class="string">"type"</span>: <span class="string">"2"</span>,</div><div class="line">        <span class="string">"name"</span>: <span class="string">"updateOwnPost"</span>,</div><div class="line">        <span class="string">"description"</span>: <span class="string">"更新自己的"</span>,</div><div class="line">        <span class="string">"ruleName"</span>: <span class="string">"isAuthor"</span>,</div><div class="line">        <span class="string">"data"</span>: &#123;</div><div class="line">            <span class="string">"abc"</span>: <span class="string">"cba"</span></div><div class="line">        &#125;,</div><div class="line">        <span class="string">"createdAt"</span>: <span class="string">"1539229574"</span>,</div><div class="line">        <span class="string">"updatedAt"</span>: <span class="string">"1539229574"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"params"</span>: &#123; <span class="comment"># 请求参数</span></div><div class="line">        <span class="string">"id"</span>: <span class="string">"10"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="使用yii的验证"><a href="#使用yii的验证" class="headerlink" title="使用yii的验证"></a>使用yii的验证</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span> 配置文件 config/main.php 注释掉 使用 yii-admin 验证的部分或者允许test/index3进行访问  </div><div class="line"><span class="comment">// 'as access' =&gt; [</span></div><div class="line"><span class="comment">//     'class' =&gt; 'mdm\admin\components\AccessControl',</span></div><div class="line"><span class="comment">//     'allowActions' =&gt; [</span></div><div class="line"><span class="comment">//         'site/*',//允许访问的节点，可自行添加</span></div><div class="line"><span class="comment">//         'admin/*',//允许所有人访问admin节点及其子节点</span></div><div class="line"><span class="comment">//         //'test/index3'</span></div><div class="line"><span class="comment">//     ]</span></div><div class="line"><span class="comment">// ],</span></div><div class="line"><span class="number">2.</span> 在使用的类加过滤器  </div><div class="line">在 TestController 控制器添加验证，这个忘记的可以参看 AFC验证 部分    </div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">behaviors</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [</div><div class="line">        <span class="string">'access'</span> =&gt; [</div><div class="line">            <span class="string">'class'</span> =&gt; AccessControl::className(),</div><div class="line">            <span class="string">'rules'</span> =&gt; [</div><div class="line">                [</div><div class="line">                    <span class="string">'actions'</span> =&gt; [<span class="string">'index3'</span>],</div><div class="line">                    <span class="string">'allow'</span> =&gt; <span class="keyword">true</span>,</div><div class="line">                    <span class="string">'roles'</span> =&gt; [<span class="string">'/test/index3'</span>],</div><div class="line">                    <span class="string">'roleParams'</span> =&gt; [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>],</div><div class="line">                ],</div><div class="line">            ],</div><div class="line">        ],</div><div class="line">    ];</div><div class="line">&#125;</div><div class="line"></div><div class="line">这是 execute 方法接收的参数为  </div><div class="line">&#123;</div><div class="line">    <span class="string">"user"</span>: <span class="number">2</span>, <span class="comment"># 用户id</span></div><div class="line">    <span class="string">"item"</span>: &#123; <span class="comment"># 权限详情</span></div><div class="line">        <span class="string">"type"</span>: <span class="string">"2"</span>,</div><div class="line">        <span class="string">"name"</span>: <span class="string">"updateOwnPost"</span>,</div><div class="line">        <span class="string">"description"</span>: <span class="string">"更新自己的"</span>,</div><div class="line">        <span class="string">"ruleName"</span>: <span class="string">"isAuthor"</span>,</div><div class="line">        <span class="string">"data"</span>: &#123;</div><div class="line">            <span class="string">"abc"</span>: <span class="string">"cba"</span></div><div class="line">        &#125;,</div><div class="line">        <span class="string">"createdAt"</span>: <span class="string">"1539229574"</span>,</div><div class="line">        <span class="string">"updatedAt"</span>: <span class="string">"1539229574"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"params"</span>: [ <span class="comment"># roleParams 配置的参数</span></div><div class="line">        <span class="string">"a"</span>,</div><div class="line">        <span class="string">"b"</span>,</div><div class="line">        <span class="string">"c"</span></div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="用户列表"><a href="#用户列表" class="headerlink" title="用户列表"></a>用户列表</h3><p><code>yii-admin</code> 为后台也提供了一系列的用户操作功能（注册、改密码等），但是默认是没有显示的，需要自己根据自己的需要添加按钮  </p>
+<p><img src="/images/yii/rbac/admin-user1.png" alt="user">  </p>
+<p>如果你的没有显示上面红框的内容可以参考我的代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">找到action对应的视图  </div><div class="line">    ...</div><div class="line">    ...</div><div class="line">    <span class="comment"># 增加的创建用户按钮</span></div><div class="line">    &lt;p&gt;</div><div class="line">        <span class="meta">&lt;?</span>= Html::a(Yii::t(<span class="string">'rbac-admin'</span>, <span class="string">'Create User'</span>), [<span class="string">'signup'</span>], [<span class="string">'class'</span> =&gt; <span class="string">'btn btn-success'</span>]) <span class="meta">?&gt;</span></div><div class="line">    &lt;/p&gt;</div><div class="line"></div><div class="line">    ...</div><div class="line">    ...</div><div class="line"></div><div class="line">    <span class="meta">&lt;?</span>=</div><div class="line">    GridView::widget([</div><div class="line">        ...</div><div class="line">        ...</div><div class="line">            [</div><div class="line">                <span class="string">'class'</span> =&gt; <span class="string">'yii\grid\ActionColumn'</span>,</div><div class="line">                <span class="comment">// 这个原始的有问题，直接上下面那行</span></div><div class="line">                <span class="comment">// 'template' =&gt; Helper::filterActionColumn(['view', 'activate', 'delete']),</span></div><div class="line">                <span class="string">'template'</span> =&gt; <span class="string">'&#123;view&#125; &#123;activate&#125; &#123;delete&#125;'</span>,</div><div class="line">                <span class="string">'buttons'</span> =&gt; [</div><div class="line">        ...</div><div class="line">        ...</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="目录-menu"><a href="#目录-menu" class="headerlink" title="目录 menu"></a>目录 menu</h3><p><code>yii-admin</code> 增加了目录功能，可以设置目录，然后根据用户的权限来显示目录  </p>
+<p>增加目录，数据的作用会在后面说  </p>
+<p><img src="/images/yii/rbac/admin-menu1.png" alt="menu">  </p>
+<p>增加子目录，注意排序  </p>
+<p><img src="/images/yii/rbac/admin-menu2.png" alt="menu">  </p>
+<p>增加子目录，注意排序  </p>
+<p><img src="/images/yii/rbac/admin-menu3.png" alt="menu">  </p>
+<p>对应表的变化    </p>
+<p><img src="/images/yii/rbac/admin-menu5.png" alt="menu"></p>
+<p>目录显示  </p>
+<p><img src="/images/yii/rbac/admin-menu4.png" alt="menu">  </p>
+<p>目录显示的代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">views\layout\main.php</div><div class="line"></div><div class="line">...</div><div class="line">...</div><div class="line"></div><div class="line">&lt;!-- 增加yii-admin设置的目录 --&gt;</div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">use</span> <span class="title">mdm</span>\<span class="title">admin</span>\<span class="title">components</span>\<span class="title">MenuHelper</span>;</div><div class="line"><span class="comment">// 这个匿名函数可以根据设置menu时的数据，将英文转成中文</span></div><div class="line">$callback = <span class="function"><span class="keyword">function</span><span class="params">($menu)</span></span>&#123;</div><div class="line">    $data = $menu[<span class="string">'data'</span>];</div><div class="line">    <span class="keyword">return</span> [</div><div class="line">        <span class="comment">// 显示改成设置的数据</span></div><div class="line">        <span class="string">'label'</span> =&gt; $data ? $data : $menu[<span class="string">'name'</span>],</div><div class="line">        <span class="string">'url'</span> =&gt; [$menu[<span class="string">'route'</span>]],</div><div class="line">        <span class="string">'items'</span> =&gt; $menu[<span class="string">'children'</span>]</div><div class="line">    ];</div><div class="line">&#125;;</div><div class="line"><span class="comment">// 获取用户权限能看到的菜单，这个是关键</span></div><div class="line">$items = MenuHelper::getAssignedMenu(Yii::$app-&gt;user-&gt;id, <span class="keyword">null</span>, $callback);</div><div class="line"> <span class="meta">?&gt;</span></div><div class="line">...</div><div class="line">...</div><div class="line">    <span class="comment">// 合并权限目录</span></div><div class="line">    $menuItems = array_merge($items, $menuItems);</div><div class="line">    <span class="keyword">echo</span> Nav::widget([</div><div class="line">        <span class="string">'options'</span> =&gt; [<span class="string">'class'</span> =&gt; <span class="string">'navbar-nav navbar-right'</span>],</div><div class="line">        <span class="string">'items'</span> =&gt; $menuItems,</div><div class="line">    ]);</div><div class="line">    NavBar::end();</div><div class="line">    <span class="meta">?&gt;</span></div><div class="line">...</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>也可以参考以下不错的文章<br><a href="https://www.yiichina.com/topic/7080" target="_blank" rel="external">北哥这篇文讲解yii2权限扩展（yii2-admin） - 上部 </a><br><a href="https://www.yiichina.com/topic/7082" target="_blank" rel="external">北哥这篇文讲解yii2权限扩展（yii2-admin） - 中部</a><br><a href="https://www.yiichina.com/topic/7086" target="_blank" rel="external">北哥这篇文讲解yii2权限扩展（yii2-admin） - 下部</a><br><a href="https://www.kancloud.cn/curder/yii/247759" target="_blank" rel="external">Yii2项目后台整合yii2-admin模块</a><br><a href="http://www.yii-china.com/doc/rbac/157.html" target="_blank" rel="external">Yii2基于角色的权限控制（RBAC）</a>  </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/yii/" rel="tag"># yii</a>
+          
+            <a href="/tags/RBAC/" rel="tag"># RBAC</a>
+          
+            <a href="/tags/yii-admin/" rel="tag"># yii-admin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/11/yii/AFC验证/" rel="next" title="Yii-AFC验证">
+                <i class="fa fa-chevron-left"></i> Yii-AFC验证
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">less is more</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/your-user-name" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank" rel="external nofollow">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建表"><span class="nav-number">2.1.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">3.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由-Route"><span class="nav-number">3.1.</span> <span class="nav-text">路由 Route</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限-permission"><span class="nav-number">3.2.</span> <span class="nav-text">权限 permission</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加权限"><span class="nav-number">3.2.1.</span> <span class="nav-text">添加权限</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#角色-role"><span class="nav-number">3.3.</span> <span class="nav-text">角色 role</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加角色"><span class="nav-number">3.3.1.</span> <span class="nav-text">添加角色</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分配角色权限"><span class="nav-number">3.4.</span> <span class="nav-text">分配角色权限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试结果"><span class="nav-number">3.4.1.</span> <span class="nav-text">测试结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则-rule"><span class="nav-number">3.5.</span> <span class="nav-text">规则 rule</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Rule类进行检验"><span class="nav-number">3.5.1.</span> <span class="nav-text">Rule类进行检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用yii的验证"><span class="nav-number">3.5.2.</span> <span class="nav-text">使用yii的验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户列表"><span class="nav-number">3.6.</span> <span class="nav-text">用户列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录-menu"><span class="nav-number">3.7.</span> <span class="nav-text">目录 menu</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io" rel="external nofollow" >Hexo</a> 强力驱动 v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
