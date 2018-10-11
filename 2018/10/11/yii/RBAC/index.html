@@ -144,7 +144,7 @@
 <meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-menu3.png">
 <meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-menu5.png">
 <meta property="og:image" content="http://bunao.win/images/yii/rbac/admin-menu4.png">
-<meta property="og:updated_time" content="2018-10-11T12:20:14.000Z">
+<meta property="og:updated_time" content="2018-10-11T12:45:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Yii-RBAC">
 <meta name="twitter:description" content="说明可以先参看 中文官方文档yii 为我们提供的两种存储方式一种是文件方式一种是数据库方式，这里我们直接使用数据库的方式，yii 文档给的是直接写代码执行的方式，这种虽然更灵活，但是不够直观，而且最常用到的地方就是后台，所以我们使用可视化的模块 yii-admin    yii-admin 扩展过的rbac 和 yii 自带的有一点区别的是权限，yii以权限为基础，而 yii-admin 是以路由">
@@ -421,7 +421,7 @@
                 
               
 
-              <time title="创建时间：2018-10-11 00:00:02 / 修改时间：20:20:14" itemprop="dateCreated datePublished" datetime="2018-10-11T00:00:02+08:00">2018-10-11</time>
+              <time title="创建时间：2018-10-11 00:00:02 / 修改时间：20:45:49" itemprop="dateCreated datePublished" datetime="2018-10-11T00:00:02+08:00">2018-10-11</time>
             
 
             
@@ -493,7 +493,7 @@
 <p><code>yii-admin</code> 扩展过的rbac 和 yii 自带的有一点区别的是权限，yii以权限为基础，而 <code>yii-admin</code> 是以路由为基础的，这一点会在验证的时候进行体现, yii的是<code>Yii::$app-&gt;user-&gt;can(role||permission, params)</code> ，而 yii-admin 的是 <code>Yii::$app-&gt;user-&gt;can(route, params)</code>  </p>
 </blockquote>
 <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>首先安装 <code>yii-admin</code> 扩展，<a href="https://github.com/mdmsoft/yii2-admin" target="_blank" rel="external">github地址</a>   </p>
-<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p>两条命令，首先创建yii自带的rbac相关表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yii migrate --migrationPath=@yii/rbac/migrations</div></pre></td></tr></table></figure></p>
+<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p>两条命令，首先创建yii自带的rbac相关表<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yii migrate --migrationPath=@yii/rbac/migrations</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <p>将会创建四张表<br>itemTable： 该表存放授权条目（译者注：即角色和权限）。默认表名为 “auth_item” 。<br>itemChildTable： 该表存放授权条目的层次关系。默认表名为 “auth_item_child”。<br>assignmentTable： 该表存放授权条目对用户的指派情况。默认表名为 “auth_assignment”。<br>ruleTable： 该表存放规则。默认表名为 “auth_rule”。  </p>
 <p>执行yii-admin带的menu表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yii migrate --migrationPath=@mdm/admin/migrations</div></pre></td></tr></table></figure></p>
