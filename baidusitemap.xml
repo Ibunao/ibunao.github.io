@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://bunao.win/2018/10/16/yii/RESTful/</loc>
+    <lastmod>2018-10-16T12:16:42.000Z</lastmod>
+  </url>  <url>
+    <loc>http://bunao.win/2018/10/09/yii/security%E7%BB%84%E4%BB%B6/</loc>
+    <lastmod>2018-10-13T09:25:30.000Z</lastmod>
+  </url>  <url>
     <loc>http://bunao.win/2018/10/11/yii/RBAC/</loc>
     <lastmod>2018-10-11T12:45:49.000Z</lastmod>
   </url>  <url>
     <loc>http://bunao.win/2018/10/11/yii/AFC%E9%AA%8C%E8%AF%81/</loc>
     <lastmod>2018-10-11T12:45:00.000Z</lastmod>
-  </url>  <url>
-    <loc>http://bunao.win/2018/10/09/yii/security%E7%BB%84%E4%BB%B6/</loc>
-    <lastmod>2018-10-11T12:15:23.000Z</lastmod>
   </url>  <url>
     <loc>http://bunao.win/2018/10/07/redis/redis%E5%AE%9E%E7%8E%B0%E6%96%87%E7%AB%A0%E6%A0%B9%E6%8D%AE%E7%82%B9%E8%B5%9E%E5%8F%8A%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/</loc>
     <lastmod>2018-10-08T11:37:18.000Z</lastmod>

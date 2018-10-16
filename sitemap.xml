@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://bunao.win/2018/10/16/yii/RESTful/</loc>
+    
+    <lastmod>2018-10-16T12:16:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://bunao.win/2018/10/09/yii/security%E7%BB%84%E4%BB%B6/</loc>
+    
+    <lastmod>2018-10-13T09:25:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://bunao.win/2018/10/11/yii/RBAC/</loc>
     
     <lastmod>2018-10-11T12:45:49.000Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>http://bunao.win/2018/10/11/yii/AFC%E9%AA%8C%E8%AF%81/</loc>
     
     <lastmod>2018-10-11T12:45:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://bunao.win/2018/10/09/yii/security%E7%BB%84%E4%BB%B6/</loc>
-    
-    <lastmod>2018-10-11T12:15:23.000Z</lastmod>
     
   </url>
   

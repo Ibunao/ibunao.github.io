@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Yii轻松实现RESTful风格的接口创建api模块我们可以直接复制一份其他的模块，如 frontend 模块，假设起名为 restful 修改配置首先我们修改一下配置，为了能够实现模块的自动加载12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849common\config">
+<meta name="keywords" content="yii,RESTful">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yii-轻松实现RESTful风格的接口">
+<meta property="og:url" content="http://bunao.win/2018/10/16/yii/RESTful/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="Yii轻松实现RESTful风格的接口创建api模块我们可以直接复制一份其他的模块，如 frontend 模块，假设起名为 restful 修改配置首先我们修改一下配置，为了能够实现模块的自动加载12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849common\config">
+<meta property="og:updated_time" content="2018-10-16T12:16:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yii-轻松实现RESTful风格的接口">
+<meta name="twitter:description" content="Yii轻松实现RESTful风格的接口创建api模块我们可以直接复制一份其他的模块，如 frontend 模块，假设起名为 restful 修改配置首先我们修改一下配置，为了能够实现模块的自动加载12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849common\config">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2018/10/16/yii/RESTful/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Yii-轻松实现RESTful风格的接口 | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">less is more</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/10/16/yii/RESTful/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Yii-轻松实现RESTful风格的接口
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-16 20:00:02 / 修改时间：20:16:42" itemprop="dateCreated datePublished" datetime="2018-10-16T20:00:02+08:00">2018-10-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/16/yii/RESTful/" class="leancloud_visitors" data-flag-title="Yii-轻松实现RESTful风格的接口">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Yii轻松实现RESTful风格的接口"><a href="#Yii轻松实现RESTful风格的接口" class="headerlink" title="Yii轻松实现RESTful风格的接口"></a>Yii轻松实现RESTful风格的接口</h2><h3 id="创建api模块"><a href="#创建api模块" class="headerlink" title="创建api模块"></a>创建api模块</h3><p>我们可以直接复制一份其他的模块，如 <code>frontend</code> 模块，假设起名为 <code>restful</code></p>
+<h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><p>首先我们修改一下配置，为了能够实现模块的自动加载<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">common\config\bootstrap.php</div><div class="line"></div><div class="line"><span class="comment">// 添加的模块要在这里设置一下别名,为了自动加载</span></div><div class="line">Yii::setAlias(<span class="string">'@restful'</span>, dirname(dirname(<span class="keyword">__DIR__</span>)) . <span class="string">'/restful'</span>);</div><div class="line">```  </div><div class="line">然后修改 restful 模块的配置  </div><div class="line">```php</div><div class="line">restful/config/main.php</div><div class="line"></div><div class="line">...</div><div class="line">...</div><div class="line"></div><div class="line"><span class="keyword">return</span> [</div><div class="line">    <span class="comment"># 更改项目id</span></div><div class="line">    <span class="string">'id'</span> =&gt; <span class="string">'app-restful'</span>,</div><div class="line">    <span class="comment"># 设置控制器命名空间  </span></div><div class="line">    <span class="string">'controllerNamespace'</span> =&gt; <span class="string">'restful\controllers'</span>,</div><div class="line">    <span class="string">'components'</span> =&gt; [</div><div class="line">        <span class="string">'request'</span> =&gt; [</div><div class="line">            <span class="string">'csrfParam'</span> =&gt; <span class="string">'_csrf-restful'</span>,</div><div class="line">            <span class="comment"># 配置获取请求参数的格式，可以接收并解析json格式的数据</span></div><div class="line">            <span class="string">'parsers'</span> =&gt; [</div><div class="line">                <span class="string">'application/json'</span> =&gt; <span class="string">'yii\web\JsonParser'</span>,</div><div class="line">            ]</div><div class="line">        ],</div><div class="line">        <span class="string">'user'</span> =&gt; [</div><div class="line">            <span class="string">'identityClass'</span> =&gt; <span class="string">'common\models\User'</span>,</div><div class="line">            <span class="comment">// 不允许使用session</span></div><div class="line">            <span class="string">'enableSession'</span> =&gt; <span class="keyword">false</span>,</div><div class="line">        ],</div><div class="line"></div><div class="line">        ...</div><div class="line">        ...</div><div class="line"></div><div class="line">        <span class="string">'urlManager'</span> =&gt; [</div><div class="line">            <span class="string">'enablePrettyUrl'</span> =&gt; <span class="keyword">true</span>,</div><div class="line">            <span class="comment">// 最好开启，如果如开启，在不满足配置的路由规则后或使用默认的路由规则进行解析  </span></div><div class="line">            <span class="comment">// 'enableStrictParsing' =&gt; true,</span></div><div class="line">            <span class="string">'showScriptName'</span> =&gt; <span class="keyword">false</span>,</div><div class="line">            <span class="string">'rules'</span> =&gt; [</div><div class="line">                <span class="comment">/**</span></div><div class="line">                 * 配置url解析规则类</div><div class="line">                 * controller 配置的控制器id 配置的控制器访问的时候要用复数的形式</div><div class="line">                 */</div><div class="line">                [<span class="string">'class'</span> =&gt; <span class="string">'yii\rest\UrlRule'</span>, <span class="string">'controller'</span> =&gt; [<span class="string">'user'</span>]],</div><div class="line">            ],</div><div class="line">        ],</div><div class="line">    ],</div><div class="line">];</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="创建控制器"><a href="#创建控制器" class="headerlink" title="创建控制器"></a>创建控制器</h3><p>创建控制器就更简单了<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">restful</span>\<span class="title">controllers</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Yii</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">rest</span>\<span class="title">ActiveController</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="keyword">extends</span> <span class="title">ActiveController</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 对应的模型类</span></div><div class="line">	<span class="keyword">public</span> $modelClass = <span class="string">'common\models\User'</span>;</div><div class="line">&#125;</div><div class="line">```  </div><div class="line">此时，一个简单的RESTful风格的接口已经创建好了，我们肯定不能止步于此，下面我们具体分析一下   </div><div class="line"></div><div class="line"><span class="comment">## 解析&amp;&amp;实战操作   </span></div><div class="line"><span class="comment">### 配置  </span></div><div class="line">先看配置的 `Request` 组件，为了能够解析请求体数据为json格式  </div><div class="line">```php</div><div class="line"><span class="string">'request'</span> =&gt; [</div><div class="line">    <span class="string">'parsers'</span> =&gt; [</div><div class="line">        <span class="string">'application/json'</span> =&gt; <span class="string">'yii\web\JsonParser'</span>,</div><div class="line">    ]</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>info： 上述配置是可选的。若未按上述配置，API 将仅可以分辨 <code>application/x-www-form-urlencoded</code> 和 <code>multipart/form-data</code> 输入格式。</p>
+</blockquote>
+<p>我们可以看一下 <code>Request</code> 类的 <code>getBodyParams</code> 方法，方法中会根据请求的 <code>Content-Type</code> 来用不同的解析器解析请求参数，这里配置的 <code>&#39;application/json&#39; =&gt; &#39;yii\web\JsonParser&#39;</code> 就是为了能够在请求头参数为 <code>Content-Type:application/json</code> 时请求体的json数据能够很好的被解析  </p>
+<h4 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h4><p>常用的参数如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="string">'urlManager'</span> =&gt; [</div><div class="line">    <span class="string">'enablePrettyUrl'</span> =&gt; <span class="keyword">true</span>,</div><div class="line">    <span class="comment">// 最好开启，如果不走rest的路由规则不满足就不用使用默认的了</span></div><div class="line">    <span class="comment">// 'enableStrictParsing' =&gt; true,</span></div><div class="line">    <span class="string">'showScriptName'</span> =&gt; <span class="keyword">false</span>,</div><div class="line">    <span class="comment">// 配置url解析规则类</span></div><div class="line">    <span class="string">'rules'</span> =&gt; [</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * controller 配置的控制器id 配置的控制器访问的时候要用复数的形式</div><div class="line">         * 如：GET users</div><div class="line">         */</div><div class="line">        [<span class="string">'class'</span> =&gt; <span class="string">'yii\rest\UrlRule'</span>, <span class="string">'controller'</span> =&gt; [<span class="string">'user'</span>]],</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 配置控制器ID 的映射。</div><div class="line">         * 访问格式如：GET u</div><div class="line">         */</div><div class="line">        <span class="comment">// ['class' =&gt; 'yii\rest\UrlRule', 'controller' =&gt; ['u' =&gt; 'user']],</span></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 其他常用的配置。</div><div class="line">         *</div><div class="line">         */</div><div class="line">        [</div><div class="line">            <span class="string">'class'</span> =&gt; <span class="string">'yii\rest\UrlRule'</span>,</div><div class="line">            <span class="string">'controller'</span> =&gt; <span class="string">'product'</span>,</div><div class="line">            <span class="comment">// 用来禁止复数形式</span></div><div class="line">            <span class="comment">// 'pluralize' =&gt; false,</span></div><div class="line">            <span class="comment">// 只有delete允许请求，如果请求，将会返回404</span></div><div class="line">            <span class="comment">// 'only' =&gt; ['delete'],</span></div><div class="line">            <span class="comment">// 排除对index的请求，其他的都可以，如果请求，将会返回请求options的结果</span></div><div class="line">            <span class="comment">// 'except' =&gt; ['index'],</span></div><div class="line">            <span class="comment">// 排除对delete的请求，其他的都可以，如果请求，将会返回请求options的结果</span></div><div class="line">            <span class="string">'except'</span> =&gt; [<span class="string">'delete'</span>],</div><div class="line">            <span class="comment">// 配置额外自定义的访问</span></div><div class="line">            <span class="comment">// 访问格式如 POST /products/search 可以支持新行为 search</span></div><div class="line">            <span class="string">'extraPatterns'</span> =&gt; [</div><div class="line">                <span class="string">'POST search'</span> =&gt; <span class="string">'search'</span>,</div><div class="line">            ],</div><div class="line">        ],</div><div class="line">    ],</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>其他的配置等详解Yii路由的文章的时候看一下就可以了   </p>
+<h3 id="资源设置"><a href="#资源设置" class="headerlink" title="资源设置"></a>资源设置</h3><p>可以根据url上设置参数来获取指定的字段值, 看一下官方案例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 返回fields()方法中申明的所有字段，默认是所有字段</div><div class="line">http://localhost/users</div><div class="line"></div><div class="line">// 只返回fields()方法中申明的id和email字段</div><div class="line">http://localhost/users?fields=id,email</div><div class="line"></div><div class="line">// 返回fields()方法申明的所有字段，以及extraFields()方法中的profile字段</div><div class="line">http://localhost/users?expand=profile</div><div class="line"></div><div class="line">// 返回回fields()和extraFields()方法中提供的id, email 和 profile字段</div><div class="line">http://localhost/users?fields=id,email&amp;expand=profile</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>fields() 方法默认返回的是表解析出来的所有字段<br>extraFields() 方法需要自己写，返回的是关联的属性  </p>
+</blockquote>
+<h4 id="覆盖-fields-方法"><a href="#覆盖-fields-方法" class="headerlink" title="覆盖 fields() 方法"></a>覆盖 fields() 方法</h4><p>官方案例<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 明确列出每个字段，适用于你希望数据表或</span></div><div class="line"><span class="comment">// 模型属性修改时不导致你的字段修改（保持后端API兼容性）</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">fields</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [</div><div class="line">        <span class="comment">// 字段名和属性名相同</span></div><div class="line">        <span class="string">'id'</span>,</div><div class="line">        <span class="comment">// 字段名为"email", 对应的属性名为"email_address"</span></div><div class="line">        <span class="string">'email'</span> =&gt; <span class="string">'email_address'</span>,</div><div class="line">        <span class="comment">// 字段名为"name", 值由一个PHP回调函数定义</span></div><div class="line">        <span class="string">'name'</span> =&gt; <span class="function"><span class="keyword">function</span> <span class="params">($model)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> $model-&gt;first_name . <span class="string">' '</span> . $model-&gt;last_name;</div><div class="line">        &#125;,</div><div class="line">    ];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 过滤掉一些字段，适用于你希望继承</span></div><div class="line"><span class="comment">// 父类实现同时你想屏蔽掉一些敏感字段</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">fields</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    $fields = <span class="keyword">parent</span>::fields();</div><div class="line"></div><div class="line">    <span class="comment">// 删除一些包含敏感信息的字段</span></div><div class="line">    <span class="keyword">unset</span>($fields[<span class="string">'auth_key'</span>], $fields[<span class="string">'password_hash'</span>], $fields[<span class="string">'password_reset_token'</span>]);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> $fields;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="覆盖-extraFields-方法"><a href="#覆盖-extraFields-方法" class="headerlink" title="覆盖 extraFields() 方法"></a>覆盖 extraFields() 方法</h4><p>要想返回关联属性，需要让 <code>extraFields()</code> 方法返回关联属性，如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">restful\models\ProductModel</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 返回需要关联的属性 也就是getUser的缩写</div><div class="line"> * <span class="doctag">@return</span> [type] [description]</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">extraFields</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="string">'user'</span>];</div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 关联</div><div class="line"> * <span class="doctag">@return</span> [type] [description]</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;hasOne(User::className(), [ <span class="string">'id'</span> =&gt; <span class="string">'order'</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>请求 ：<code>GET rest.yiilearn.com/products?fields=product_id,purchase_id&amp;expand=user</code><br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    &#123;</div><div class="line">        <span class="attr">"product_id"</span>: <span class="string">"2605"</span>,</div><div class="line">        <span class="attr">"purchase_id"</span>: <span class="string">"1"</span>,</div><div class="line">        <span class="attr">"user"</span>: &#123;</div><div class="line">            <span class="attr">"id"</span>: <span class="number">1</span>,</div><div class="line">            <span class="attr">"username"</span>: <span class="string">"ibunao"</span>,</div><div class="line">            <span class="attr">"auth_key"</span>: <span class="string">"Ah5hD1y-TD0B3VUjoYufZhYoP1ayPTvP"</span>,</div><div class="line">            <span class="attr">"password_hash"</span>: <span class="string">"$2y$13$hgTMEkDth8QSY4DJoK30hu8Z282YhOR8pdGlXjIeVYORP3OkeODpi"</span>,</div><div class="line">            <span class="attr">"password_reset_token"</span>: <span class="string">"mfpKVvJ_QbX2fL0PI7Pyqtb-yqP0D0GZ_1539051580"</span>,</div><div class="line">            <span class="attr">"email"</span>: <span class="string">"******@qq.com"</span>,</div><div class="line">            <span class="attr">"status"</span>: <span class="number">10</span>,</div><div class="line">            <span class="attr">"created_at"</span>: <span class="number">1539050271</span>,</div><div class="line">            <span class="attr">"updated_at"</span>: <span class="number">1539585374</span>,</div><div class="line">            <span class="attr">"allowance"</span>: <span class="string">"0"</span>,</div><div class="line">            <span class="attr">"allowance_updated_at"</span>: <span class="string">"1539585374"</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="attr">"product_id"</span>: <span class="string">"2606"</span>,</div><div class="line">        <span class="attr">"purchase_id"</span>: <span class="string">"1"</span>,</div><div class="line">        <span class="attr">"user"</span>: <span class="literal">null</span></div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>可以看到，expand的参数生效了，但是返回的数据有太多，我们缩减一下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">common\models\User</div><div class="line"></div><div class="line"><span class="comment"># 添加fields方法  </span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">fields</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="string">'id'</span>, <span class="string">'username'</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>返回结果<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    &#123;</div><div class="line">        <span class="attr">"product_id"</span>: <span class="string">"2605"</span>,</div><div class="line">        <span class="attr">"purchase_id"</span>: <span class="string">"1"</span>,</div><div class="line">        <span class="attr">"user"</span>: &#123;</div><div class="line">            <span class="attr">"id"</span>: <span class="number">1</span>,</div><div class="line">            <span class="attr">"username"</span>: <span class="string">"ibunao"</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        <span class="attr">"product_id"</span>: <span class="string">"2606"</span>,</div><div class="line">        <span class="attr">"purchase_id"</span>: <span class="string">"1"</span>,</div><div class="line">        <span class="attr">"user"</span>: <span class="literal">null</span></div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>AR这种联表方式还是有点复杂的，不推荐。可以直接查返回数据  </p>
+</blockquote>
+<h3 id="控制器设置"><a href="#控制器设置" class="headerlink" title="控制器设置"></a>控制器设置</h3><p>控制器需要改变的比较少，无非就是添加一些路由配置的额外的要实现的 <code>action</code>，覆盖一些 <code>behavior</code> ，重写一下检查权限的方法 <code>checkAccess()</code><br>先看案例<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">namespace</span> <span class="title">restful</span>\<span class="title">controllers</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Yii</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">rest</span>\<span class="title">ActiveController</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">data</span>\<span class="title">ActiveDataProvider</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">restful</span>\<span class="title">models</span>\<span class="title">ProductModel</span>;</div><div class="line"><span class="comment"># 可以同时实现下面三种验证方法</span></div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">filters</span>\<span class="title">auth</span>\<span class="title">CompositeAuth</span>;</div><div class="line"><span class="comment"># 浏览器弹窗口输入获取token</span></div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">filters</span>\<span class="title">auth</span>\<span class="title">HttpBasicAuth</span>;</div><div class="line"><span class="comment"># 从head头获取验证的token</span></div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">filters</span>\<span class="title">auth</span>\<span class="title">HttpBearerAuth</span>;</div><div class="line"><span class="comment"># 从请求链接中获取验证的token</span></div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">filters</span>\<span class="title">auth</span>\<span class="title">QueryParamAuth</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductController</span> <span class="keyword">extends</span> <span class="title">ActiveController</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">public</span> $modelClass = <span class="string">'restful\models\ProductModel'</span>;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 覆盖behaviors方法</div><div class="line">	 * <span class="doctag">@return</span> [type] [description]</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">behaviors</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">	    $behaviors = <span class="keyword">parent</span>::behaviors();</div><div class="line">	    <span class="comment">// 重写验证过滤器的配置</span></div><div class="line">	    $behaviors[<span class="string">'authenticator'</span>] = [</div><div class="line">	        <span class="string">'class'</span> =&gt; HttpBearerAuth::className(),</div><div class="line">	        <span class="comment">// 可以不验证的action</span></div><div class="line">			<span class="string">'optional'</span> =&gt; [<span class="string">'index'</span>]</div><div class="line">	    ];</div><div class="line">	    <span class="keyword">return</span> $behaviors;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 添加额外配置的action</div><div class="line">	 * <span class="doctag">@return</span> [type] [description]</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionSearch</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">return</span> Yii::$app-&gt;request-&gt;post();</div><div class="line">	&#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">	 * 检查用户访问权限，可以参考rbac</div><div class="line">	 * <span class="doctag">@param</span>  [type] $action actionId</div><div class="line">	 * <span class="doctag">@param</span>  [type] $model  模型对象</div><div class="line">	 * <span class="doctag">@param</span>  array  $params</div><div class="line">	 * <span class="doctag">@return</span> [type]         [description]</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">checkAccess</span><span class="params">($action, $model = null, $params = [])</span></span></div><div class="line">	&#123;</div><div class="line">	    <span class="keyword">if</span> ($action === <span class="string">'update'</span> || $action === <span class="string">'delete'</span>) &#123;</div><div class="line">	        <span class="keyword">if</span> ($model-&gt;order !== Yii::$app-&gt;user-&gt;id)</div><div class="line">	        	<span class="comment">// 不满足抛出异常</span></div><div class="line">	            <span class="keyword">throw</span> <span class="keyword">new</span> \yii\web\ForbiddenHttpException(sprintf(<span class="string">'You can only %s articles that you\'ve created.'</span>, $action));</div><div class="line">	    &#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>下面我们主要看一下 <code>behaviors</code> 部分<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">yii\rest\Controller 已经给我们配置好了四个</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">behaviors</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [</div><div class="line">        <span class="comment">// 根据请求设置响应格式和语言</span></div><div class="line">        <span class="string">'contentNegotiator'</span> =&gt; [</div><div class="line">            <span class="string">'class'</span> =&gt; ContentNegotiator::className(),</div><div class="line">            <span class="string">'formats'</span> =&gt; [</div><div class="line">                <span class="comment">// 这个顺序很重要，如果请求没有设置 Accept:application/json||xml 谁第一个用谁</span></div><div class="line">                <span class="string">'application/json'</span> =&gt; Response::FORMAT_JSON,</div><div class="line">                <span class="string">'application/xml'</span> =&gt; Response::FORMAT_XML,</div><div class="line">            ],</div><div class="line">        ],</div><div class="line">        <span class="comment">// 过滤action允许的请求方法</span></div><div class="line">        <span class="string">'verbFilter'</span> =&gt; [</div><div class="line">            <span class="string">'class'</span> =&gt; VerbFilter::className(),</div><div class="line">            <span class="string">'actions'</span> =&gt; <span class="keyword">$this</span>-&gt;verbs(),</div><div class="line">        ],</div><div class="line">        <span class="comment">// 验证的</span></div><div class="line">        <span class="string">'authenticator'</span> =&gt; [</div><div class="line">            <span class="string">'class'</span> =&gt; CompositeAuth::className(),</div><div class="line">        ],</div><div class="line">        <span class="comment">// 限制速率的</span></div><div class="line">        <span class="string">'rateLimiter'</span> =&gt; [</div><div class="line">            <span class="string">'class'</span> =&gt; RateLimiter::className(),</div><div class="line">        ],</div><div class="line">    ];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="格式化响应"><a href="#格式化响应" class="headerlink" title="格式化响应"></a>格式化响应</h4><p>这部分已经是写好的了，我们只需要在请求头中加入指定响应格式的参数即可<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 接收json格式的数据</span></div><div class="line">Accept: application/json;</div><div class="line"><span class="comment"># 接收xml格式的数据</span></div><div class="line">Accept: application/json;</div></pre></td></tr></table></figure></p>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p>yii提供了多种验证方法，这里以 <code>HttpBearerAuth</code> 验证(head头获取token)为例<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">实现验证token的方法(通过token获取到对应的用户)</div><div class="line">common\models\User</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * api通过token登陆</div><div class="line"> * &#123;<span class="doctag">@inheritdoc</span>&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">findIdentityByAccessToken</span><span class="params">($token, $type = null)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment"># 为了方便测试直接用的是已经有的 auth_key</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">static</span>::findOne([<span class="string">'auth_key'</span> =&gt; $token, <span class="string">'status'</span> =&gt; <span class="keyword">self</span>::STATUS_ACTIVE]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>此时，我们就可以通过获取到的 <code>token</code> 进行请求了<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GET rest.yiilearn.com/products  </div><div class="line">请求头  </div><div class="line"><span class="string">"Authorization"</span>:<span class="string">"Bearer Ah5hD1y-TD0B3VUjoYufZhYoP1ayPTvP"</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>固定格式 <code>&quot;Authorization&quot;:&quot;Bearer &quot; + $token</code></p>
+</blockquote>
+<h4 id="速率验证"><a href="#速率验证" class="headerlink" title="速率验证"></a>速率验证</h4><p>在实现了用户验证后速率验证才会有用，我们需要 <code>User</code> 实现几个方法，如下<br>首先我们需要在 <code>user</code> 表添加两个字段用来存储剩余次数和访问时间 <code>allowance</code>, <code>allowance_updated_at</code><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">common\models\User</div><div class="line">实现接口</div><div class="line">class User extends ActiveRecord implements IdentityInterface,RateLimitInterface</div><div class="line"></div><div class="line">实现下面几个方法  </div><div class="line">/**</div><div class="line"> * 返回一段时间内允许请求的最大次数</div><div class="line"> * @param  [type] $request [description]</div><div class="line"> * @param  [type] $action  [description]</div><div class="line"> * @return [type]          [description]</div><div class="line"> */</div><div class="line">public function getRateLimit($request, $action)</div><div class="line">&#123;</div><div class="line">    // 每五秒可以访问2次</div><div class="line">    return [2, 5];</div><div class="line">&#125;</div><div class="line">/**</div><div class="line"> * 获取允许请求的数量和最后的访问的时间戳</div><div class="line"> * @param  [type] $request [description]</div><div class="line"> * @param  [type] $action  [description]</div><div class="line"> * @return [type]          [description]</div><div class="line"> */</div><div class="line">public function loadAllowance($request, $action)</div><div class="line">&#123;</div><div class="line">    return [$this-&gt;allowance, $this-&gt;allowance_updated_at];</div><div class="line">&#125;</div><div class="line">/**</div><div class="line"> * 保存剩余的请求数量和最后的访问时间</div><div class="line"> * @param  [type] $request   [description]</div><div class="line"> * @param  [type] $action    [description]</div><div class="line"> * @param  [type] $allowance [description]</div><div class="line"> * @param  [type] $timestamp [description]</div><div class="line"> * @return [type]            [description]</div><div class="line"> */</div><div class="line">public function saveAllowance($request, $action, $allowance, $timestamp)</div><div class="line">&#123;</div><div class="line">    $this-&gt;allowance = $allowance;</div><div class="line">    $this-&gt;allowance_updated_at = $timestamp;</div><div class="line">    $this-&gt;save();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>实现起来就是这么简单  </p>
+<h3 id="版本化-amp-amp-错误处理"><a href="#版本化-amp-amp-错误处理" class="headerlink" title="版本化 &amp;&amp; 错误处理"></a>版本化 &amp;&amp; 错误处理</h3><p>比较简单，直接看官方文档 <a href="https://www.yiichina.com/doc/guide/2.0/rest-versioning" target="_blank" rel="external">版本化</a> <a href="https://www.yiichina.com/doc/guide/2.0/rest-error-handling" target="_blank" rel="external">错误处理</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/yii/" rel="tag"># yii</a>
+          
+            <a href="/tags/RESTful/" rel="tag"># RESTful</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/11/yii/RBAC/" rel="next" title="Yii-RBAC">
+                <i class="fa fa-chevron-left"></i> Yii-RBAC
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">纸上得来终觉浅，绝知此事要躬行。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/your-user-name" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-angry"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank" rel="external nofollow">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Yii轻松实现RESTful风格的接口"><span class="nav-number">1.</span> <span class="nav-text">Yii轻松实现RESTful风格的接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建api模块"><span class="nav-number">1.1.</span> <span class="nav-text">创建api模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改配置"><span class="nav-number">1.2.</span> <span class="nav-text">修改配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建控制器"><span class="nav-number">1.3.</span> <span class="nav-text">创建控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#路由配置"><span class="nav-number">1.3.1.</span> <span class="nav-text">路由配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源设置"><span class="nav-number">1.4.</span> <span class="nav-text">资源设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#覆盖-fields-方法"><span class="nav-number">1.4.1.</span> <span class="nav-text">覆盖 fields() 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#覆盖-extraFields-方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">覆盖 extraFields() 方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制器设置"><span class="nav-number">1.5.</span> <span class="nav-text">控制器设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式化响应"><span class="nav-number">1.5.1.</span> <span class="nav-text">格式化响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证"><span class="nav-number">1.5.2.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#速率验证"><span class="nav-number">1.5.3.</span> <span class="nav-text">速率验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本化-amp-amp-错误处理"><span class="nav-number">1.6.</span> <span class="nav-text">版本化 && 错误处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io" rel="external nofollow" >Hexo</a> 强力驱动 v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
