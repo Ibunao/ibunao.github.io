@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="实现项目创建项目1234567891011121314151617181920scrapy startproject cancao # 将会创建cankao项目目录及文件  └── cankao    ├── cankao    │   ├── __init__.py    │   ├── items.py    │   ├── middlewares.py    │   ├── pipeline">
+<meta name="keywords" content="python,scrapy,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫-scrapy">
+<meta property="og:url" content="http://bunao.win/2018/10/23/spider/scrapy参考/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="实现项目创建项目1234567891011121314151617181920scrapy startproject cancao # 将会创建cankao项目目录及文件  └── cankao    ├── cankao    │   ├── __init__.py    │   ├── items.py    │   ├── middlewares.py    │   ├── pipeline">
+<meta property="og:updated_time" content="2018-10-23T15:21:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫-scrapy">
+<meta name="twitter:description" content="实现项目创建项目1234567891011121314151617181920scrapy startproject cancao # 将会创建cankao项目目录及文件  └── cankao    ├── cankao    │   ├── __init__.py    │   ├── items.py    │   ├── middlewares.py    │   ├── pipeline">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2018/10/23/spider/scrapy参考/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>爬虫-scrapy | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">less is more</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/10/23/spider/scrapy参考/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">爬虫-scrapy
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-23 20:00:02 / 修改时间：23:21:08" itemprop="dateCreated datePublished" datetime="2018-10-23T20:00:02+08:00">2018-10-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/爬虫/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/23/spider/scrapy参考/" class="leancloud_visitors" data-flag-title="爬虫-scrapy">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="实现项目"><a href="#实现项目" class="headerlink" title="实现项目"></a>实现项目</h2><h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">scrapy startproject cancao <span class="comment"># 将会创建cankao项目目录及文件  </span></div><div class="line"></div><div class="line">└── cankao</div><div class="line">    ├── cankao</div><div class="line">    │   ├── __init__.py</div><div class="line">    │   ├── items.py</div><div class="line">    │   ├── middlewares.py</div><div class="line">    │   ├── pipelines.py</div><div class="line">    │   ├── settings.py</div><div class="line">    │   └── spiders</div><div class="line">    │       └── __init__.py</div><div class="line">    └── scrapy.cfg</div><div class="line"></div><div class="line">scrapy.cfg <span class="comment"># 项目的部署文件</span></div><div class="line">cankao/ <span class="comment"># 项目的Python模块，将会从这里引用代码</span></div><div class="line">cankao/items.py <span class="comment"># 项目的Item文件</span></div><div class="line">cankao/pipelines.py <span class="comment"># 项目的管道文件用于文件持久化</span></div><div class="line">cankao/settings.py <span class="comment"># 项目的配置文件</span></div><div class="line">cankao/middlewares.py <span class="comment"># 中间件</span></div><div class="line">cankao/spiders/ <span class="comment"># 存储爬虫代码目录</span></div></pre></td></tr></table></figure>
+<h4 id="创建爬虫"><a href="#创建爬虫" class="headerlink" title="创建爬虫"></a>创建爬虫</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 进入到项目目录</span></div><div class="line">cd cankao</div><div class="line"><span class="comment"># 创建爬虫的命令 爬虫名称 限制的域名</span></div><div class="line">scrapy genspider cankao1 douban.com</div><div class="line"></div><div class="line"><span class="comment"># spiders文件夹下生成cankao1.py文件</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> scrapy</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cankao1Spider</span><span class="params">(scrapy.Spider)</span>:</span></div><div class="line">    <span class="comment"># 爬虫名，必填</span></div><div class="line">    name = <span class="string">'cankao1'</span></div><div class="line">    <span class="comment"># 允许访问的域名</span></div><div class="line">    allowed_domains = [<span class="string">'douban.com'</span>]</div><div class="line">    <span class="comment"># 开始的url</span></div><div class="line">    start_urls = [<span class="string">'http://douban.com/'</span>]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        解析</div><div class="line">        :param response:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        <span class="keyword">pass</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>我们对网页进行分析获取需要的内容<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> scrapy</div><div class="line"><span class="keyword">from</span> scrapy.http.request <span class="keyword">import</span> Request</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cankao1Spider</span><span class="params">(scrapy.Spider)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    爬取豆瓣图书图片，单层爬虫</div><div class="line">    '''</div><div class="line">    <span class="comment"># 爬虫名，必填</span></div><div class="line">    name = <span class="string">'cankao1'</span></div><div class="line">    <span class="comment"># 允许访问的域名，只允许访问这个域名下的url</span></div><div class="line">    allowed_domains = [<span class="string">'douban.com'</span>]</div><div class="line">    <span class="comment"># 开始的url</span></div><div class="line">    start_urls = [<span class="string">'https://book.douban.com/'</span>]</div><div class="line">    <span class="comment"># 自定义配置，会覆盖项目配置</span></div><div class="line">    custom_settings = &#123;&#125;</div><div class="line"></div><div class="line">    <span class="comment"># def start_requests(self):</span></div><div class="line">    <span class="comment">#     '''</span></div><div class="line">    <span class="comment">#     重写父类的方法，父类的方法默认从start_urls中读取开始爬取</span></div><div class="line">    <span class="comment">#     一般不需要重写，但是如果第一步就是登陆的话就需要重写了</span></div><div class="line">    <span class="comment">#     :return:</span></div><div class="line">    <span class="comment">#     '''</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        解析</div><div class="line">        :param response:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        <span class="comment"># 打印响应体</span></div><div class="line">        <span class="comment"># print(response.body)</span></div><div class="line">        papers = response.xpath(<span class="string">'//*[@id="content"]/div/div[1]/div[1]/div[2]/div/div/ul[2]/li'</span>)</div><div class="line">        <span class="comment"># print(papers)</span></div><div class="line">        <span class="keyword">for</span> paper <span class="keyword">in</span> papers:</div><div class="line">            url = paper.xpath(<span class="string">'.//div/a/@href'</span>).extract_first()</div><div class="line">            img = paper.xpath(<span class="string">'.//div/a/img/@src'</span>).extract_first()</div><div class="line">            content = paper.xpath(<span class="string">'.//div/div/a/text()'</span>).extract_first()</div><div class="line">            print(url, img, content)</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment"># time.sleep(5000)</span></div><div class="line">        <span class="comment"># 分析下一个请求,进行请求（测试一下allowed_domains，不属于不能请求）</span></div><div class="line">        <span class="comment"># yield Request(url='http://www.bunao.win')</span></div><div class="line">```  </div><div class="line"><span class="comment">#### 执行爬虫  </span></div><div class="line">执行爬虫命令 `scrapy crawl cankao1` ，执行后可以看到输出的执行信息，方便进行分析  </div><div class="line">此时可能并没有输出所期望的数据，我们需要修改配置参数  </div><div class="line">```python</div><div class="line">settings.py 文件  </div><div class="line"></div><div class="line"><span class="comment">#  客户端 user-agent请求头</span></div><div class="line">USER_AGENT = <span class="string">'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'</span></div><div class="line"></div><div class="line"><span class="comment"># 是否遵守robot协议</span></div><div class="line">ROBOTSTXT_OBEY = <span class="keyword">False</span></div></pre></td></tr></table></figure></p>
+<p>此时，我们执行 <code>scrapy crawl cankao1 --nolog</code> 来查看不带执行信息的输入内容  </p>
+<h3 id="创建item"><a href="#创建item" class="headerlink" title="创建item"></a>创建item</h3><p>创建 <code>item</code> 就比较简单了，主要是用来存放保存信息的<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> scrapy</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CankaoItem</span><span class="params">(scrapy.Item)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    定义要保存的字段</div><div class="line">    '''</div><div class="line">    <span class="comment"># define the fields for your item here like:</span></div><div class="line">    url = scrapy.Field()</div><div class="line">    img = scrapy.Field()</div><div class="line">    content = scrapy.Field()</div></pre></td></tr></table></figure></p>
+<h3 id="创建-pipeline-存储数据"><a href="#创建-pipeline-存储数据" class="headerlink" title="创建 pipeline , 存储数据"></a>创建 pipeline , 存储数据</h3><h4 id="数据保存到文件"><a href="#数据保存到文件" class="headerlink" title="数据保存到文件"></a>数据保存到文件</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> json</div><div class="line"><span class="keyword">from</span> scrapy.exceptions <span class="keyword">import</span> DropItem</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CankaoPipeline</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    保存到文件中</div><div class="line">    '''</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.file = open(<span class="string">'./download/papers.json'</span>, <span class="string">'wb'</span>)</div><div class="line"></div><div class="line">    <span class="comment"># def open_spider(self, spider):</span></div><div class="line">    <span class="comment">#     '''</span></div><div class="line">    <span class="comment">#     spider是一个Spider对象，代表开启的Spider，当spider被开启时，调用这个方法</span></div><div class="line">    <span class="comment">#     数据库/文件的开启可以放在这里</span></div><div class="line">    <span class="comment">#     :param spider:</span></div><div class="line">    <span class="comment">#     :return:</span></div><div class="line">    <span class="comment">#     '''</span></div><div class="line">    <span class="comment">#     pass</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        处理item，进行保存</div><div class="line">        :param item:</div><div class="line">        :param spider:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        print(item[<span class="string">'img'</span>])</div><div class="line">        <span class="keyword">if</span> item[<span class="string">'img'</span>]:</div><div class="line">            line = json.dumps(dict(item)) + <span class="string">'\n'</span></div><div class="line">            <span class="comment"># 要转成字节类型，写入文件</span></div><div class="line">            self.file.write(line.encode())</div><div class="line">            <span class="comment"># 给下一个pipline处理</span></div><div class="line">            <span class="keyword">return</span> item</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="comment"># 丢弃，后面的pipline也无法处理了</span></div><div class="line">            <span class="keyword">raise</span> DropItem(<span class="string">'miss img in %s'</span> % item)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self, spider)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        spider被关闭的时候调用</div><div class="line">        可以放置数据库/文件关闭的代码</div><div class="line">        :param spider:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        <span class="comment"># pass</span></div><div class="line">        self.file.close()</div><div class="line">        print(<span class="string">'pipine open file times %s'</span> % <span class="number">5</span>)</div><div class="line"></div><div class="line">    <span class="comment"># @classmethod</span></div><div class="line">    <span class="comment"># def from_crawler(cls, crawler):</span></div><div class="line">    <span class="comment">#     '''</span></div><div class="line">    <span class="comment">#     类方法，用来创建pipeline实例，可以通过crawler来获取scarpy所有的核心组件，如配置</span></div><div class="line">    <span class="comment">#     :param crawler:</span></div><div class="line">    <span class="comment">#     :return:</span></div><div class="line">    <span class="comment">#     '''</span></div><div class="line">    <span class="comment">#     pass</span></div></pre></td></tr></table></figure>
+<p>配置<br>写好的 pipelines 需要配置激活<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">settings.py</div><div class="line"></div><div class="line"><span class="comment"># 激活pipline，从低到高开始执行</span></div><div class="line">ITEM_PIPELINES = &#123;</div><div class="line">   <span class="string">'cankao.pipelines.CankaoPipeline'</span>: <span class="number">300</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="数据保存到mongo"><a href="#数据保存到mongo" class="headerlink" title="数据保存到mongo"></a>数据保存到mongo</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CankaoMongoPipeline</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    以mongo存储为例</div><div class="line">    '''</div><div class="line">    <span class="comment"># 集合名</span></div><div class="line">    collection_name = <span class="string">'scrapy_items'</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, mongo_uri, mongo_port, mongo_db)</span>:</span></div><div class="line">        self.mongo_uri = mongo_uri</div><div class="line">        self.mongo_port = mongo_port</div><div class="line">        self.mongo_db = mongo_db</div><div class="line"></div><div class="line"><span class="meta">    @classmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_crawler</span><span class="params">(cls, crawler)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        类方法，用来创建pipeline实例，可以通过crawler来获取scarpy所有的核心组件，如配置</div><div class="line">        :param crawler:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        <span class="keyword">return</span> cls(</div><div class="line">            <span class="comment"># 获取mongo连接</span></div><div class="line">            mongo_uri = crawler.settings.get(<span class="string">'MONGO_URI'</span>),</div><div class="line">            <span class="comment"># 获取mongo连接</span></div><div class="line">            mongo_port = crawler.settings.get(<span class="string">'MONGO_PORT'</span>),</div><div class="line">            <span class="comment"># 获取数据库，如果没有则用默认的item</span></div><div class="line">            mongo_db = crawler.settings.get(<span class="string">'MONGO_DATABASE'</span>, <span class="string">'fecshop_test'</span>)</div><div class="line">        )</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(self, spider)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        spider是一个Spider对象，代表开启的Spider，当spider被开启时，调用这个方法</div><div class="line">        数据库/文件的开启可以放在这里</div><div class="line">        :param spider:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        <span class="comment"># 连接mongo</span></div><div class="line">        self.client = MongoClient(self.mongo_uri, self.mongo_port)</div><div class="line">        <span class="comment"># 选择使用的数据库</span></div><div class="line">        db_auth = self.client[self.mongo_db]</div><div class="line">        <span class="comment"># 验证登陆</span></div><div class="line">        db_auth.authenticate(<span class="string">"simpleUser"</span>, <span class="string">"simplePass"</span>)</div><div class="line">        self.db = self.client[self.mongo_db]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        处理item，进行保存</div><div class="line">        :param item:</div><div class="line">        :param spider:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        <span class="comment"># 向集合中添加数据</span></div><div class="line">        self.db[self.collection_name].insert(dict(item))</div><div class="line">        <span class="keyword">return</span> item</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self, spider)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        spider被关闭的时候调用</div><div class="line">        可以放置数据库/文件关闭的代码</div><div class="line">        :param spider:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        self.client.close()</div></pre></td></tr></table></figure>
+<p>配置<br>写好的 pipelines 需要配置激活<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">settings.py</div><div class="line"></div><div class="line"><span class="comment"># 激活pipline，从低到高开始执行</span></div><div class="line">ITEM_PIPELINES = &#123;</div><div class="line">    <span class="string">'cankao.pipelines.CankaoPipeline'</span>: <span class="number">300</span>,</div><div class="line">    <span class="string">'cankao.pipelines.CankaoMongoPipeline'</span>: <span class="number">500</span>,</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment"># mongo的配置信息</span></div><div class="line">MONGO_URI = <span class="string">'118.25.38.240'</span></div><div class="line">MONGO_PORT = <span class="number">27017</span></div><div class="line">MONGO_DATABASE = <span class="string">'fecshop_test'</span></div></pre></td></tr></table></figure></p>
+<h4 id="下载文件-自定义文件名"><a href="#下载文件-自定义文件名" class="headerlink" title="下载文件(自定义文件名)"></a>下载文件(自定义文件名)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> scrapy</div><div class="line"><span class="keyword">from</span> scrapy.pipelines.files <span class="keyword">import</span> FilesPipeline</div><div class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</div><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CankaoFilesPipeline</span><span class="params">(FilesPipeline)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    下载文件</div><div class="line">    继承框架自带的FilesPipeline文件下载类</div><div class="line">    '''</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_media_requests</span><span class="params">(self, item, info)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        重写此方法， 用来获取图片url进行下载</div><div class="line">        :param item:</div><div class="line">        :param info:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        self.item = item</div><div class="line">        <span class="keyword">yield</span> scrapy.Request(item[<span class="string">'img'</span>])</div><div class="line"></div><div class="line">    <span class="comment"># def item_completed(self, results, item, info):</span></div><div class="line">    <span class="comment">#     '''</span></div><div class="line">    <span class="comment">#     下载完成后将会把结果送到这个方法</span></div><div class="line">    <span class="comment">#     :param results:</span></div><div class="line">    <span class="comment">#     :param item:</span></div><div class="line">    <span class="comment">#     :param info:</span></div><div class="line">    <span class="comment">#     :return:</span></div><div class="line">    <span class="comment">#     '''</span></div><div class="line">    <span class="comment">#     # print(results)</span></div><div class="line">    <span class="comment">#</span></div><div class="line">    <span class="comment">#     '''</span></div><div class="line">    <span class="comment">#     results 为下载返回的数据, 如下</span></div><div class="line">    <span class="comment">#     [(True, &#123;'url': 'https://img3.doubanio.com/view/subject/m/public/s29816983.jpg', 'path': 'full/fced9acc2ecf23e0f96b9a2d9a442b02234f4388.jpg', 'checksum': 'ce0e7d543b37dbe3d21dd46ef8fcbd1b'&#125;)]</span></div><div class="line">    <span class="comment">#     图片下载成功时为True</span></div><div class="line">    <span class="comment">#     url 源图片地址</span></div><div class="line">    <span class="comment">#     path 下载的文件路径</span></div><div class="line">    <span class="comment">#     checksum md5 hash</span></div><div class="line">    <span class="comment">#     '''</span></div><div class="line">    <span class="comment">#     print(item)</span></div><div class="line">    <span class="comment">#     print(info)</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">file_path</span><span class="params">(self, request, response=None, info=None)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        重写要保存的文件路径，不使用框架自带的hash文件名</div><div class="line">        :param request:</div><div class="line">        :param response:</div><div class="line">        :param info:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">_warn</span><span class="params">()</span>:</span></div><div class="line">            <span class="keyword">from</span> scrapy.exceptions <span class="keyword">import</span> ScrapyDeprecationWarning</div><div class="line">            <span class="keyword">import</span> warnings</div><div class="line">            warnings.warn(<span class="string">'FilesPipeline.file_key(url) method is deprecated, please use '</span></div><div class="line">                          <span class="string">'file_path(request, response=None, info=None) instead'</span>,</div><div class="line">                          category=ScrapyDeprecationWarning, stacklevel=<span class="number">1</span>)</div><div class="line"></div><div class="line">        <span class="comment"># check if called from file_key with url as first argument</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(request, Request):</div><div class="line">            _warn()</div><div class="line">            url = request</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            url = request.url</div><div class="line"></div><div class="line">        <span class="comment"># 后缀</span></div><div class="line">        media_ext = os.path.splitext(url)[<span class="number">1</span>]</div><div class="line">        <span class="comment"># 原名带后缀</span></div><div class="line">        media_content = url.split(<span class="string">"/"</span>)[<span class="number">-1</span>]</div><div class="line">        <span class="comment"># 使用item中的内容</span></div><div class="line">        <span class="comment"># return 'full/%s%s' % (self.item['content'], media_ext)</span></div><div class="line">        <span class="keyword">return</span> <span class="string">'full/%s'</span> % (media_content)</div></pre></td></tr></table></figure>
+<p>配置<br>写好的 pipelines 需要配置激活<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">settings.py</div><div class="line"></div><div class="line"><span class="comment"># 激活pipline，从低到高开始执行</span></div><div class="line">ITEM_PIPELINES = &#123;</div><div class="line">    <span class="string">'cankao.pipelines.CankaoPipeline'</span>: <span class="number">300</span>,</div><div class="line">    <span class="string">'cankao.pipelines.CankaoMongoPipeline'</span>: <span class="number">500</span>,</div><div class="line">    <span class="string">'cankao.pipelines.CankaoFilesPipeline'</span>: <span class="number">600</span>,</div><div class="line">&#125;</div><div class="line"><span class="string">'''</span></div><div class="line">FilesPipeline 配置</div><div class="line">'''</div><div class="line"><span class="comment"># 设置文件存放位置</span></div><div class="line">FILES_STORE = <span class="string">'./download/files'</span></div><div class="line"><span class="comment"># 设置文件过期时间30天</span></div><div class="line">FILES_EXPIRES = <span class="number">30</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import scrapy</div><div class="line">from scrapy.pipelines.images import ImagesPipeline</div><div class="line"></div><div class="line">class CankaoImagesPipeline(ImagesPipeline):</div><div class="line">    &apos;&apos;&apos;</div><div class="line">    继承框架自带的ImagesPipeline图片下载类，可以下载的同时生成不同尺寸的图片放在配置的目录下</div><div class="line">    &apos;&apos;&apos;</div><div class="line"></div><div class="line">    def get_media_requests(self, item, info):</div><div class="line">        &apos;&apos;&apos;</div><div class="line">        重写此方法， 用来获取图片url进行下载</div><div class="line">        :param item:</div><div class="line">        :param info:</div><div class="line">        :return:</div><div class="line">        &apos;&apos;&apos;</div><div class="line">        yield scrapy.Request(item[&apos;img&apos;])</div><div class="line"></div><div class="line">    # def item_completed(self, results, item, info):</div><div class="line">    #     &apos;&apos;&apos;</div><div class="line">    #     下载完成后将会把结果送到这个方法</div><div class="line">    #     :param results:</div><div class="line">    #     :param item:</div><div class="line">    #     :param info:</div><div class="line">    #     :return:</div><div class="line">    #     &apos;&apos;&apos;</div><div class="line">    #     print(results)</div><div class="line">    #</div><div class="line">    #     &apos;&apos;&apos;</div><div class="line">    #     results 为下载返回的数据, 如下</div><div class="line">    #     [(True, &#123;&apos;url&apos;: &apos;https://img3.doubanio.com/view/subject/m/public/s29827942.jpg&apos;, &apos;path&apos;: &apos;full/ad6acfdbef4d9df208c0e010ed1efcc287cb6225.jpg&apos;, &apos;checksum&apos;: &apos;c5d853689829ba8731cbb27146d89573&apos;&#125;)]</div><div class="line">    #     图片下载成功时为True</div><div class="line">    #     url 源图片地址</div><div class="line">    #     path 下载的文件路径</div><div class="line">    #     checksum md5 hash</div><div class="line">    #     &apos;&apos;&apos;</div><div class="line">    #     print(item)</div><div class="line">    #     print(info)</div></pre></td></tr></table></figure>
+<p>配置<br>写好的 pipelines 需要配置激活<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">settings.py</div><div class="line"></div><div class="line"><span class="comment"># 激活pipline，从低到高开始执行</span></div><div class="line">ITEM_PIPELINES = &#123;</div><div class="line">    <span class="string">'cankao.pipelines.CankaoPipeline'</span>: <span class="number">300</span>,</div><div class="line">    <span class="string">'cankao.pipelines.CankaoMongoPipeline'</span>: <span class="number">500</span>,</div><div class="line">    <span class="string">'cankao.pipelines.CankaoFilesPipeline'</span>: <span class="number">600</span>,</div><div class="line">    <span class="string">'cankao.pipelines.CankaoImagesPipeline'</span>: <span class="number">700</span>,</div><div class="line">&#125;</div><div class="line"><span class="string">'''</span></div><div class="line">ImagesPipeline 配置</div><div class="line">'''</div><div class="line"><span class="comment"># 设置图片路径</span></div><div class="line">IMAGES_STORE = <span class="string">'./download/images'</span></div><div class="line"><span class="comment"># 制作缩略图</span></div><div class="line">IMAGES_THUMBS = &#123;</div><div class="line">   <span class="string">'small'</span>: (<span class="number">50</span>, <span class="number">50</span>),</div><div class="line">   <span class="string">'big'</span>: (<span class="number">270</span>, <span class="number">270</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment"># 设置图片过期时间30天</span></div><div class="line">IMAGES_EXPIRES = <span class="number">30</span></div><div class="line"><span class="comment"># 过滤下载图片的大小</span></div><div class="line"><span class="comment"># 过滤条件：最小图片尺寸</span></div><div class="line"><span class="comment"># IMAGES_MIN_HEIGH = 10</span></div><div class="line"><span class="comment"># IMAGES_MIN_WIDTH = 10</span></div></pre></td></tr></table></figure></p>
+<h3 id="创建中间件"><a href="#创建中间件" class="headerlink" title="创建中间件"></a>创建中间件</h3><h4 id="下载中间件实现-随机-USER-AGENT"><a href="#下载中间件实现-随机-USER-AGENT" class="headerlink" title="下载中间件实现 随机 USER_AGENT"></a>下载中间件实现 随机 USER_AGENT</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> random</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomUserAgent</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    使用随机 User-Agent的中间件</div><div class="line">    '''</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, agents)</span>:</span></div><div class="line">        self.agents = agents</div><div class="line"></div><div class="line"><span class="meta">    @classmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_crawler</span><span class="params">(cls, crawler)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        通过这个类方法创建对象</div><div class="line">        :param crawler:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        <span class="string">'''</span></div><div class="line">        settings.py USER_AGENTS的值示例</div><div class="line">        USER_AGENTS = [</div><div class="line">           'Mozilla/5.1 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',</div><div class="line">           'Mozilla/5.2 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',</div><div class="line">           'Mozilla/5.3 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',</div><div class="line">           ]</div><div class="line"></div><div class="line">        '''</div><div class="line">        <span class="comment"># 获取配置文件settings中USER_AGENTS的值</span></div><div class="line">        <span class="keyword">return</span> cls(crawler.settings.getlist(<span class="string">'USER_AGENTS'</span>))</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, spider)</span>:</span></div><div class="line">        print(<span class="string">'here'</span>)</div><div class="line">        <span class="string">'''</span></div><div class="line">        中间件请求过程中设置request</div><div class="line">        :param request:</div><div class="line">        :param spider:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        <span class="comment"># 设置request的的User-Agent头</span></div><div class="line">        <span class="comment"># setdefault 如果已经存在了就不会重新赋值了，所以中间件要靠前才生效</span></div><div class="line">        request.headers.setdefault(<span class="string">"User-Agent"</span>, random.choice(self.agents))</div></pre></td></tr></table></figure>
+<p>配置<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">settings.py  </div><div class="line"></div><div class="line"><span class="comment"># 下载中间件</span></div><div class="line">DOWNLOADER_MIDDLEWARES = &#123;</div><div class="line">   <span class="string">'cankao.middlewares.RandomUserAgent'</span>: <span class="number">100</span>, <span class="comment"># 数值要小</span></div><div class="line">&#125;</div><div class="line"><span class="comment">#  客户端 user-agent请求头 随机使用一个</span></div><div class="line">USER_AGENTS = [</div><div class="line">   <span class="string">'Mozilla/5.1 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'</span>,</div><div class="line">   <span class="string">'Mozilla/5.2 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'</span>,</div><div class="line">   <span class="string">'Mozilla/5.3 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'</span>,</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h4 id="下载中间件实现-随机代理"><a href="#下载中间件实现-随机代理" class="headerlink" title="下载中间件实现 随机代理"></a>下载中间件实现 随机代理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomProxy</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    使用随机代理的中间件</div><div class="line">    '''</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, iplist)</span>:</span></div><div class="line">        self.iplist = iplist</div><div class="line"></div><div class="line"><span class="meta">    @classmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_crawler</span><span class="params">(cls, crawler)</span>:</span></div><div class="line">        <span class="keyword">return</span> cls(crawler.settings.getlist(<span class="string">'IPLIST'</span>))</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, spider)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        给代理随机添加上一个代理</div><div class="line">        :param request:</div><div class="line">        :param spider:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        proxy = random.choice(self.iplist)</div><div class="line">        request.meta[<span class="string">'proxy'</span>] = proxy</div></pre></td></tr></table></figure>
+<p>配置同上  </p>
+<h3 id="创建-cankao2-爬虫，并验证中间件，实现cookie管理"><a href="#创建-cankao2-爬虫，并验证中间件，实现cookie管理" class="headerlink" title="创建 cankao2 爬虫，并验证中间件，实现cookie管理"></a>创建 cankao2 爬虫，并验证中间件，实现cookie管理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> scrapy</div><div class="line"><span class="keyword">from</span> scrapy.http.request <span class="keyword">import</span> Request</div><div class="line"><span class="keyword">import</span> random</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cankao2Spider</span><span class="params">(scrapy.Spider)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    测试随机User-agent头中间件和cookie管理</div><div class="line">    '''</div><div class="line">    name = <span class="string">'cankao2'</span></div><div class="line">    allowed_domains = [<span class="string">'wuxingxiangsheng.com'</span>]</div><div class="line">    <span class="comment"># start_urls = ['http://temp.wuxingxiangsheng.com/test/request']</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="comment"># cookiejar 参数用来自动管理cookie， 可以自动管理多个，根据cookiejar对应的值不同</span></div><div class="line">        <span class="keyword">return</span> [Request(<span class="string">'http://temp.wuxingxiangsheng.com/test/request'</span>, meta = &#123;<span class="string">'cookiejar'</span>:<span class="number">1</span>&#125;)]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        解析</div><div class="line">        :param response:</div><div class="line">        :return:</div><div class="line">        '''</div><div class="line">        <span class="comment"># 打印响应体</span></div><div class="line">        print(response.body)</div><div class="line">        <span class="comment"># print(papers)</span></div><div class="line">        salt = random.random()</div><div class="line"></div><div class="line">        <span class="comment"># 获取响应的cookie</span></div><div class="line">        print(response.headers.getlist(<span class="string">'Set-Cookie'</span>))</div><div class="line">        <span class="comment"># 获取cookiejar对应的值 1</span></div><div class="line">        print(response.meta[<span class="string">'cookiejar'</span>])</div><div class="line">        <span class="comment"># cookies 为自定义cookie值  meta = &#123;'cookiejar' 为自动管理的cookie</span></div><div class="line">        <span class="keyword">yield</span> Request(url=<span class="string">'http://temp.wuxingxiangsheng.com/test/request?salt=%s'</span> % salt, cookies=&#123;<span class="string">'test'</span>:<span class="string">'test'</span>&#125;,</div><div class="line">                      meta = &#123;<span class="string">'cookiejar'</span>:response.meta[<span class="string">'cookiejar'</span>]&#125;, callback=self.next)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next</span><span class="params">(self, response)</span>:</span></div><div class="line">        <span class="comment"># 获取请求携带的cookie， 自定义的加自动管理的</span></div><div class="line">        cookie = response.request.headers.getlist(<span class="string">'Cookie'</span>)</div><div class="line">        print(<span class="string">'请求时携带请求的Cookies：'</span>, cookie)</div><div class="line">        print(response.body)</div></pre></td></tr></table></figure>
+<p>如果cookie不能使用，请查看配置<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">COOKIES_ENABLED = <span class="keyword">True</span></div></pre></td></tr></table></figure></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="debug-模式启动-多爬虫启动"><a href="#debug-模式启动-多爬虫启动" class="headerlink" title="debug 模式启动 || 多爬虫启动"></a>debug 模式启动 || 多爬虫启动</h3><p>创建文件 <code>cankao3.py</code>, 内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">from cankao.spiders.cankao1 import Cankao1Spider</div><div class="line">from scrapy.utils.project import get_project_settings</div><div class="line">from scrapy.crawler import CrawlerProcess</div><div class="line"></div><div class="line">&apos;&apos;&apos;</div><div class="line">启动爬虫, 可以通过debug模式启动，进行源码分析</div><div class="line">&apos;&apos;&apos;</div><div class="line"></div><div class="line">def my_run1():</div><div class="line">    &apos;&apos;&apos;</div><div class="line">    启动单个爬虫，这里可以定制爬虫的配置</div><div class="line">    :return:</div><div class="line">    &apos;&apos;&apos;</div><div class="line">    process = CrawlerProcess(get_project_settings())</div><div class="line">    process.crawl(Cankao1Spider)</div><div class="line">    process.start()</div><div class="line"></div><div class="line">def my_run2():</div><div class="line">    &apos;&apos;&apos;</div><div class="line">    启动多个爬虫，这里可以给每个爬虫定制配置</div><div class="line">    :return:</div><div class="line">    &apos;&apos;&apos;</div><div class="line">    process = CrawlerProcess(get_project_settings())</div><div class="line">    process.crawl(Cankao1Spider)</div><div class="line">    process.crawl(Cankao1Spider)</div><div class="line">    process.start()</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    my_run1()</div></pre></td></tr></table></figure></p>
+<h3 id="分析xpath是否正确"><a href="#分析xpath是否正确" class="headerlink" title="分析xpath是否正确"></a>分析xpath是否正确</h3><blockquote>
+<p>win系统无法使用,mac正常     </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span> 执行</div><div class="line">scrapy shell <span class="string">'www.bunao.win'</span> <span class="comment"># 执行要分析页面地址   </span></div><div class="line"><span class="number">2.</span> 获得返回数据后，执行  </div><div class="line">response.xpath(<span class="string">'//a'</span>)  <span class="comment"># response对象就是上一步返回的对象，执行自己的xpath表达式，查看结果是否正确  </span></div><div class="line"></div><div class="line">也可以通过  </div><div class="line">view(response)  <span class="comment"># 将请求返回的网页再浏览器打开，再浏览器里测试xpath表达式</span></div></pre></td></tr></table></figure>
+<h3 id="获取配置"><a href="#获取配置" class="headerlink" title="获取配置"></a>获取配置</h3><p>获取项目配置信息，如果没设置返回的是默认的配置信息  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">获取USER_AGENT配置信息，具体的配置字段查看setting文件</div><div class="line">F:\python\cankao&gt;scrapy settings --get USER_AGENT</div><div class="line">Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrom</div><div class="line">e/61.0.3163.100 Safari/537.36</div></pre></td></tr></table></figure>
+<blockquote>
+<p>项目地址 <a href="https://github.com/Ibunao/cankao" target="_blank" rel="external">github</a>   </p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/scrapy/" rel="tag"># scrapy</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/23/spider/xpath参考/" rel="next" title="爬虫-xpath">
+                <i class="fa fa-chevron-left"></i> 爬虫-xpath
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">纸上得来终觉浅，绝知此事要躬行。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/u/6346736172" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-angry"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank" rel="external nofollow">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现项目"><span class="nav-number">1.</span> <span class="nav-text">实现项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目"><span class="nav-number">1.1.</span> <span class="nav-text">创建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建爬虫"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建爬虫</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建item"><span class="nav-number">1.2.</span> <span class="nav-text">创建item</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-pipeline-存储数据"><span class="nav-number">1.3.</span> <span class="nav-text">创建 pipeline , 存储数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据保存到文件"><span class="nav-number">1.3.1.</span> <span class="nav-text">数据保存到文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据保存到mongo"><span class="nav-number">1.3.2.</span> <span class="nav-text">数据保存到mongo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载文件-自定义文件名"><span class="nav-number">1.3.3.</span> <span class="nav-text">下载文件(自定义文件名)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建中间件"><span class="nav-number">1.4.</span> <span class="nav-text">创建中间件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载中间件实现-随机-USER-AGENT"><span class="nav-number">1.4.1.</span> <span class="nav-text">下载中间件实现 随机 USER_AGENT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载中间件实现-随机代理"><span class="nav-number">1.4.2.</span> <span class="nav-text">下载中间件实现 随机代理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-cankao2-爬虫，并验证中间件，实现cookie管理"><span class="nav-number">1.5.</span> <span class="nav-text">创建 cankao2 爬虫，并验证中间件，实现cookie管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#debug-模式启动-多爬虫启动"><span class="nav-number">2.1.</span> <span class="nav-text">debug 模式启动 || 多爬虫启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析xpath是否正确"><span class="nav-number">2.2.</span> <span class="nav-text">分析xpath是否正确</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取配置"><span class="nav-number">2.3.</span> <span class="nav-text">获取配置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io" rel="external nofollow" >Hexo</a> 强力驱动 v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
