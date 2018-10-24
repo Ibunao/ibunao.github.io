@@ -348,6 +348,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/10/09/yii/security组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/09/yii/security组件/" itemprop="url">
+                  Yii-安全组件
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-09 00:20:02" itemprop="dateCreated datePublished" datetime="2018-10-09T00:20:02+08:00">2018-10-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-10-13 17:25:30" itemprop="dateModified" datetime="2018-10-13T17:25:30+08:00">2018-10-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/09/yii/security组件/" class="leancloud_visitors" data-flag-title="Yii-安全组件">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="加密-amp-解密-相关方法"><a href="#加密-amp-解密-相关方法" class="headerlink" title="加密&amp;解密 相关方法"></a>加密&amp;解密 相关方法</h2><h3 id="数据加密和解密"><a href="#数据加密和解密" class="headerlink" title="数据加密和解密"></a>数据加密和解密</h3><h4 id="encryptByPassword-amp-decryptByPassword"><a href="#encryptByPassword-amp-decryptByPassword" class="headerlink" title="encryptByPassword &amp; decryptByPassword"></a>encryptByPassword &amp; decryptByPassword</h4><p>通过key 对原数据进行加密，每次加密后的生成的数据是不一样的，但是都可以通过它来解密出原来的数据<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取加密(编码)后的数据。</div><div class="line"> * 和 decryptByPassword 配对使用</div><div class="line"> * <span class="doctag">@param</span> string $data the data to encrypt  要加密的数据</div><div class="line"> * <span class="doctag">@param</span> string $password the password to use for encryption  加密使用的key</div><div class="line"> * <span class="doctag">@return</span> string the encrypted data</div><div class="line"> * <span class="doctag">@see</span> decryptByPassword()</div><div class="line"> * <span class="doctag">@see</span> encryptByKey()</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">encryptByPassword</span><span class="params">($data, $password)</span></span></div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/09/yii/security组件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/10/07/redis/redis实现文章根据点赞及时间排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1146,7 +1331,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1175,7 +1360,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1216,7 +1403,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
