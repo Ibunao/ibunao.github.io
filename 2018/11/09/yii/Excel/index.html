@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="说明对excel的操作常用的操作一般还是比较简单的，如果直接去看 phpexcel 可能会感觉方法太多而无从下手，我们这里直接用经过封装过的 yii-excel 来进行学习就相对简单的多，最后也提供了一个更简单的写excel的和读写csv的两个类供参考学习用到的两张表放在最后附件了，自行下载，用到的两个模型类是通过 gii 直接创建的   开始安装 yii-excel直接进项目执行1compose">
+<meta name="keywords" content="yii,excel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yii-Excel">
+<meta property="og:url" content="http://bunao.win/2018/11/09/yii/Excel/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="说明对excel的操作常用的操作一般还是比较简单的，如果直接去看 phpexcel 可能会感觉方法太多而无从下手，我们这里直接用经过封装过的 yii-excel 来进行学习就相对简单的多，最后也提供了一个更简单的写excel的和读写csv的两个类供参考学习用到的两张表放在最后附件了，自行下载，用到的两个模型类是通过 gii 直接创建的   开始安装 yii-excel直接进项目执行1compose">
+<meta property="og:image" content="http://bunao.win/images/yii/excel/biao1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/excel/excel1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/excel/biao2.png">
+<meta property="og:image" content="http://bunao.win/images/yii/excel/excel2.png">
+<meta property="og:image" content="http://bunao.win/images/yii/excel/excel3.png">
+<meta property="og:image" content="http://bunao.win/images/yii/excel/excel4.png">
+<meta property="og:image" content="http://bunao.win/images/yii/excel/result1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/excel/result2.png">
+<meta property="og:updated_time" content="2018-11-09T16:11:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yii-Excel">
+<meta name="twitter:description" content="说明对excel的操作常用的操作一般还是比较简单的，如果直接去看 phpexcel 可能会感觉方法太多而无从下手，我们这里直接用经过封装过的 yii-excel 来进行学习就相对简单的多，最后也提供了一个更简单的写excel的和读写csv的两个类供参考学习用到的两张表放在最后附件了，自行下载，用到的两个模型类是通过 gii 直接创建的   开始安装 yii-excel直接进项目执行1compose">
+<meta name="twitter:image" content="http://bunao.win/images/yii/excel/biao1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2018/11/09/yii/Excel/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Yii-Excel | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">less is more</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/11/09/yii/Excel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Yii-Excel
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-09 00:00:02" itemprop="dateCreated datePublished" datetime="2018-11-09T00:00:02+08:00">2018-11-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-10 00:11:11" itemprop="dateModified" datetime="2018-11-10T00:11:11+08:00">2018-11-10</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/09/yii/Excel/" class="leancloud_visitors" data-flag-title="Yii-Excel">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>对excel的操作常用的操作一般还是比较简单的，如果直接去看 <code>phpexcel</code> 可能会感觉方法太多而无从下手，我们这里直接用经过封装过的 <code>yii-excel</code> 来进行学习就相对简单的多，最后也提供了一个更简单的写excel的和读写csv的两个类供参考学习<br>用到的两张表放在最后附件了，自行下载，用到的两个模型类是通过 <code>gii</code> 直接创建的  </p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="安装-yii-excel"><a href="#安装-yii-excel" class="headerlink" title="安装 yii-excel"></a>安装 <code>yii-excel</code></h3><p>直接进项目执行<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">composer <span class="keyword">require</span> --prefer-dist moonlandsoft/yii2-phpexcel <span class="string">"*"</span></div></pre></td></tr></table></figure></p>
+<p>安装后 <code>vendor</code> 目录下将会多两个文件夹 <code>moonlandsoft/yii-phpexcel</code> 和 <code>phpoffice/phpexcel</code>  </p>
+<h3 id="下载excel"><a href="#下载excel" class="headerlink" title="下载excel"></a>下载excel</h3><h4 id="一表单sheet"><a href="#一表单sheet" class="headerlink" title="一表单sheet"></a>一表单sheet</h4><p>看代码吧，注释已经很清楚了<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 一表单sheet下载</div><div class="line"> * <span class="doctag">@return</span> [type] [description]</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionIndex</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	$models = LevelModel::find()-&gt;all();</div><div class="line">	Excel::widget([</div><div class="line">		<span class="string">'models'</span> =&gt; $models,</div><div class="line">		<span class="string">'fileName'</span> =&gt; <span class="string">'下载'</span>, <span class="comment">// 设置下载文件名</span></div><div class="line">		<span class="comment">// 'savePath' =&gt; 'D:\ding\wamp64\www\yii\advance\yii-learn\backend\runtime', // 生成在服务器  </span></div><div class="line">		<span class="string">'mode'</span> =&gt; <span class="string">'export'</span>, <span class="comment">// 导出</span></div><div class="line">		<span class="string">'columns'</span> =&gt; [<span class="string">'level_id'</span>,<span class="string">'level_name'</span>,<span class="string">'p_order'</span>], <span class="comment">// 列，通过 $model['level_id'] 来取对应的值</span></div><div class="line">		<span class="string">'headers'</span> =&gt; [<span class="string">'level_id'</span> =&gt; <span class="string">'Header Column 1'</span>,<span class="string">'level_name'</span> =&gt; <span class="string">'Header Column 2'</span>, <span class="string">'p_order'</span> =&gt; <span class="string">'Header Column 3'</span>], <span class="comment">// 列对应的header ，title行的数据</span></div><div class="line">	]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>level 表结构  </p>
+<p><img src="/images/yii/excel/biao1.png" alt="">  </p>
+<p>下载的 excel 结果  </p>
+<p><img src="/images/yii/excel/excel1.png" alt=""></p>
+<h4 id="一表多sheet"><a href="#一表多sheet" class="headerlink" title="一表多sheet"></a>一表多sheet</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 一表多sheet 下载</div><div class="line"> * <span class="doctag">@param</span>  string $value [description]</div><div class="line"> * <span class="doctag">@return</span> [type]        [description]</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionMultiple</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	$model1 = LevelModel::find()-&gt;all();</div><div class="line">	$model2 = ColorModel::find()-&gt;all();</div><div class="line">	Excel::widget([</div><div class="line">		<span class="string">'isMultipleSheet'</span> =&gt; <span class="keyword">true</span>,</div><div class="line">		<span class="string">'models'</span> =&gt; [</div><div class="line">			<span class="string">'sheet1'</span> =&gt; $model1,</div><div class="line">			<span class="string">'sheet2'</span> =&gt; $model2,</div><div class="line">		],</div><div class="line">		<span class="string">'mode'</span> =&gt; <span class="string">'export'</span>, <span class="comment">//default value as 'export'</span></div><div class="line">		<span class="string">'columns'</span> =&gt; [</div><div class="line">			<span class="string">'sheet1'</span> =&gt; [<span class="string">'level_id'</span>,<span class="string">'level_name'</span>,<span class="string">'p_order'</span>],</div><div class="line">			<span class="string">'sheet2'</span> =&gt; [<span class="string">'color_no'</span>,<span class="string">'color_name'</span>,<span class="string">'scheme_id'</span>],</div><div class="line">		],</div><div class="line">		<span class="string">'headers'</span> =&gt; [</div><div class="line">			<span class="string">'sheet1'</span> =&gt; [<span class="string">'level_id'</span> =&gt; <span class="string">'Header Column 1'</span>,<span class="string">'level_name'</span> =&gt; <span class="string">'Header Column 2'</span>, <span class="string">'p_order'</span> =&gt; <span class="string">'Header Column 3'</span>],</div><div class="line">			<span class="string">'sheet2'</span> =&gt; [<span class="string">'color_no'</span> =&gt; <span class="string">'Header Column 1'</span>,<span class="string">'color_name'</span> =&gt; <span class="string">'Header Column 2'</span>, <span class="string">'scheme_id'</span> =&gt; <span class="string">'Header Column 3'</span>],</div><div class="line">		],</div><div class="line">	]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>color 表结构  </p>
+<p><img src="/images/yii/excel/biao2.png" alt="">  </p>
+<p>下载的 excel 结果  </p>
+<p><img src="/images/yii/excel/excel2.png" alt=""></p>
+<h4 id="下载数组格式的"><a href="#下载数组格式的" class="headerlink" title="下载数组格式的"></a>下载数组格式的</h4><p>使用已经准备好的数据，下载成excel而不依赖model  </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 一表单sheet下载</div><div class="line"> * <span class="doctag">@return</span> [type] [description]</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionData</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	$models = [</div><div class="line">		[<span class="string">'level_id'</span> =&gt; <span class="number">1</span>, <span class="string">'level_name'</span> =&gt; <span class="string">'ding'</span>, <span class="string">'p_order'</span> =&gt; <span class="number">21</span>],</div><div class="line">		[<span class="string">'level_id'</span> =&gt; <span class="number">2</span>, <span class="string">'level_name'</span> =&gt; <span class="string">'ding'</span>, <span class="string">'p_order'</span> =&gt; <span class="number">21</span>],</div><div class="line">		<span class="comment">// 生成空行</span></div><div class="line">		[<span class="string">'level_id'</span> =&gt; <span class="string">''</span>, <span class="string">'level_name'</span> =&gt; <span class="string">''</span>, <span class="string">'p_order'</span> =&gt; <span class="string">''</span>],</div><div class="line">		<span class="comment">// 巧妙设置统计信息</span></div><div class="line">		[<span class="string">'level_id'</span> =&gt; <span class="string">'总额：'</span>, <span class="string">'level_name'</span> =&gt; <span class="string">'128'</span>],</div><div class="line">	];</div><div class="line">	Excel::widget([</div><div class="line">		<span class="string">'models'</span> =&gt; $models,</div><div class="line">		<span class="string">'fileName'</span> =&gt; <span class="string">'下载'</span>, <span class="comment">// 设置下载文件名</span></div><div class="line">		<span class="comment">// 'savePath' =&gt; 'D:\ding\wamp64\www\yii\advance\yii-learn\backend\runtime', // 生成在服务器  </span></div><div class="line">		<span class="string">'mode'</span> =&gt; <span class="string">'export'</span>, <span class="comment">// 导出</span></div><div class="line">		<span class="string">'columns'</span> =&gt; [<span class="string">'level_id'</span>,<span class="string">'level_name'</span>,<span class="string">'p_order'</span>], <span class="comment">// 列，通过 $model['level_id'] 来取对应的值</span></div><div class="line">		<span class="string">'headers'</span> =&gt; [<span class="string">'level_id'</span> =&gt; <span class="string">'Header Column 1'</span>,<span class="string">'level_name'</span> =&gt; <span class="string">'Header Column 2'</span>, <span class="string">'p_order'</span> =&gt; <span class="string">'Header Column 3'</span>], <span class="comment">// 列对应的header ，title行的数据</span></div><div class="line">	]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下载的 excel 结果  </p>
+<p><img src="/images/yii/excel/excel3.png" alt="">  </p>
+<h3 id="读取excel文件数据"><a href="#读取excel文件数据" class="headerlink" title="读取excel文件数据"></a>读取excel文件数据</h3><p>为了方便测试，直接把excel放在了 <code>web</code> 目录下  </p>
+<h4 id="读取单文件"><a href="#读取单文件" class="headerlink" title="读取单文件"></a>读取单文件</h4><p>可以开启 <code>getOnlySheet</code> 注释进行自行测试<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 读取单文件</div><div class="line"> * <span class="doctag">@return</span> [type] [description]</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionImport</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	$fileName = <span class="string">'exports2.xls'</span>;</div><div class="line">	$data = Excel::widget([</div><div class="line">		<span class="string">'mode'</span> =&gt; <span class="string">'import'</span>, <span class="comment">// 导入模式</span></div><div class="line">		<span class="string">'fileName'</span> =&gt; $fileName, <span class="comment">// 文件名</span></div><div class="line">		<span class="string">'setFirstRecordAsKeys'</span> =&gt; <span class="keyword">true</span>, <span class="comment">// 是否使用第一行的title字段作为行数据的key</span></div><div class="line">		<span class="string">'setIndexSheetByName'</span> =&gt; <span class="keyword">true</span>, <span class="comment">// 是否使用sheet名作为sheet数组的key</span></div><div class="line">		<span class="comment">// 'getOnlySheet' =&gt; '单元1', // 读取那个sheet的name ，如果不设置则读取所有的sheet</span></div><div class="line">	]);</div><div class="line">	<span class="keyword">echo</span> json_encode($data);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>excel 文件结构  </p>
+<p><img src="/images/yii/excel/excel4.png" alt="">  </p>
+<p>读取的数据结构  </p>
+<p><img src="/images/yii/excel/result1.png" alt="">  </p>
+<h4 id="读取多文件"><a href="#读取多文件" class="headerlink" title="读取多文件"></a>读取多文件</h4><p>一次读取多个文件的数据<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 读取多文件</div><div class="line"> * <span class="doctag">@return</span> [type] [description]</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionImporttwo</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	$fileName1 = <span class="string">'exports2.xls'</span>;</div><div class="line">	$fileName2 = <span class="string">'exports1.xls'</span>;</div><div class="line">	$data = Excel::widget([</div><div class="line">		<span class="string">'mode'</span> =&gt; <span class="string">'import'</span>, <span class="comment">// 导入模式</span></div><div class="line">		<span class="string">'fileName'</span> =&gt; [</div><div class="line">			<span class="string">'file1'</span> =&gt; $fileName1,</div><div class="line">			<span class="string">'file2'</span> =&gt; $fileName2,</div><div class="line">		],</div><div class="line">		<span class="string">'setFirstRecordAsKeys'</span> =&gt; <span class="keyword">true</span>,</div><div class="line">		<span class="string">'setIndexSheetByName'</span> =&gt; <span class="keyword">true</span>,</div><div class="line">		<span class="comment">// 'getOnlySheet' =&gt; '单元1', // 读取那个sheet的name ，如果不设置则读取所有的sheet</span></div><div class="line">	]);</div><div class="line">	<span class="keyword">echo</span> json_encode($data);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>读取的数据结构  </p>
+<p><img src="/images/yii/excel/result2.png" alt="">    </p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="简单的下载Excel的类"><a href="#简单的下载Excel的类" class="headerlink" title="简单的下载Excel的类"></a>简单的下载Excel的类</h4><p>看dome比较简单<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> *</div><div class="line"> * // dome  </div><div class="line"> * // 下载的文件名</div><div class="line"> * $filename = 'test';</div><div class="line"> * // title行</div><div class="line"> * $titles = ['title1'];</div><div class="line"> * SimpleExcel::echoBegin($filename, $titles);</div><div class="line"> * $data = [</div><div class="line"> *     ['1a'], // 第一行</div><div class="line"> *     ['2a', '2b'], // 第二行</div><div class="line"> * ];</div><div class="line"> * SimpleExcel::echoRows($data);</div><div class="line"> * // 追加行</div><div class="line"> * SimpleExcel::echoRows($data);</div><div class="line"> * // 输出</div><div class="line"> * SimpleExcel::echoFinish();</div><div class="line"> *</div><div class="line"> * 注意不要下载数据量太大的，会非常慢，而且excel有行数限制</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleExcel</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 设置请求头</div><div class="line">     * <span class="doctag">@param</span> string $filename [description]</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">setHeaders</span><span class="params">($filename = <span class="string">'data'</span>)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 检验header头是否已经发送</span></div><div class="line">        <span class="keyword">if</span> (headers_sent($file, $line)) &#123;</div><div class="line">            <span class="keyword">echo</span> <span class="string">'Header already sent @ '</span> . $file . <span class="string">':'</span> . $line;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//header('Cache-Control: no-cache;must-revalidate'); //fix ie download bug</span></div><div class="line">        header(<span class="string">'Pragma: no-cache, no-store'</span>);</div><div class="line">        header(<span class="string">"Expires: Wed, 26 Feb 1997 08:21:57 GMT"</span>);</div><div class="line">        header(<span class="string">'Content-type: application/force-download;charset=utf-8'</span>);</div><div class="line">        header(<span class="string">"Content-Disposition: attachment; filename=\""</span> . $filename . <span class="string">'"'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span>  [type] $filename [description]</div><div class="line">     * <span class="doctag">@param</span>  array  $titles   [description]</div><div class="line">     * <span class="doctag">@return</span> [type]           [description]</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">echoBegin</span><span class="params">($filename = <span class="string">''</span>, $titles = [])</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>($filename)) &#123;</div><div class="line">            $filename = date(<span class="string">"Y-m-d"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">self</span>::setHeaders($filename . <span class="string">'.xls'</span>);</div><div class="line">        <span class="keyword">echo</span> <span class="string">'</span></div><div class="line">        &lt;head&gt;</div><div class="line">            &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;</div><div class="line">            &lt;style&gt;</div><div class="line">                td&#123;vnd.ms-excel.numberformat:@&#125;</div><div class="line">            &lt;/style&gt;</div><div class="line">        &lt;/head&gt;';</div><div class="line">        <span class="keyword">echo</span> <span class="string">'&lt;table width="100%" border="1"&gt;'</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'&lt;tr&gt;&lt;th filter=all&gt;'</span> . implode(<span class="string">'&lt;/th&gt;&lt;th filter=all&gt;'</span>, $titles) . <span class="string">"&lt;/th&gt;&lt;/tr&gt;\r\n"</span>;</div><div class="line">        flush();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">echoRows</span><span class="params">($rows)</span></span></div><div class="line">    &#123;</div><div class="line"></div><div class="line">        <span class="keyword">foreach</span> ($rows <span class="keyword">as</span> $row) &#123;</div><div class="line">            <span class="keyword">echo</span> <span class="string">'&lt;tr&gt;&lt;td&gt;'</span> . implode(<span class="string">'&lt;/td&gt;&lt;td&gt;'</span>, $row) . <span class="string">"&lt;/td&gt;&lt;/tr&gt;\r\n"</span>;</div><div class="line">        &#125;</div><div class="line">        flush();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">echoFinish</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'&lt;/table&gt;'</span>;</div><div class="line">        flush();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="csv文件的读取和下载"><a href="#csv文件的读取和下载" class="headerlink" title="csv文件的读取和下载"></a>csv文件的读取和下载</h4><p>读取csv格式文件和将数据生成csv格式文件<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> *</div><div class="line"> * // dome  </div><div class="line"> * // 下载的文件名</div><div class="line"> * $filename = 'test.csv';</div><div class="line"> * // title行</div><div class="line"> * $titles = ['title1', 'title2'];</div><div class="line"> * $data = [</div><div class="line"> *     ['1a', '1b'], // 第一行</div><div class="line"> *     ['2a', '2b'], // 第二行</div><div class="line"> *     # 加前引号，表示字符串格式的数据  </div><div class="line"> *     ["'".'123456789999.00', '1234567899990000000.00'],</div><div class="line"> * ];</div><div class="line"> *</div><div class="line"> * SimpleCsv::exportCsv($titles, $data, $filename);</div><div class="line"></div><div class="line"> * // 上传数据</div><div class="line"> * // 上传文件的文件名</div><div class="line"> * $filename = './test.csv';</div><div class="line"> * var_dump(SimpleCsv::importCsv($filename));</div><div class="line"> *</div><div class="line"> * csv 格式可以突破excel行数的限制，而且速度也相对较快  </div><div class="line"> * 缺点就是如果需要excel的其他操作需要另存为excel</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleCsv</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 导出csv文件</div><div class="line">     * <span class="doctag">@param</span>  Array  $csv_header title行</div><div class="line">     * <span class="doctag">@param</span>  Array  $data       数据</div><div class="line">     * <span class="doctag">@param</span>  string $filename   文件名 以 .csv 结尾</div><div class="line">     * <span class="doctag">@return</span> [type]             [description]</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">exportCsv</span><span class="params">(Array $csv_header, Array $data, $filename=<span class="string">''</span>)</span></span></div><div class="line">    &#123;</div><div class="line">        $filename =$filename?$filename:date(<span class="string">'Ymd'</span>).<span class="string">'.csv'</span>; <span class="comment">//设置文件名</span></div><div class="line">        header(<span class="string">"Content-type:text/csv"</span>);</div><div class="line">        header(<span class="string">"Content-Disposition:attachment;filename="</span>.$filename);</div><div class="line">        header(<span class="string">'Cache-Control:must-revalidate,post-check=0,pre-check=0'</span>);</div><div class="line">        header(<span class="string">'Expires:0'</span>);</div><div class="line">        header(<span class="string">'Pragma:public'</span>);</div><div class="line">        <span class="keyword">foreach</span> ($csv_header <span class="keyword">as</span> $k =&gt; $v) &#123;</div><div class="line">            $csv_header[$k] = iconv(<span class="string">'utf-8'</span>,<span class="string">'gb2312'</span>,$v);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">echo</span> implode(<span class="string">','</span>, $csv_header) . <span class="string">"\n"</span>;</div><div class="line">        $str = <span class="string">''</span>;</div><div class="line">        <span class="keyword">foreach</span>($data <span class="keyword">as</span> $v)&#123;</div><div class="line">            <span class="keyword">foreach</span> ($v <span class="keyword">as</span> $key =&gt; $col)&#123;</div><div class="line">                $v[$key] = iconv(<span class="string">'utf-8'</span>,<span class="string">'gb2312//IGNORE'</span>,$col);</div><div class="line">            &#125;</div><div class="line">            $abc = implode(<span class="string">','</span>,$v);</div><div class="line">            $str .= $abc. <span class="string">"\n"</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">echo</span> $str;</div><div class="line">        flush();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 导入csv</div><div class="line">     * <span class="doctag">@param</span> $file</div><div class="line">     * <span class="doctag">@internal</span> param $filename</div><div class="line">     * <span class="doctag">@return</span> array|bool</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">importCsv</span><span class="params">($file)</span></span></div><div class="line">    &#123;</div><div class="line">        $handle = fopen($file, <span class="string">'r'</span>);</div><div class="line">        $result = <span class="keyword">self</span>::inputCsv($handle); <span class="comment">//解析csv</span></div><div class="line">        fclose($handle);                                                <span class="comment">//关闭指针</span></div><div class="line">        <span class="keyword">return</span> $result;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 处理导入数据</div><div class="line">     * <span class="doctag">@param</span> $handle 	fopen($file, 'r')</div><div class="line">     * <span class="doctag">@return</span> array</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">inputCsv</span><span class="params">($handle)</span> </span>&#123;</div><div class="line">        $out = <span class="keyword">array</span> ();</div><div class="line">        $n = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span> ($data = fgetcsv($handle)) &#123;</div><div class="line">            $num = count($data);</div><div class="line">            <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; $num; $i++) &#123;</div><div class="line">                $out[$n][$i] = mb_convert_encoding($data[$i],<span class="string">'UTF-8'</span>,<span class="string">'GBK'</span>);</div><div class="line">            &#125;</div><div class="line">            $n++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> $out;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><p><a href="/images/yii/excel/meet_level.sql">level表</a><br><a href="/images/yii/excel/meet_color.sql">color表</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/yii/" rel="tag"># yii</a>
+          
+            <a href="/tags/excel/" rel="tag"># excel</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/24/others/资源/" rel="next" title="gitbook等其他资源">
+                <i class="fa fa-chevron-left"></i> gitbook等其他资源
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">纸上得来终觉浅，绝知此事要躬行。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/u/6346736172" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-angry"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank" rel="external nofollow">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-yii-excel"><span class="nav-number">2.1.</span> <span class="nav-text">安装 yii-excel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载excel"><span class="nav-number">2.2.</span> <span class="nav-text">下载excel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一表单sheet"><span class="nav-number">2.2.1.</span> <span class="nav-text">一表单sheet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一表多sheet"><span class="nav-number">2.2.2.</span> <span class="nav-text">一表多sheet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载数组格式的"><span class="nav-number">2.2.3.</span> <span class="nav-text">下载数组格式的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取excel文件数据"><span class="nav-number">2.3.</span> <span class="nav-text">读取excel文件数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#读取单文件"><span class="nav-number">2.3.1.</span> <span class="nav-text">读取单文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取多文件"><span class="nav-number">2.3.2.</span> <span class="nav-text">读取多文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单的下载Excel的类"><span class="nav-number">2.4.1.</span> <span class="nav-text">简单的下载Excel的类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#csv文件的读取和下载"><span class="nav-number">2.4.2.</span> <span class="nav-text">csv文件的读取和下载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附件"><span class="nav-number">3.</span> <span class="nav-text">附件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io" rel="external nofollow" >Hexo</a> 强力驱动 v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
