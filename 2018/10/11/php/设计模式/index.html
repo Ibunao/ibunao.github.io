@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="装饰器模式 扩展类的原有方法，不需要继承重写，在方法的开始和结尾增加预处理方法    前言装饰器的思想就是方便对一个方法进行扩展，就和web框架中提供的 beforeAction 和 afterAction 一样    装饰模式,可以动态的添加修改类的功能 一个类提供了一项功能,如果要在修改并添加额外的功能,传统的编程模式,需要写一个之类继承它,并重新实现类的方法 使用装饰模式,仅需在运行时添加一">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php设计模式简单解析">
+<meta property="og:url" content="http://bunao.win/2018/10/11/php/设计模式/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="装饰器模式 扩展类的原有方法，不需要继承重写，在方法的开始和结尾增加预处理方法    前言装饰器的思想就是方便对一个方法进行扩展，就和web框架中提供的 beforeAction 和 afterAction 一样    装饰模式,可以动态的添加修改类的功能 一个类提供了一项功能,如果要在修改并添加额外的功能,传统的编程模式,需要写一个之类继承它,并重新实现类的方法 使用装饰模式,仅需在运行时添加一">
+<meta property="og:updated_time" content="2018-12-05T13:15:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php设计模式简单解析">
+<meta name="twitter:description" content="装饰器模式 扩展类的原有方法，不需要继承重写，在方法的开始和结尾增加预处理方法    前言装饰器的思想就是方便对一个方法进行扩展，就和web框架中提供的 beforeAction 和 afterAction 一样    装饰模式,可以动态的添加修改类的功能 一个类提供了一项功能,如果要在修改并添加额外的功能,传统的编程模式,需要写一个之类继承它,并重新实现类的方法 使用装饰模式,仅需在运行时添加一">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2018/10/11/php/设计模式/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>php设计模式简单解析 | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">less is more</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/10/11/php/设计模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">php设计模式简单解析
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-11 00:00:02" itemprop="dateCreated datePublished" datetime="2018-10-11T00:00:02+08:00">2018-10-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-05 21:15:33" itemprop="dateModified" datetime="2018-12-05T21:15:33+08:00">2018-12-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/11/php/设计模式/" class="leancloud_visitors" data-flag-title="php设计模式简单解析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><blockquote>
+<p>扩展类的原有方法，不需要继承重写，在方法的开始和结尾增加预处理方法  </p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>装饰器的思想就是方便对一个方法进行扩展，就和web框架中提供的 <code>beforeAction</code> 和 <code>afterAction</code> 一样  </p>
+<ol>
+<li>装饰模式,可以动态的添加修改类的功能</li>
+<li>一个类提供了一项功能,如果要在修改并添加额外的功能,传统的编程模式,需要写一个之类继承它,并重新实现类的方法</li>
+<li>使用装饰模式,仅需在运行时添加一个装饰对象即可实现,可以实现最大的灵活性  </li>
+</ol>
+<h3 id="实现-例子"><a href="#实现-例子" class="headerlink" title="实现(例子)"></a>实现(例子)</h3><ol>
+<li>定义一个装饰器接口，定义要实现的方法  </li>
+<li>创建一个对象实现装饰器的接口</li>
+<li>在指定类中使用装饰器  <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//定义装饰器接口  </span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">DrawDecorator</span></span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">beforeDraw</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">afterDraw</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//创建装饰器，实现装饰器接口  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorDrawDecorator</span> <span class="keyword">implements</span> <span class="title">DrawDecorator</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">protected</span> $color;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($color = <span class="string">'red'</span>)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;color = $color;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">beforeDraw</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;div style='color: &#123;$this-&gt;color&#125;;'&gt;"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">afterDraw</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;/div&gt;"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//使用装饰器</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Canvas</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">protected</span> $decorators = <span class="keyword">array</span>();</div><div class="line">    <span class="comment">//添加装饰器</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">addDecorator</span><span class="params">(DrawDecorator $decorator)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;decorators[] = $decorator;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//调用方法之前先调用装饰器的方法</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">beforeDraw</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;decorators <span class="keyword">as</span> $decorator)</div><div class="line">        &#123;</div><div class="line">            $decorator-&gt;beforeDraw();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 调用方法之后调用装饰器的方法</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">afterDraw</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 倒序一下数组，保持好顺序</span></div><div class="line">        $decorators = array_reverse(<span class="keyword">$this</span>-&gt;decorators);</div><div class="line">        <span class="keyword">foreach</span>($decorators <span class="keyword">as</span> $decorator)</div><div class="line">        &#123;</div><div class="line">            $decorator-&gt;afterDraw();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//此方法使用装饰器的方法</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">draw</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 执行自己代码之前调用</span></div><div class="line">        <span class="keyword">$this</span>-&gt;beforeDraw();</div><div class="line"></div><div class="line">        <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;data <span class="keyword">as</span> $line)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">foreach</span>($line <span class="keyword">as</span> $char)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">echo</span> $char;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">echo</span> <span class="string">"&lt;br /&gt;\n"</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 执行自己代码之后调用</span></div><div class="line">        <span class="keyword">$this</span>-&gt;afterDraw();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>解耦利器。就是一个事件机制，我(们)先告诉你我(们)关注这件事(注册)，如果这件事发生了改变(触发)，通知我，我再执行我的逻辑    </p>
+<h3 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h3><ol>
+<li>观察者模式(Observer)，当一个对象状态发生改变时，依赖他的对象全部会受到通知，并自动更新</li>
+<li>场景：一个事件发生后，要执行一连串更新操作，传统的编程方式，就是在事件的代码之后直接加入处理逻辑<br>当更新的逻辑增多之后，代码会变的难以维护。这种方式是耦合的，侵入式的，增加新的逻辑需要修改事件主体的代码</li>
+<li>观察者模式实现了低耦合，非侵入式的通知与更新机制</li>
+</ol>
+<h3 id="实现-例子-1"><a href="#实现-例子-1" class="headerlink" title="实现(例子)"></a>实现(例子)</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事件产生者 抽象类</span></div><div class="line">EventGenerator.php</div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">EventGenerator</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> $obserers = <span class="keyword">array</span>();</div><div class="line">    <span class="comment">//为事件添加观察者</span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">addObsever</span><span class="params">(Observer $observer)</span></span>&#123;</div><div class="line">		<span class="keyword">$this</span>-&gt;obserers[] = $observer;</div><div class="line">	&#125;</div><div class="line">    <span class="comment">//通知观察者 调用观察者响应的方法</span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">ontify</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">foreach</span> (<span class="keyword">$this</span>-&gt;obserers <span class="keyword">as</span> $observer)&#123;</div><div class="line">			$observer-&gt;update();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//事件</span></div><div class="line">event.php</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Event</span> <span class="keyword">extends</span> <span class="title">EventGenerator</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">trigger</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">echo</span> <span class="string">"Event &lt;br&gt;"</span>;</div><div class="line">		<span class="keyword">$this</span>-&gt;ontify();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//观察者接口，定义要实现的被触发的方法  </span></div><div class="line">Observer.php</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Observer</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">($event_info = null)</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//观察者1</span></div><div class="line">Observer1.php</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer1</span> <span class="keyword">implements</span> <span class="title">Observer</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">($event_info = null)</span></span>&#123;</div><div class="line">		<span class="keyword">echo</span> <span class="string">"逻辑1"</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">……</div><div class="line">……</div><div class="line"></div><div class="line"><span class="comment">//使用</span></div><div class="line">index.php</div><div class="line">$event = <span class="keyword">new</span> Event();</div><div class="line">$event-&gt;addObsever(<span class="keyword">new</span> Observer1());</div><div class="line">$event-&gt;addObsever(<span class="keyword">new</span> Observer2());</div><div class="line">$event-&gt;addObsever(<span class="keyword">new</span> Observer3());</div><div class="line">$event-&gt;trigger();</div></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>和yii框架提供的事件机制原理一样    </p>
+<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><blockquote>
+<p>多个相同功能目的的类，通过相同的方法来实现相同的功能目的  </p>
+</blockquote>
+<h3 id="前言-2"><a href="#前言-2" class="headerlink" title="前言"></a>前言</h3><p>适配器就是为了解决兼容，或者说是为了统一接口。比较常见的是数据库的适配，因为不同的数据库提供的接口(如:增删改)是不太一样的(或者是对同样的数据库有不同的操作接口，如mysql、mysqli，pdo3)，这时候为了操作的方便，我们是需要用统一的方法对不同的数据库接口进行封装。还有比较常见的是对支付方式(微信、支付宝等)的封装。类似的场景还有cache缓存适配器，将memcache、redis、file等不同的缓存方式封装成相同的操作方法  </p>
+<h3 id="实现-例子-2"><a href="#实现-例子-2" class="headerlink" title="实现(例子)"></a>实现(例子)</h3><ol>
+<li>定义一个定义了约定要实现的方法的接口</li>
+<li>不同的类实现这个接口，来各自完成自己的实现相应方法的逻辑</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//定义接口</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IDatabase</span></span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">connect</span><span class="params">($host, $user, $passwd, $dbname)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">query</span><span class="params">($sql)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">close</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//不同的数据库实现此接口  </span></div><div class="line"><span class="comment">#mysqli</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySQLi</span> <span class="keyword">implements</span> <span class="title">IDatabase</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">protected</span> $conn;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">connect</span><span class="params">($host, $user, $passwd, $dbname)</span></span></div><div class="line">    &#123;</div><div class="line">        $conn = mysqli_connect($host, $user, $passwd, $dbname);</div><div class="line">        <span class="keyword">$this</span>-&gt;conn = $conn;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">query</span><span class="params">($sql)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> mysqli_query(<span class="keyword">$this</span>-&gt;conn, $sql);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">close</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        mysqli_close(<span class="keyword">$this</span>-&gt;conn);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">#pdo</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PDO</span> <span class="keyword">implements</span> <span class="title">IDatabase</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">protected</span> $conn;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">connect</span><span class="params">($host, $user, $passwd, $dbname)</span></span></div><div class="line">    &#123;</div><div class="line">        $conn = <span class="keyword">new</span> \PDO(<span class="string">"mysql:host=$host;dbname=$dbname"</span>, $user, $passwd);</div><div class="line">        <span class="keyword">$this</span>-&gt;conn = $conn;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">query</span><span class="params">($sql)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;conn-&gt;query($sql);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">close</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">unset</span>(<span class="keyword">$this</span>-&gt;conn);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>使对不同类型的操作变的相当方便，不用花费太多的时间来记录不同类型的不同方法。不需要关注太多细节，操作mysql和操作mongo的方法变的基本一致，方便。</p>
+<h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><h3 id="前言-3"><a href="#前言-3" class="headerlink" title="前言"></a>前言</h3><p>策略模式定义了一族相同类型的算法，算法之间独立封装，并且可以互换代替。<br>这些算法是同一类型问题的多种处理方式，他们具体行为有差别。<br>每一个算法、或说每一种处理方式称为一个策略。<br>在应用中，就可以根据环境的不同，选择不同的策略来处理问题。  </p>
+<h3 id="实现-例子-3"><a href="#实现-例子-3" class="headerlink" title="实现(例子)"></a>实现(例子)</h3><p>实现和适配器模式相似：</p>
+<ol>
+<li>定义一个定义了约定要实现的方法的接口</li>
+<li>不同的策略类实现这个接口，来各自完成自己的实现相应方法的逻辑</li>
+</ol>
+<p>以数组输出为例。<br>数组的输出有序列化输出、JSON字符串输出和数组格式输出等方式。<br>每种输出方式都可以独立封装起来，作为一个策略。<br>应用时，如要把数组保存到数据库中，可以用序列化方式输出。<br>要提供给APP作接口，可以用JSON字符串输出。<br>其他程序调用，则直接输出数组格式。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 策略接口</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">OutputStrategy</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span><span class="params">($array)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 策略类1：返回序列化字符串</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SerializeStrategy</span> <span class="keyword">implements</span> <span class="title">OutputStrategy</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span><span class="params">($array)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> serialize($array);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 策略类2：返回JSON编码后的字符串</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JsonStrategy</span> <span class="keyword">implements</span> <span class="title">OutputStrategy</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span><span class="params">($array)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> json_encode($array);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 策略类3：直接返回数组</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArrayStrategy</span> <span class="keyword">implements</span> <span class="title">OutputStrategy</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span><span class="params">($array)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> $array;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 环境角色类</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Output</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">private</span> $outputStrategy;</div><div class="line"></div><div class="line">    <span class="comment">// 传入的参数必须是策略接口的子类或子类的实例</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(OutputStrategy $outputStrategy)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;outputStrategy = $outputStrategy;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">renderOutput</span><span class="params">($array)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;outputStrategy-&gt;render($array);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 客户端代码</div><div class="line"> */</div><div class="line">$test = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</div><div class="line"></div><div class="line"><span class="comment">// 需要返回数组</span></div><div class="line">$output = <span class="keyword">new</span> Output(<span class="keyword">new</span> ArrayStrategy());</div><div class="line">$data = $output-&gt;renderOutput($test);</div><div class="line"></div><div class="line"><span class="comment">// 需要返回JSON</span></div><div class="line">$output = <span class="keyword">new</span> Output(<span class="keyword">new</span> JsonStrategy());</div><div class="line">$data = $output-&gt;renderOutput($test);</div></pre></td></tr></table></figure></p>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p><a href="https://www.cnblogs.com/ivy-xu/p/6638663.html" target="_blank" rel="external">策略模式和适配器模式有什么不一样</a>  </p>
+<h2 id="注册树模式"><a href="#注册树模式" class="headerlink" title="注册树模式"></a>注册树模式</h2><p>把创建的对象存放在一个对象中，将来访问的时候直接从这个对象中获取  </p>
+<h3 id="前言-4"><a href="#前言-4" class="headerlink" title="前言"></a>前言</h3><p>创建一个注册器类，将创建的对象绑定到注册树上，之后可以在全局通过注册树类进行访问绑定过的对象<br>其实可以实现单利模式的目的，即创建一次，全局使用；  </p>
+<h3 id="实现-例子-4"><a href="#实现-例子-4" class="headerlink" title="实现(例子)"></a>实现(例子)</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 注册树类</div><div class="line">*/</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Register</span></span></div><div class="line">&#123;</div><div class="line"></div><div class="line">	<span class="keyword">protected</span> <span class="keyword">static</span> $objects;</div><div class="line">	<span class="comment">//通过别名的方式，将对象绑定到注册树上</span></div><div class="line">	<span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">set</span><span class="params">($alias, $object)</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">self</span>::$objects[$alias] = $object;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//通过别名获取对象</span></div><div class="line">	<span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">($alias)</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">self</span>::$objects[$alias];</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//销毁</span></div><div class="line">	<span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">_unset</span><span class="params">($alias)</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">unset</span>(<span class="keyword">self</span>::$objects[$alias]);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.awaimai.com/patterns" target="_blank" rel="external">歪麦博客</a>(UML类图的使用，php设计模式)<br><a href="http://www.imooc.com/learn/236" target="_blank" rel="external">慕课网-php设计模式</a><br><a href="http://design-patterns.readthedocs.io/zh_CN/latest/index.html" target="_blank" rel="external">设计模式</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/11/php/对象数组-ArrayAccess/" rel="next" title="像访问数组一样访问对象">
+                <i class="fa fa-chevron-left"></i> 像访问数组一样访问对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/11/yii/RBAC/" rel="prev" title="Yii-RBAC">
+                Yii-RBAC <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">纸上得来终觉浅，绝知此事要躬行。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/u/6346736172" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-angry"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank" rel="external nofollow">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰器模式"><span class="nav-number">1.</span> <span class="nav-text">装饰器模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-例子"><span class="nav-number">1.2.</span> <span class="nav-text">实现(例子)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式"><span class="nav-number">2.</span> <span class="nav-text">观察者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言-1"><span class="nav-number">2.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-例子-1"><span class="nav-number">2.2.</span> <span class="nav-text">实现(例子)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适配器模式"><span class="nav-number">3.</span> <span class="nav-text">适配器模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言-2"><span class="nav-number">3.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-例子-2"><span class="nav-number">3.2.</span> <span class="nav-text">实现(例子)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">3.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#策略模式"><span class="nav-number">4.</span> <span class="nav-text">策略模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言-3"><span class="nav-number">4.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-例子-3"><span class="nav-number">4.2.</span> <span class="nav-text">实现(例子)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-2"><span class="nav-number">4.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册树模式"><span class="nav-number">5.</span> <span class="nav-text">注册树模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言-4"><span class="nav-number">5.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-例子-4"><span class="nav-number">5.2.</span> <span class="nav-text">实现(例子)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io" rel="external nofollow" >Hexo</a> 强力驱动 v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
