@@ -115,7 +115,7 @@
 <meta property="og:url" content="http://bunao.win/2018/11/09/yii/基础类-Object/index.html">
 <meta property="og:site_name" content="不孬">
 <meta property="og:description" content="前言object 作为Yii的最基础的类，只是简单的实现了属性的功能   方法解析构造函数–配置对象通过数组来对对象的属性进行配置     1234567891011121314151617public function __construct($config = [])&amp;#123;    if (!empty($config)) &amp;#123;        Yii::configure($thi">
-<meta property="og:updated_time" content="2018-12-05T13:15:33.000Z">
+<meta property="og:updated_time" content="2018-12-06T13:29:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii基础类Object">
 <meta name="twitter:description" content="前言object 作为Yii的最基础的类，只是简单的实现了属性的功能   方法解析构造函数–配置对象通过数组来对对象的属性进行配置     1234567891011121314151617public function __construct($config = [])&amp;#123;    if (!empty($config)) &amp;#123;        Yii::configure($thi">
@@ -408,7 +408,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-05 21:15:33" itemprop="dateModified" datetime="2018-12-05T21:15:33+08:00">2018-12-05</time>
+                <time title="修改时间：2018-12-06 21:29:46" itemprop="dateModified" datetime="2018-12-06T21:29:46+08:00">2018-12-06</time>
               
             
           </span>
@@ -473,6 +473,7 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>object</code> 作为Yii的最基础的类，只是简单的实现了属性的功能  </p>
 <h2 id="方法解析"><a href="#方法解析" class="headerlink" title="方法解析"></a>方法解析</h2><h3 id="构造函数–配置对象"><a href="#构造函数–配置对象" class="headerlink" title="构造函数–配置对象"></a>构造函数–配置对象</h3><p>通过数组来对对象的属性进行配置    </p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($config = [])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">empty</span>($config)) &#123;</div><div class="line">        Yii::configure(<span class="keyword">$this</span>, $config);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//调用初始化方法</span></div><div class="line">    <span class="keyword">$this</span>-&gt;init();    </div><div class="line">&#125;</div><div class="line"><span class="comment">//Yii::configure($this, $config); 给对象的属性赋值</span></div><div class="line">如下</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">configure</span><span class="params">($object, $properties)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">foreach</span> ($properties <span class="keyword">as</span> $name =&gt; $value) &#123;</div><div class="line">        $object-&gt;$name = $value;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> $object;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="获取当前类名"><a href="#获取当前类名" class="headerlink" title="获取当前类名"></a>获取当前类名</h3><p>获取当前类的类名包含命名空间  </p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">className</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//后期绑定的类的名称，也就是继承Object类的子类调用此方法是获取的是子类的类名</span></div><div class="line">    <span class="keyword">return</span> get_called_class();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>示例<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">controllers</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Yii</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">web</span>\<span class="title">Controller</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></div><div class="line">&#123;</div><div class="line">  	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionTest</span><span class="params">()</span></span></div><div class="line">  	&#123;</div><div class="line">  		  <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;className();</div><div class="line">  	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">输出</div><div class="line">app\controllers\TestController</div></pre></td></tr></table></figure></p>
@@ -572,6 +573,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/11/09/yii/基础类-Yii/" rel="prev" title="Yii类了解一下">
+                Yii类了解一下 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -644,7 +649,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -732,7 +737,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">21</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

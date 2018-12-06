@@ -115,7 +115,7 @@
 <meta property="og:url" content="http://bunao.win/2018/10/16/yii/RESTful/index.html">
 <meta property="og:site_name" content="不孬">
 <meta property="og:description" content="Yii轻松实现RESTful风格的接口创建api模块我们可以直接复制一份其他的模块，如 frontend 模块，假设起名为 restful 修改配置首先我们修改一下配置，为了能够实现模块的自动加载12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849common\config">
-<meta property="og:updated_time" content="2018-10-16T12:16:42.000Z">
+<meta property="og:updated_time" content="2018-12-06T13:28:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Yii-轻松实现RESTful风格的接口">
 <meta name="twitter:description" content="Yii轻松实现RESTful风格的接口创建api模块我们可以直接复制一份其他的模块，如 frontend 模块，假设起名为 restful 修改配置首先我们修改一下配置，为了能够实现模块的自动加载12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849common\config">
@@ -391,12 +391,24 @@
                 
               
 
-              <time title="创建时间：2018-10-16 20:00:02 / 修改时间：20:16:42" itemprop="dateCreated datePublished" datetime="2018-10-16T20:00:02+08:00">2018-10-16</time>
+              <time title="创建时间：2018-10-16 20:00:02" itemprop="dateCreated datePublished" datetime="2018-10-16T20:00:02+08:00">2018-10-16</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-06 21:28:53" itemprop="dateModified" datetime="2018-12-06T21:28:53+08:00">2018-12-06</time>
               
             
           </span>
@@ -461,7 +473,7 @@
         <h2 id="Yii轻松实现RESTful风格的接口"><a href="#Yii轻松实现RESTful风格的接口" class="headerlink" title="Yii轻松实现RESTful风格的接口"></a>Yii轻松实现RESTful风格的接口</h2><h3 id="创建api模块"><a href="#创建api模块" class="headerlink" title="创建api模块"></a>创建api模块</h3><p>我们可以直接复制一份其他的模块，如 <code>frontend</code> 模块，假设起名为 <code>restful</code></p>
 <h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><p>首先我们修改一下配置，为了能够实现模块的自动加载<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">common\config\bootstrap.php</div><div class="line"></div><div class="line"><span class="comment">// 添加的模块要在这里设置一下别名,为了自动加载</span></div><div class="line">Yii::setAlias(<span class="string">'@restful'</span>, dirname(dirname(<span class="keyword">__DIR__</span>)) . <span class="string">'/restful'</span>);</div><div class="line">```  </div><div class="line">然后修改 restful 模块的配置  </div><div class="line">```php</div><div class="line">restful/config/main.php</div><div class="line"></div><div class="line">...</div><div class="line">...</div><div class="line"></div><div class="line"><span class="keyword">return</span> [</div><div class="line">    <span class="comment"># 更改项目id</span></div><div class="line">    <span class="string">'id'</span> =&gt; <span class="string">'app-restful'</span>,</div><div class="line">    <span class="comment"># 设置控制器命名空间  </span></div><div class="line">    <span class="string">'controllerNamespace'</span> =&gt; <span class="string">'restful\controllers'</span>,</div><div class="line">    <span class="string">'components'</span> =&gt; [</div><div class="line">        <span class="string">'request'</span> =&gt; [</div><div class="line">            <span class="string">'csrfParam'</span> =&gt; <span class="string">'_csrf-restful'</span>,</div><div class="line">            <span class="comment"># 配置获取请求参数的格式，可以接收并解析json格式的数据</span></div><div class="line">            <span class="string">'parsers'</span> =&gt; [</div><div class="line">                <span class="string">'application/json'</span> =&gt; <span class="string">'yii\web\JsonParser'</span>,</div><div class="line">            ]</div><div class="line">        ],</div><div class="line">        <span class="string">'user'</span> =&gt; [</div><div class="line">            <span class="string">'identityClass'</span> =&gt; <span class="string">'common\models\User'</span>,</div><div class="line">            <span class="comment">// 不允许使用session</span></div><div class="line">            <span class="string">'enableSession'</span> =&gt; <span class="keyword">false</span>,</div><div class="line">        ],</div><div class="line"></div><div class="line">        ...</div><div class="line">        ...</div><div class="line"></div><div class="line">        <span class="string">'urlManager'</span> =&gt; [</div><div class="line">            <span class="string">'enablePrettyUrl'</span> =&gt; <span class="keyword">true</span>,</div><div class="line">            <span class="comment">// 最好开启，如果如开启，在不满足配置的路由规则后或使用默认的路由规则进行解析  </span></div><div class="line">            <span class="comment">// 'enableStrictParsing' =&gt; true,</span></div><div class="line">            <span class="string">'showScriptName'</span> =&gt; <span class="keyword">false</span>,</div><div class="line">            <span class="string">'rules'</span> =&gt; [</div><div class="line">                <span class="comment">/**</span></div><div class="line">                 * 配置url解析规则类</div><div class="line">                 * controller 配置的控制器id 配置的控制器访问的时候要用复数的形式</div><div class="line">                 */</div><div class="line">                [<span class="string">'class'</span> =&gt; <span class="string">'yii\rest\UrlRule'</span>, <span class="string">'controller'</span> =&gt; [<span class="string">'user'</span>]],</div><div class="line">            ],</div><div class="line">        ],</div><div class="line">    ],</div><div class="line">];</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<h3 id="创建控制器"><a href="#创建控制器" class="headerlink" title="创建控制器"></a>创建控制器</h3><p>创建控制器就更简单了<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">restful</span>\<span class="title">controllers</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Yii</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">rest</span>\<span class="title">ActiveController</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="keyword">extends</span> <span class="title">ActiveController</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 对应的模型类</span></div><div class="line">	<span class="keyword">public</span> $modelClass = <span class="string">'common\models\User'</span>;</div><div class="line">&#125;</div><div class="line">```  </div><div class="line">此时，一个简单的RESTful风格的接口已经创建好了，我们肯定不能止步于此，下面我们具体分析一下   </div><div class="line"></div><div class="line"><span class="comment">## 解析&amp;&amp;实战操作   </span></div><div class="line"><span class="comment">### 配置  </span></div><div class="line">先看配置的 `Request` 组件，为了能够解析请求体数据为json格式  </div><div class="line">```php</div><div class="line"><span class="string">'request'</span> =&gt; [</div><div class="line">    <span class="string">'parsers'</span> =&gt; [</div><div class="line">        <span class="string">'application/json'</span> =&gt; <span class="string">'yii\web\JsonParser'</span>,</div><div class="line">    ]</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h3 id="创建控制器"><a href="#创建控制器" class="headerlink" title="创建控制器"></a>创建控制器</h3><p>创建控制器就更简单了<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">namespace</span> <span class="title">restful</span>\<span class="title">controllers</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Yii</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">rest</span>\<span class="title">ActiveController</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="keyword">extends</span> <span class="title">ActiveController</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 对应的模型类</span></div><div class="line">	<span class="keyword">public</span> $modelClass = <span class="string">'common\models\User'</span>;</div><div class="line">&#125;</div><div class="line">```  </div><div class="line">此时，一个简单的RESTful风格的接口已经创建好了，我们肯定不能止步于此，下面我们具体分析一下   </div><div class="line"></div><div class="line"><span class="comment">## 解析&amp;&amp;实战操作   </span></div><div class="line"><span class="comment">### 配置  </span></div><div class="line">先看配置的 `Request` 组件，为了能够解析请求体数据为json格式  </div><div class="line">```php</div><div class="line"><span class="string">'request'</span> =&gt; [</div><div class="line">    <span class="string">'parsers'</span> =&gt; [</div><div class="line">        <span class="string">'application/json'</span> =&gt; <span class="string">'yii\web\JsonParser'</span>,</div><div class="line">    ]</div><div class="line">]</div></pre></td></tr></table></figure></p>
 <blockquote>
 <p>info： 上述配置是可选的。若未按上述配置，API 将仅可以分辨 <code>application/x-www-form-urlencoded</code> 和 <code>multipart/form-data</code> 输入格式。</p>
 </blockquote>
@@ -563,8 +575,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/11/yii/AFC验证/" rel="next" title="Yii-AFC验证">
-                <i class="fa fa-chevron-left"></i> Yii-AFC验证
+              <a href="/2018/10/11/php/迭代器-Iterator/" rel="next" title="实现迭代器">
+                <i class="fa fa-chevron-left"></i> 实现迭代器
               </a>
             
           </div>
@@ -573,8 +585,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/23/spider/xpath参考/" rel="prev" title="爬虫-xpath">
-                爬虫-xpath <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/23/spider/scrapy参考/" rel="prev" title="爬虫-scrapy">
+                爬虫-scrapy <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -649,7 +661,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -737,7 +749,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">21</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
