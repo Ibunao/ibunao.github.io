@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Request组件前言Request 中的方法并不难，主要是一些功能的封装罢了，原理上没有很复杂的东西。只是涉及到许多HTTP的有关知识,具体的代码分析和相关知识可以看 这里主要归纳一下使用方法，以常用的 yii\web\Request 为例    请求头请求体getHeaders() 获取请求头可以获取所有的请求头   getRawBody() 获取请求体使用了 php://input 来获取请">
+<meta name="keywords" content="yii,Response,Request">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Request组件和Response组件">
+<meta property="og:url" content="http://bunao.win/2017/07/03/yii/Request组件&&Response组件/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="Request组件前言Request 中的方法并不难，主要是一些功能的封装罢了，原理上没有很复杂的东西。只是涉及到许多HTTP的有关知识,具体的代码分析和相关知识可以看 这里主要归纳一下使用方法，以常用的 yii\web\Request 为例    请求头请求体getHeaders() 获取请求头可以获取所有的请求头   getRawBody() 获取请求体使用了 php://input 来获取请">
+<meta property="og:updated_time" content="2018-12-10T15:19:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Request组件和Response组件">
+<meta name="twitter:description" content="Request组件前言Request 中的方法并不难，主要是一些功能的封装罢了，原理上没有很复杂的东西。只是涉及到许多HTTP的有关知识,具体的代码分析和相关知识可以看 这里主要归纳一下使用方法，以常用的 yii\web\Request 为例    请求头请求体getHeaders() 获取请求头可以获取所有的请求头   getRawBody() 获取请求体使用了 php://input 来获取请">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2017/07/03/yii/Request组件&&Response组件/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Request组件和Response组件 | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">less is more</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Request组件&&Response组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Request组件和Response组件
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-07-03 11:56:02" itemprop="dateCreated datePublished" datetime="2017-07-03T11:56:02+08:00">2017-07-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-10 23:19:34" itemprop="dateModified" datetime="2018-12-10T23:19:34+08:00">2018-12-10</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/请求和响应组件/" itemprop="url" rel="index"><span itemprop="name">请求和响应组件</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/03/yii/Request组件&&Response组件/" class="leancloud_visitors" data-flag-title="Request组件和Response组件">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Request组件"><a href="#Request组件" class="headerlink" title="Request组件"></a>Request组件</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Request 中的方法并不难，主要是一些功能的封装罢了，原理上没有很复杂的东西。只是涉及到许多HTTP的有关知识,具体的代码分析和相关知识可以看</p>
+<p>这里主要归纳一下使用方法，以常用的 <code>yii\web\Request</code> 为例   </p>
+<h2 id="请求头请求体"><a href="#请求头请求体" class="headerlink" title="请求头请求体"></a>请求头请求体</h2><h3 id="getHeaders-获取请求头"><a href="#getHeaders-获取请求头" class="headerlink" title="getHeaders() 获取请求头"></a>getHeaders() 获取请求头</h3><p>可以获取所有的请求头  </p>
+<h3 id="getRawBody-获取请求体"><a href="#getRawBody-获取请求体" class="headerlink" title="getRawBody() 获取请求体"></a>getRawBody() 获取请求体</h3><p>使用了 <code>php://input</code> 来获取请求体，这个 <code>php://input</code> 有这么几个特点：</p>
+<p><code>php://input</code> 是个只读流，用于获取请求体。<br><code>php://input</code> 是返回整个HTTP请求中，除去HTTP头部的全部原始内容， 而不管是什么 <code>Content Type（或称为编码方式）</code>。 相比较之下， <code>$_POST</code> 只支持 <code>application/x-www-form-urlencoded</code> 和 <code>multipart/form-data-encoded</code> 两种 <code>Content Type</code> 。其中前一种就是简单的HTML表单以 <code>method=&quot;post&quot;</code> 提交时的形式， 后一种主要是用于上传文档。因此，对于诸如 <code>application/json</code> 等 <code>Content Type</code>，这往往是在 <code>AJAX</code> 场景下使用， 那么使用 <code>$_POST</code> 得到的是空的内容，这时就必须使用 <code>php://input</code> 。<br>相比较于 <code>$HTTP_RAW_POST_DATA</code> ， <code>php://input</code> 无需额外地在 <code>php.ini</code> 中 激活 <code>always-populate-raw-post-data</code> ，而且对于内存的压力也比较小。<br>当编码方式为 <code>multipart/form-data-encoded</code> 时， <code>php://input</code> 是无效的。这种情况一般为上传文档。 这种情况可以使用传统的 <code>$_FILES</code> 或者 <code>yii\web\UploadedFile</code>   </p>
+<a id="more"></a>
+<h2 id="获取-判断请求方法"><a href="#获取-判断请求方法" class="headerlink" title="获取/判断请求方法"></a>获取/判断请求方法</h2><h3 id="getMethod-获取请求的方法"><a href="#getMethod-获取请求的方法" class="headerlink" title="getMethod() 获取请求的方法"></a>getMethod() 获取请求的方法</h3><p>可以以指定 <code>$_POST[&#39;_method&#39;]</code> 的方式来用POST请求来模拟其他方法的请求。  </p>
+<h3 id="getIsAjax-是否是AJAX请求"><a href="#getIsAjax-是否是AJAX请求" class="headerlink" title="getIsAjax() 是否是AJAX请求"></a>getIsAjax() 是否是AJAX请求</h3><p>这其实不是HTTP请求方法, 需要js在写入相应的header头 <code>HTTP_X_REQUESTED_WITH: XMLHttpRequest</code></p>
+<h3 id="getIsDelete-是否是DELETE请求"><a href="#getIsDelete-是否是DELETE请求" class="headerlink" title="getIsDelete() 是否是DELETE请求"></a>getIsDelete() 是否是DELETE请求</h3><h3 id="getIsFlash-是否是Adobe-Flash-或-Adobe-Flex-发出的请求，这其实也不是HTTP请求方法。"><a href="#getIsFlash-是否是Adobe-Flash-或-Adobe-Flex-发出的请求，这其实也不是HTTP请求方法。" class="headerlink" title="getIsFlash() 是否是Adobe Flash 或 Adobe Flex 发出的请求，这其实也不是HTTP请求方法。"></a>getIsFlash() 是否是Adobe Flash 或 Adobe Flex 发出的请求，这其实也不是HTTP请求方法。</h3><h3 id="getIsGet-是否是一个GET请求"><a href="#getIsGet-是否是一个GET请求" class="headerlink" title="getIsGet() 是否是一个GET请求"></a>getIsGet() 是否是一个GET请求</h3><h3 id="getIsHead-是否是一个HEAD请求"><a href="#getIsHead-是否是一个HEAD请求" class="headerlink" title="getIsHead() 是否是一个HEAD请求"></a>getIsHead() 是否是一个HEAD请求</h3><h3 id="getIsOptions-是否是一个OPTIONS请求"><a href="#getIsOptions-是否是一个OPTIONS请求" class="headerlink" title="getIsOptions() 是否是一个OPTIONS请求"></a>getIsOptions() 是否是一个OPTIONS请求</h3><h3 id="getIsPatch-是否是PATCH请求"><a href="#getIsPatch-是否是PATCH请求" class="headerlink" title="getIsPatch() 是否是PATCH请求"></a>getIsPatch() 是否是PATCH请求</h3><h3 id="getIsPjax-是否是一个PJAX请求，这也并非是HTTP请求方法。"><a href="#getIsPjax-是否是一个PJAX请求，这也并非是HTTP请求方法。" class="headerlink" title="getIsPjax() 是否是一个PJAX请求，这也并非是HTTP请求方法。"></a>getIsPjax() 是否是一个PJAX请求，这也并非是HTTP请求方法。</h3><h3 id="getIsPost-是否是一个POST请求"><a href="#getIsPost-是否是一个POST请求" class="headerlink" title="getIsPost() 是否是一个POST请求"></a>getIsPost() 是否是一个POST请求</h3><h3 id="getIsPut-是否是一个PUT请求"><a href="#getIsPut-是否是一个PUT请求" class="headerlink" title="getIsPut() 是否是一个PUT请求"></a>getIsPut() 是否是一个PUT请求</h3><h2 id="获取请求数据"><a href="#获取请求数据" class="headerlink" title="获取请求数据"></a>获取请求数据</h2><h3 id="get-name-null-defaultValue-null-获取get请求的数据"><a href="#get-name-null-defaultValue-null-获取get请求的数据" class="headerlink" title="get($name = null, $defaultValue = null) 获取get请求的数据"></a>get($name = null, $defaultValue = null) 获取get请求的数据</h3><ol>
+<li>如果不带参数，则表示获取所有的get参数 <code>getQueryParams()</code>  </li>
+<li>常用的方式，获取某个值，如果这个值不存在就给指定的默认值 <code>getQueryParam($name, $defaultValue = null)</code>  </li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">get(<span class="string">'ding'</span>, <span class="string">'ding'</span>)</div></pre></td></tr></table></figure>
+<h3 id="post-name-null-defaultValue-null-获取post请求的数据"><a href="#post-name-null-defaultValue-null-获取post请求的数据" class="headerlink" title="post($name = null, $defaultValue = null) 获取post请求的数据"></a>post($name = null, $defaultValue = null) 获取post请求的数据</h3><p>和get用法一样  </p>
+<h3 id="getBodyParams-解析请求体中的数据"><a href="#getBodyParams-解析请求体中的数据" class="headerlink" title="getBodyParams() 解析请求体中的数据"></a>getBodyParams() 解析请求体中的数据</h3><p>这个方法会根据请求的 <code>content-type</code> 来找对应的解析类把 请求体 的数据给解析出来  </p>
+<h3 id="getBodyParam-name-null-defaultValue-null-解析请求体中的数据"><a href="#getBodyParam-name-null-defaultValue-null-解析请求体中的数据" class="headerlink" title="getBodyParam($name = null, $defaultValue = null) 解析请求体中的数据"></a>getBodyParam($name = null, $defaultValue = null) 解析请求体中的数据</h3><p>获取<code>getBodyParams()</code>解析后的内容中对应的key  </p>
+<h2 id="域名相关"><a href="#域名相关" class="headerlink" title="域名相关"></a>域名相关</h2><h3 id="getHostInfo-获取当前的域名，带协议-http或https-和端口号"><a href="#getHostInfo-获取当前的域名，带协议-http或https-和端口号" class="headerlink" title="getHostInfo() 获取当前的域名，带协议(http或https)和端口号"></a>getHostInfo() 获取当前的域名，带协议(http或https)和端口号</h3><p>举例<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">请求</div><div class="line">www.yiibasic.com/test/test</div><div class="line">输出</div><div class="line">http:<span class="comment">//www.yiibasic.com</span></div></pre></td></tr></table></figure></p>
+<h3 id="getHostName-获取当前域名，只是域名"><a href="#getHostName-获取当前域名，只是域名" class="headerlink" title="getHostName() 获取当前域名，只是域名"></a>getHostName() 获取当前域名，只是域名</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">解析的 getHostInfo() 获取到的值  </div><div class="line">parse_url(<span class="keyword">$this</span>-&gt;getHostInfo(), PHP_URL_HOST)</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">请求</div><div class="line">www.yiibasic.com/test/test</div><div class="line">输出</div><div class="line">www.yiibasic.com</div></pre></td></tr></table></figure>
+<h3 id="getServerName-也是返回域名-和-getHostName一样"><a href="#getServerName-也是返回域名-和-getHostName一样" class="headerlink" title="getServerName() 也是返回域名 和 getHostName一样"></a>getServerName() 也是返回域名 和 getHostName一样</h3><h2 id="url相关"><a href="#url相关" class="headerlink" title="url相关"></a>url相关</h2><h3 id="getUrl-返回当前请求-域名后的所有内容"><a href="#getUrl-返回当前请求-域名后的所有内容" class="headerlink" title="getUrl() 返回当前请求(域名后的所有内容)"></a>getUrl() 返回当前请求(域名后的所有内容)</h3><p>如<br><code>http://localhost/learn/yii/yiilearn/basic/web/index.php/test/request</code><br>返回<br><code>/learn/yii/yiilearn/basic/web/index.php/test/request</code>    </p>
+<h3 id="getScriptUrl-获取入口文件相对域名的路径，带入口文件"><a href="#getScriptUrl-获取入口文件相对域名的路径，带入口文件" class="headerlink" title="getScriptUrl() 获取入口文件相对域名的路径，带入口文件"></a>getScriptUrl() 获取入口文件相对域名的路径，带入口文件</h3><p>如 <code>www.bunao.me/web/index.php</code> 获取到的是 <code>/web/index.php</code><br><code>www.bunao.me/index.php</code> 和 <code>www.bunao.me</code> 获取到的就是 <code>/index.php</code><br>如果开启了省略入口文件，则获取到的为空  </p>
+<h3 id="getBaseUrl-获取入口文件相对域名的路径-不带入口文件"><a href="#getBaseUrl-获取入口文件相对域名的路径-不带入口文件" class="headerlink" title="getBaseUrl() 获取入口文件相对域名的路径,不带入口文件"></a>getBaseUrl() 获取入口文件相对域名的路径,不带入口文件</h3><p><code>getBaseUrl()</code> 获取到的是对 <code>getScriptUrl()</code> 的处理,去掉了入口文件<br>假设域名指向的不是 <code>web</code> 而是 <code>web的外层</code><br>则获取到的是 <code>/web</code></p>
+<h3 id="getAbsoluteUrl-获取完整的当前请求"><a href="#getAbsoluteUrl-获取完整的当前请求" class="headerlink" title="getAbsoluteUrl() 获取完整的当前请求"></a>getAbsoluteUrl() 获取完整的当前请求</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">$this</span>-&gt;getHostInfo() . <span class="keyword">$this</span>-&gt;getUrl();</div></pre></td></tr></table></figure>
+<h3 id="getScriptFile-获取当前脚本的实际物理路径"><a href="#getScriptFile-获取当前脚本的实际物理路径" class="headerlink" title="getScriptFile() 获取当前脚本的实际物理路径"></a>getScriptFile() 获取当前脚本的实际物理路径</h3><p>例如<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">D:/ding/wamp64/www/learn/yii/yiilearn/basic/web/index.php</div></pre></td></tr></table></figure></p>
+<h3 id="getPathInfo-返回真正的-pathInfo"><a href="#getPathInfo-返回真正的-pathInfo" class="headerlink" title="getPathInfo() 返回真正的 pathInfo"></a>getPathInfo() 返回真正的 pathInfo</h3><p><code>?</code> 问号前和入口文件之间的部分<br>例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">url</div><div class="line">www.bunao.me/index.php/ding/ran?bunao=yes 带入口文件的情况</div><div class="line">www.bunao.me/ding/ran?bunao=yes 不带入口文件</div><div class="line">www.bunao.me/web/index.php/ding/ran?bunao=yes 带入口文件  </div><div class="line">www.bunao.me/web/ding/ran?bunao=yes 不带入口文件</div><div class="line">pathInfo  </div><div class="line">ding/ran</div></pre></td></tr></table></figure></p>
+<h2 id="加解密相关的"><a href="#加解密相关的" class="headerlink" title="加解密相关的"></a>加解密相关的</h2><h3 id="getCookies-获取cookie"><a href="#getCookies-获取cookie" class="headerlink" title="getCookies() 获取cookie"></a>getCookies() 获取cookie</h3><p>默认是必须用这个方法来获取cookie的，因为默认存取cookie是存取的加密数据，而这个方法获取时会对加密的数据进行解密  </p>
+<h3 id="Csrf"><a href="#Csrf" class="headerlink" title="Csrf"></a>Csrf</h3><p>这里理解一下yii如何实现csrf的  </p>
+<ol>
+<li>生成token:在渲染页面的时候通过 <code>getCsrfToken()</code> 方法获取到token，嵌到页面里，参考 <code>BaseHtml::csrfMetaTags()</code> 方法  </li>
+<li>验证token:在请求的时候通过 <code>validateCsrfToken()</code> 方法来验证token，参考 <code>Controller::beforeAction()</code> 方法  </li>
+</ol>
+<p>info1: 在生成token的时候同时会保存在 cookie、session 中，验证的时候将 接口(页面)传来的数据 和正确的数据(从 cookie、session 中获取) 进行比较。也就是说csrf依赖cookie。<br>info2: 为什么敢将token同时存在cookie？因为存cookie时候是加密的形式，所以也就不害怕了。  </p>
+<h2 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h2><h3 id="getQueryString-返回url中-后的部分"><a href="#getQueryString-返回url中-后的部分" class="headerlink" title="getQueryString() 返回url中?后的部分"></a>getQueryString() 返回url中?后的部分</h3><h3 id="getIsSecureConnection-判读不是-https请求"><a href="#getIsSecureConnection-判读不是-https请求" class="headerlink" title="getIsSecureConnection() 判读不是 https请求"></a>getIsSecureConnection() 判读不是 https请求</h3><h3 id="getServerPort-获取端口号"><a href="#getServerPort-获取端口号" class="headerlink" title="getServerPort() 获取端口号"></a>getServerPort() 获取端口号</h3><h3 id="getReferrer-获取-Referer"><a href="#getReferrer-获取-Referer" class="headerlink" title="getReferrer() 获取 Referer"></a>getReferrer() 获取 Referer</h3><h3 id="getUserAgent-获取浏览器信息，简单防爬虫"><a href="#getUserAgent-获取浏览器信息，简单防爬虫" class="headerlink" title="getUserAgent() 获取浏览器信息，简单防爬虫"></a>getUserAgent() 获取浏览器信息，简单防爬虫</h3><h3 id="getUserIP-获取用户ip"><a href="#getUserIP-获取用户ip" class="headerlink" title="getUserIP() 获取用户ip"></a>getUserIP() 获取用户ip</h3><h3 id="getPort-获取http端口号，默认是80"><a href="#getPort-获取http端口号，默认是80" class="headerlink" title="getPort() 获取http端口号，默认是80"></a>getPort() 获取http端口号，默认是80</h3><h3 id="getSecurePort-获取https端口号，默认是443"><a href="#getSecurePort-获取https端口号，默认是443" class="headerlink" title="getSecurePort() 获取https端口号，默认是443"></a>getSecurePort() 获取https端口号，默认是443</h3><h3 id="getContentType-获取-content-type"><a href="#getContentType-获取-content-type" class="headerlink" title="getContentType() 获取 content-type"></a>getContentType() 获取 <code>content-type</code></h3><h3 id="resolve-获取解析后的请求"><a href="#resolve-获取解析后的请求" class="headerlink" title="resolve() 获取解析后的请求"></a>resolve() 获取解析后的请求</h3><p>Application 会用它来执行解析Url请求，分析出正确的路由和参数    </p>
+<h2 id="其他的其他"><a href="#其他的其他" class="headerlink" title="其他的其他"></a>其他的其他</h2><h3 id="getUserHost-获取用户主机名-域名"><a href="#getUserHost-获取用户主机名-域名" class="headerlink" title="getUserHost() 获取用户主机名/域名"></a>getUserHost() 获取用户主机名/域名</h3><h3 id="getAuthUser-http认证机制"><a href="#getAuthUser-http认证机制" class="headerlink" title="getAuthUser() http认证机制"></a>getAuthUser() http认证机制</h3><h3 id="getAuthPassword-http认证密码"><a href="#getAuthPassword-http认证密码" class="headerlink" title="getAuthPassword() http认证密码"></a>getAuthPassword() http认证密码</h3><h3 id="getAcceptableContentTypes-获取用户能够接受的content-type类型"><a href="#getAcceptableContentTypes-获取用户能够接受的content-type类型" class="headerlink" title="getAcceptableContentTypes() 获取用户能够接受的content-type类型"></a>getAcceptableContentTypes() 获取用户能够接受的content-type类型</h3><p>看示例吧<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$_SERVER[<span class="string">'HTTP_ACCEPT'</span>] = <span class="string">'text/plain; q=0.5, application/json; version=1.0, application/xml; version=2.0;'</span>;</div><div class="line">$types = $request-&gt;getAcceptableContentTypes();</div><div class="line">print_r($types);</div><div class="line"><span class="comment">// 结果</span></div><div class="line"><span class="comment">// [</span></div><div class="line"><span class="comment">//     'application/json' =&gt; ['q' =&gt; 1, 'version' =&gt; '1.0'],</span></div><div class="line"><span class="comment">//      'application/xml' =&gt; ['q' =&gt; 1, 'version' =&gt; '2.0'],</span></div><div class="line"><span class="comment">//           'text/plain' =&gt; ['q' =&gt; 0.5],</span></div><div class="line"><span class="comment">// ]</span></div></pre></td></tr></table></figure></p>
+<h3 id="parseAcceptHeader-header-解析获取到的请求头字段"><a href="#parseAcceptHeader-header-解析获取到的请求头字段" class="headerlink" title="parseAcceptHeader($header)  解析获取到的请求头字段"></a>parseAcceptHeader($header)  解析获取到的请求头字段</h3><p>，看示例<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$header = <span class="string">'text/plain; q=0.5, application/json; version=1.0, application/xml; version=2.0;'</span>;</div><div class="line">$accepts = $request-&gt;parseAcceptHeader($header);</div><div class="line">print_r($accepts);</div><div class="line"><span class="comment">// displays:</span></div><div class="line"><span class="comment">// [</span></div><div class="line"><span class="comment">//     'application/json' =&gt; ['q' =&gt; 1, 'version' =&gt; '1.0'],</span></div><div class="line"><span class="comment">//      'application/xml' =&gt; ['q' =&gt; 1, 'version' =&gt; '2.0'],</span></div><div class="line"><span class="comment">//           'text/plain' =&gt; ['q' =&gt; 0.5],</span></div><div class="line"><span class="comment">// ]</span></div></pre></td></tr></table></figure></p>
+<h3 id="getAcceptableLanguages-获取能够接收的语言类型"><a href="#getAcceptableLanguages-获取能够接收的语言类型" class="headerlink" title="getAcceptableLanguages() 获取能够接收的语言类型"></a>getAcceptableLanguages() 获取能够接收的语言类型</h3><h3 id="getPreferredLanguage-array-languages-返回该应用程序应该用的首选语言"><a href="#getPreferredLanguage-array-languages-返回该应用程序应该用的首选语言" class="headerlink" title="getPreferredLanguage(array $languages = []) 返回该应用程序应该用的首选语言"></a>getPreferredLanguage(array $languages = []) 返回该应用程序应该用的首选语言</h3><h3 id="getETags-返回etags内容-在http缓存有用"><a href="#getETags-返回etags内容-在http缓存有用" class="headerlink" title="getETags() 返回etags内容, 在http缓存有用"></a>getETags() 返回etags内容, 在http缓存有用</h3><p><a href="http://www.infoq.com/cn/articles/etags" target="_blank" rel="external">使用ETags减少Web应用带宽和负载</a>  </p>
+<p><strong>参考</strong><br><a href="http://www.digpage.com/web_request.html#" target="_blank" rel="external">深入理解yii-Request(完全参考)</a>  </p>
+<h1 id="Response组件"><a href="#Response组件" class="headerlink" title="Response组件"></a>Response组件</h1><h2 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h2><p>我觉得官网上的已经很清晰够用了，代码也比较简单。直接看 <a href="https://www.yiichina.com/doc/guide/2.0/runtime-responses" target="_blank" rel="external">官网</a>  </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/yii/" rel="tag"># yii</a>
+          
+            <a href="/tags/Response/" rel="tag"># Response</a>
+          
+            <a href="/tags/Request/" rel="tag"># Request</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/03/yii/控制器-Controller/" rel="next" title="Yii-controller">
+                <i class="fa fa-chevron-left"></i> Yii-controller
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/07/redis/redis实现文章根据点赞及时间排序/" rel="prev" title="redis实现文章根据点赞及时间排序">
+                redis实现文章根据点赞及时间排序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">纸上得来终觉浅，绝知此事要躬行。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/u/6346736172" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-angry"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank" rel="external nofollow">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Request组件"><span class="nav-number">1.</span> <span class="nav-text">Request组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求头请求体"><span class="nav-number">1.2.</span> <span class="nav-text">请求头请求体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getHeaders-获取请求头"><span class="nav-number">1.2.1.</span> <span class="nav-text">getHeaders() 获取请求头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getRawBody-获取请求体"><span class="nav-number">1.2.2.</span> <span class="nav-text">getRawBody() 获取请求体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取-判断请求方法"><span class="nav-number">1.3.</span> <span class="nav-text">获取/判断请求方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getMethod-获取请求的方法"><span class="nav-number">1.3.1.</span> <span class="nav-text">getMethod() 获取请求的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsAjax-是否是AJAX请求"><span class="nav-number">1.3.2.</span> <span class="nav-text">getIsAjax() 是否是AJAX请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsDelete-是否是DELETE请求"><span class="nav-number">1.3.3.</span> <span class="nav-text">getIsDelete() 是否是DELETE请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsFlash-是否是Adobe-Flash-或-Adobe-Flex-发出的请求，这其实也不是HTTP请求方法。"><span class="nav-number">1.3.4.</span> <span class="nav-text">getIsFlash() 是否是Adobe Flash 或 Adobe Flex 发出的请求，这其实也不是HTTP请求方法。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsGet-是否是一个GET请求"><span class="nav-number">1.3.5.</span> <span class="nav-text">getIsGet() 是否是一个GET请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsHead-是否是一个HEAD请求"><span class="nav-number">1.3.6.</span> <span class="nav-text">getIsHead() 是否是一个HEAD请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsOptions-是否是一个OPTIONS请求"><span class="nav-number">1.3.7.</span> <span class="nav-text">getIsOptions() 是否是一个OPTIONS请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsPatch-是否是PATCH请求"><span class="nav-number">1.3.8.</span> <span class="nav-text">getIsPatch() 是否是PATCH请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsPjax-是否是一个PJAX请求，这也并非是HTTP请求方法。"><span class="nav-number">1.3.9.</span> <span class="nav-text">getIsPjax() 是否是一个PJAX请求，这也并非是HTTP请求方法。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsPost-是否是一个POST请求"><span class="nav-number">1.3.10.</span> <span class="nav-text">getIsPost() 是否是一个POST请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsPut-是否是一个PUT请求"><span class="nav-number">1.3.11.</span> <span class="nav-text">getIsPut() 是否是一个PUT请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取请求数据"><span class="nav-number">1.4.</span> <span class="nav-text">获取请求数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#get-name-null-defaultValue-null-获取get请求的数据"><span class="nav-number">1.4.1.</span> <span class="nav-text">get($name = null, $defaultValue = null) 获取get请求的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#post-name-null-defaultValue-null-获取post请求的数据"><span class="nav-number">1.4.2.</span> <span class="nav-text">post($name = null, $defaultValue = null) 获取post请求的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getBodyParams-解析请求体中的数据"><span class="nav-number">1.4.3.</span> <span class="nav-text">getBodyParams() 解析请求体中的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getBodyParam-name-null-defaultValue-null-解析请求体中的数据"><span class="nav-number">1.4.4.</span> <span class="nav-text">getBodyParam($name = null, $defaultValue = null) 解析请求体中的数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名相关"><span class="nav-number">1.5.</span> <span class="nav-text">域名相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getHostInfo-获取当前的域名，带协议-http或https-和端口号"><span class="nav-number">1.5.1.</span> <span class="nav-text">getHostInfo() 获取当前的域名，带协议(http或https)和端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getHostName-获取当前域名，只是域名"><span class="nav-number">1.5.2.</span> <span class="nav-text">getHostName() 获取当前域名，只是域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getServerName-也是返回域名-和-getHostName一样"><span class="nav-number">1.5.3.</span> <span class="nav-text">getServerName() 也是返回域名 和 getHostName一样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#url相关"><span class="nav-number">1.6.</span> <span class="nav-text">url相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getUrl-返回当前请求-域名后的所有内容"><span class="nav-number">1.6.1.</span> <span class="nav-text">getUrl() 返回当前请求(域名后的所有内容)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getScriptUrl-获取入口文件相对域名的路径，带入口文件"><span class="nav-number">1.6.2.</span> <span class="nav-text">getScriptUrl() 获取入口文件相对域名的路径，带入口文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getBaseUrl-获取入口文件相对域名的路径-不带入口文件"><span class="nav-number">1.6.3.</span> <span class="nav-text">getBaseUrl() 获取入口文件相对域名的路径,不带入口文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAbsoluteUrl-获取完整的当前请求"><span class="nav-number">1.6.4.</span> <span class="nav-text">getAbsoluteUrl() 获取完整的当前请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getScriptFile-获取当前脚本的实际物理路径"><span class="nav-number">1.6.5.</span> <span class="nav-text">getScriptFile() 获取当前脚本的实际物理路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getPathInfo-返回真正的-pathInfo"><span class="nav-number">1.6.6.</span> <span class="nav-text">getPathInfo() 返回真正的 pathInfo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加解密相关的"><span class="nav-number">1.7.</span> <span class="nav-text">加解密相关的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getCookies-获取cookie"><span class="nav-number">1.7.1.</span> <span class="nav-text">getCookies() 获取cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Csrf"><span class="nav-number">1.7.2.</span> <span class="nav-text">Csrf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他方法"><span class="nav-number">1.8.</span> <span class="nav-text">其他方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getQueryString-返回url中-后的部分"><span class="nav-number">1.8.1.</span> <span class="nav-text">getQueryString() 返回url中?后的部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getIsSecureConnection-判读不是-https请求"><span class="nav-number">1.8.2.</span> <span class="nav-text">getIsSecureConnection() 判读不是 https请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getServerPort-获取端口号"><span class="nav-number">1.8.3.</span> <span class="nav-text">getServerPort() 获取端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getReferrer-获取-Referer"><span class="nav-number">1.8.4.</span> <span class="nav-text">getReferrer() 获取 Referer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getUserAgent-获取浏览器信息，简单防爬虫"><span class="nav-number">1.8.5.</span> <span class="nav-text">getUserAgent() 获取浏览器信息，简单防爬虫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getUserIP-获取用户ip"><span class="nav-number">1.8.6.</span> <span class="nav-text">getUserIP() 获取用户ip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getPort-获取http端口号，默认是80"><span class="nav-number">1.8.7.</span> <span class="nav-text">getPort() 获取http端口号，默认是80</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getSecurePort-获取https端口号，默认是443"><span class="nav-number">1.8.8.</span> <span class="nav-text">getSecurePort() 获取https端口号，默认是443</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getContentType-获取-content-type"><span class="nav-number">1.8.9.</span> <span class="nav-text">getContentType() 获取 content-type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resolve-获取解析后的请求"><span class="nav-number">1.8.10.</span> <span class="nav-text">resolve() 获取解析后的请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他的其他"><span class="nav-number">1.9.</span> <span class="nav-text">其他的其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getUserHost-获取用户主机名-域名"><span class="nav-number">1.9.1.</span> <span class="nav-text">getUserHost() 获取用户主机名/域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAuthUser-http认证机制"><span class="nav-number">1.9.2.</span> <span class="nav-text">getAuthUser() http认证机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAuthPassword-http认证密码"><span class="nav-number">1.9.3.</span> <span class="nav-text">getAuthPassword() http认证密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAcceptableContentTypes-获取用户能够接受的content-type类型"><span class="nav-number">1.9.4.</span> <span class="nav-text">getAcceptableContentTypes() 获取用户能够接受的content-type类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parseAcceptHeader-header-解析获取到的请求头字段"><span class="nav-number">1.9.5.</span> <span class="nav-text">parseAcceptHeader($header)  解析获取到的请求头字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAcceptableLanguages-获取能够接收的语言类型"><span class="nav-number">1.9.6.</span> <span class="nav-text">getAcceptableLanguages() 获取能够接收的语言类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getPreferredLanguage-array-languages-返回该应用程序应该用的首选语言"><span class="nav-number">1.9.7.</span> <span class="nav-text">getPreferredLanguage(array $languages = []) 返回该应用程序应该用的首选语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getETags-返回etags内容-在http缓存有用"><span class="nav-number">1.9.8.</span> <span class="nav-text">getETags() 返回etags内容, 在http缓存有用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Response组件"><span class="nav-number">2.</span> <span class="nav-text">Response组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言-1"><span class="nav-number">2.1.</span> <span class="nav-text">前言</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io" rel="external nofollow" >Hexo</a> 强力驱动 v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
