@@ -348,6 +348,193 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/12/13/yii/数据库操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/13/yii/数据库操作/" itemprop="url">
+                  Yii-数据库
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-13 21:56:02 / 修改时间：23:36:30" itemprop="dateCreated datePublished" datetime="2018-12-13T21:56:02+08:00">2018-12-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/操作数据库/" itemprop="url" rel="index"><span itemprop="name">操作数据库</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/13/yii/数据库操作/" class="leancloud_visitors" data-flag-title="Yii-数据库">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Yii 包含了一个建立在 PHP PDO 之上的数据访问层 (DAO)。DAO为不同的数据库提供了一套统一的API。通过配置可以分析出用的是哪种数据库，然后使用对应的 <code>Schema</code> 来处理sql。各类之间的分工也比较明确 <code>yii\db\Connection</code> 用来连接数据库、创建事务, <code>yii\db\Command</code> 用来执行sql, <code>yii\db\QueryBuilder</code> 用来创建sql。<br>安全性也比较高，通过pdo预处理sql然后绑定参数，这就防止了sql注入的问题。</p>
+<p>顺便说一下 <code>AR</code> 模式，因为继承 <code>Model</code> 所以同样拥有好用的字段验证，这在更新或者写入的时候非常好用，但是不好的地方是 <code>AR</code> 模型通过属性联表的操作，让操作变得不那么清晰。所以查询一般也就不推荐了。  </p>
+<h2 id="db-gt-createCommand-执行sql时放注入写法"><a href="#db-gt-createCommand-执行sql时放注入写法" class="headerlink" title="db-&gt;createCommand() 执行sql时放注入写法"></a><code>db-&gt;createCommand()</code> 执行sql时放注入写法</h2><ol>
+<li>列名 <code>[[field]]</code> 将会被处理成 <code>field</code>;</li>
+<li>表名 <code></code> 将会处理成 配置的表前缀+tablename  <strong>注意：这里省略了%,因为hexo的原因，不然会报错</strong></li>
+<li><code>:name</code> 将会被替换成传递的对应的参数，仅供参考，因为是通过pdo预处理执行的(这也是为什么会有防注入功能)<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 列名 [[field]] 将会被处理成 `field`;</span></div><div class="line"><span class="comment"># 表名 &#123;&#123;%tablename&#125;&#125; 将会处理成 配置的表前缀+tablename</span></div><div class="line"><span class="comment"># :name 将会被替换成传递的对应的参数，仅供参考，因为是通过pdo预处理执行的(这也是为什么会有防注入功能)</span></div><div class="line">$command = Yii::$app-&gt;db-&gt;createCommand(<span class="string">'select [[ding]], [[pupu]] from &#123;&#123;%bunao&#125;&#125; where name = :name'</span>, [<span class="string">':name'</span> =&gt; <span class="string">'xxx'</span>]);</div><div class="line"><span class="comment"># 获取sql语句  </span></div><div class="line"><span class="comment"># select `ding`, `pupu` from `meet_bunao` where name = 'xxx'</span></div><div class="line"><span class="keyword">echo</span> $command-&gt;getRawSql();</div></pre></td></tr></table></figure>
+</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/13/yii/数据库操作/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/11/10/yii/路由解析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -535,7 +722,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/11/09/yii/依赖注入容器&&服务定位器/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/11/09/yii/基础类-Component-Behavior/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -554,8 +741,8 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/09/yii/依赖注入容器&&服务定位器/" itemprop="url">
-                  Yii的依赖注入容器和服务定位器
+                <a class="post-title-link" href="/2018/11/09/yii/基础类-Component-Behavior/" itemprop="url">
+                  Component实现行为和事件
                 </a>
               
             
@@ -598,7 +785,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-06 22:29:36" itemprop="dateModified" datetime="2018-12-06T22:29:36+08:00">2018-12-06</time>
+                <time title="修改时间：2018-12-06 21:29:40" itemprop="dateModified" datetime="2018-12-06T21:29:40+08:00">2018-12-06</time>
               
             
           </span>
@@ -629,7 +816,7 @@
 
           
           
-             <span id="/2018/11/09/yii/依赖注入容器&&服务定位器/" class="leancloud_visitors" data-flag-title="Yii的依赖注入容器和服务定位器">
+             <span id="/2018/11/09/yii/基础类-Component-Behavior/" class="leancloud_visitors" data-flag-title="Component实现行为和事件">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -661,11 +848,11 @@
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Yii提供这两个类来进行解耦，功能有多强大呢？yii中创建的对象几乎都是通过容器的方式创建的, 可以看一下 <code>Yii::createObject()</code> 方法，而 <code>$app</code> 本身就是一个服务定位器。由于具体的细节比较多，如果需要详细代码可以参考<a href="http://www.digpage.com/di.html" target="_blank" rel="external">深入理解Yii2.0</a>和看源码，这里只说一下大概的原理  </p>
-<h2 id="依赖注入容器-Container"><a href="#依赖注入容器-Container" class="headerlink" title="依赖注入容器 Container"></a>依赖注入容器 Container</h2><p>为了解决两个类的强耦合，通常我们的做法是通过 构造方法 或者 属性赋值 的方式将一个对象注入到另一个对象中。小项目其实也没什么问题，但是当项目大起来的时候，依赖关系复杂的时候，就会让这个流程变得复杂起来， 容器就很好的解决类这个问题，只需要将依赖关系注册到容器，获取对象的时候容器自动将完成各对象之间的依赖关系。容器这里用的是 构造方法 注入的方式。<br>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>Component</code> 算是yii最核心的基础类了，同时实现了事件和 Behavior<br><code>Component</code> 虽然继承与 <code>Object</code> ，但为了实现 Behavior 对象的属性和方法的注入， <code>Component</code> 重写了 <code>Object</code> 中所有和调用属性和方法有关的方法。原理也很简单，就是在当前对象找不到的属性或方法，在绑定的行为里再找一遍  </p>
+<p>例如调用不存在的方法的时候<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span><span class="params">($name, $params)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 先确保注册的behaviors绑定</span></div><div class="line">    <span class="keyword">$this</span>-&gt;ensureBehaviors();</div><div class="line">    <span class="comment">// 检查绑定的behaviors中有没有要调用的方法  </span></div><div class="line">    <span class="keyword">foreach</span> (<span class="keyword">$this</span>-&gt;_behaviors <span class="keyword">as</span> $object) &#123;</div><div class="line">        <span class="keyword">if</span> ($object-&gt;hasMethod($name)) &#123;</div><div class="line">            <span class="keyword">return</span> call_user_func_array([$object, $name], $params);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnknownMethodException(<span class="string">'Calling unknown method: '</span> .</div><div class="line">        get_class(<span class="keyword">$this</span>) . <span class="string">"::$name()"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/09/yii/依赖注入容器&&服务定位器/#more" rel="contents">
+            <a class="btn" href="/2018/11/09/yii/基础类-Component-Behavior/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1275,197 +1462,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/11/09/yii/基础类-Component-Behavior/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
-      <meta itemprop="image" content="/images/my.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不孬">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/yii/基础类-Component-Behavior/" itemprop="url">
-                  Component实现行为和事件
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 00:00:02" itemprop="dateCreated datePublished" datetime="2018-11-09T00:00:02+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-06 21:29:40" itemprop="dateModified" datetime="2018-12-06T21:29:40+08:00">2018-12-06</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/09/yii/基础类-Component-Behavior/" class="leancloud_visitors" data-flag-title="Component实现行为和事件">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>Component</code> 算是yii最核心的基础类了，同时实现了事件和 Behavior<br><code>Component</code> 虽然继承与 <code>Object</code> ，但为了实现 Behavior 对象的属性和方法的注入， <code>Component</code> 重写了 <code>Object</code> 中所有和调用属性和方法有关的方法。原理也很简单，就是在当前对象找不到的属性或方法，在绑定的行为里再找一遍  </p>
-<p>例如调用不存在的方法的时候<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span><span class="params">($name, $params)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 先确保注册的behaviors绑定</span></div><div class="line">    <span class="keyword">$this</span>-&gt;ensureBehaviors();</div><div class="line">    <span class="comment">// 检查绑定的behaviors中有没有要调用的方法  </span></div><div class="line">    <span class="keyword">foreach</span> (<span class="keyword">$this</span>-&gt;_behaviors <span class="keyword">as</span> $object) &#123;</div><div class="line">        <span class="keyword">if</span> ($object-&gt;hasMethod($name)) &#123;</div><div class="line">            <span class="keyword">return</span> call_user_func_array([$object, $name], $params);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnknownMethodException(<span class="string">'Calling unknown method: '</span> .</div><div class="line">        get_class(<span class="keyword">$this</span>) . <span class="string">"::$name()"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/09/yii/基础类-Component-Behavior/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1512,7 +1513,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1551,7 +1552,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1626,7 +1639,23 @@
                     
                       
                     
-                    <span class="site-state-item-count">31</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

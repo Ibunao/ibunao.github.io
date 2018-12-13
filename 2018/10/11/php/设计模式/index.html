@@ -115,7 +115,7 @@
 <meta property="og:url" content="http://bunao.win/2018/10/11/php/设计模式/index.html">
 <meta property="og:site_name" content="不孬">
 <meta property="og:description" content="装饰器模式 扩展类的原有方法，不需要继承重写，在方法的开始和结尾增加预处理方法    前言装饰器的思想就是方便对一个方法进行扩展，就和web框架中提供的 beforeAction 和 afterAction 一样    装饰模式,可以动态的添加修改类的功能 一个类提供了一项功能,如果要在修改并添加额外的功能,传统的编程模式,需要写一个之类继承它,并重新实现类的方法 使用装饰模式,仅需在运行时添加一">
-<meta property="og:updated_time" content="2018-12-05T13:15:33.000Z">
+<meta property="og:updated_time" content="2018-12-13T15:12:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php设计模式简单解析">
 <meta name="twitter:description" content="装饰器模式 扩展类的原有方法，不需要继承重写，在方法的开始和结尾增加预处理方法    前言装饰器的思想就是方便对一个方法进行扩展，就和web框架中提供的 beforeAction 和 afterAction 一样    装饰模式,可以动态的添加修改类的功能 一个类提供了一项功能,如果要在修改并添加额外的功能,传统的编程模式,需要写一个之类继承它,并重新实现类的方法 使用装饰模式,仅需在运行时添加一">
@@ -408,7 +408,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-05 21:15:33" itemprop="dateModified" datetime="2018-12-05T21:15:33+08:00">2018-12-05</time>
+                <time title="修改时间：2018-12-13 23:12:08" itemprop="dateModified" datetime="2018-12-13T23:12:08+08:00">2018-12-13</time>
               
             
           </span>
@@ -477,10 +477,11 @@
 <ol>
 <li>装饰模式,可以动态的添加修改类的功能</li>
 <li>一个类提供了一项功能,如果要在修改并添加额外的功能,传统的编程模式,需要写一个之类继承它,并重新实现类的方法</li>
-<li>使用装饰模式,仅需在运行时添加一个装饰对象即可实现,可以实现最大的灵活性  </li>
-</ol>
-<h3 id="实现-例子"><a href="#实现-例子" class="headerlink" title="实现(例子)"></a>实现(例子)</h3><ol>
-<li>定义一个装饰器接口，定义要实现的方法  </li>
+<li><p>使用装饰模式,仅需在运行时添加一个装饰对象即可实现,可以实现最大的灵活性  </p>
+<a id="more"></a>
+<h3 id="实现-例子"><a href="#实现-例子" class="headerlink" title="实现(例子)"></a>实现(例子)</h3></li>
+<li><p>定义一个装饰器接口，定义要实现的方法  </p>
+</li>
 <li>创建一个对象实现装饰器的接口</li>
 <li>在指定类中使用装饰器  <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//定义装饰器接口  </span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">DrawDecorator</span></span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">beforeDraw</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">afterDraw</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//创建装饰器，实现装饰器接口  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorDrawDecorator</span> <span class="keyword">implements</span> <span class="title">DrawDecorator</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">protected</span> $color;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($color = <span class="string">'red'</span>)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;color = $color;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">beforeDraw</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;div style='color: &#123;$this-&gt;color&#125;;'&gt;"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">afterDraw</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;/div&gt;"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//使用装饰器</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Canvas</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">protected</span> $decorators = <span class="keyword">array</span>();</div><div class="line">    <span class="comment">//添加装饰器</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">addDecorator</span><span class="params">(DrawDecorator $decorator)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;decorators[] = $decorator;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//调用方法之前先调用装饰器的方法</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">beforeDraw</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;decorators <span class="keyword">as</span> $decorator)</div><div class="line">        &#123;</div><div class="line">            $decorator-&gt;beforeDraw();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 调用方法之后调用装饰器的方法</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">afterDraw</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 倒序一下数组，保持好顺序</span></div><div class="line">        $decorators = array_reverse(<span class="keyword">$this</span>-&gt;decorators);</div><div class="line">        <span class="keyword">foreach</span>($decorators <span class="keyword">as</span> $decorator)</div><div class="line">        &#123;</div><div class="line">            $decorator-&gt;afterDraw();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//此方法使用装饰器的方法</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">draw</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 执行自己代码之前调用</span></div><div class="line">        <span class="keyword">$this</span>-&gt;beforeDraw();</div><div class="line"></div><div class="line">        <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;data <span class="keyword">as</span> $line)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">foreach</span>($line <span class="keyword">as</span> $char)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">echo</span> $char;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">echo</span> <span class="string">"&lt;br /&gt;\n"</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 执行自己代码之后调用</span></div><div class="line">        <span class="keyword">$this</span>-&gt;afterDraw();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
@@ -595,8 +596,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/11/yii/RBAC/" rel="prev" title="Yii-RBAC">
-                Yii-RBAC <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/11/yii/AFC验证/" rel="prev" title="Yii-AFC验证">
+                Yii-AFC验证 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -671,7 +672,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -710,7 +711,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -785,7 +798,23 @@
                     
                       
                     
-                    <span class="site-state-item-count">31</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

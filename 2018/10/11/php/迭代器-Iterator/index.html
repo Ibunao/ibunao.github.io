@@ -115,7 +115,7 @@
 <meta property="og:url" content="http://bunao.win/2018/10/11/php/迭代器-Iterator/index.html">
 <meta property="og:site_name" content="不孬">
 <meta property="og:description" content="前言迭代器接口可以让对象像数组一样被遍历，如 foreach ，和数组的区别是数组一开始数据就是填充好的，也就是已经加载到内存的，如果数据量比较大甚至超过服务器内存，那将无法工作，而迭代器就可以通过一条一条数据的读取(从文件或数据库)进行操作      Iterator接口php提供的接口，我们看一下要实现的内容   1234567891011121314151617181920212223242">
-<meta property="og:updated_time" content="2018-12-05T13:15:33.000Z">
+<meta property="og:updated_time" content="2018-12-13T15:11:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实现迭代器">
 <meta name="twitter:description" content="前言迭代器接口可以让对象像数组一样被遍历，如 foreach ，和数组的区别是数组一开始数据就是填充好的，也就是已经加载到内存的，如果数据量比较大甚至超过服务器内存，那将无法工作，而迭代器就可以通过一条一条数据的读取(从文件或数据库)进行操作      Iterator接口php提供的接口，我们看一下要实现的内容   1234567891011121314151617181920212223242">
@@ -408,7 +408,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-05 21:15:33" itemprop="dateModified" datetime="2018-12-05T21:15:33+08:00">2018-12-05</time>
+                <time title="修改时间：2018-12-13 23:11:36" itemprop="dateModified" datetime="2018-12-13T23:11:36+08:00">2018-12-13</time>
               
             
           </span>
@@ -472,7 +472,7 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>迭代器接口可以让对象像数组一样被遍历，如 <code>foreach</code> ，和数组的区别是数组一开始数据就是填充好的，也就是已经加载到内存的，如果数据量比较大甚至超过服务器内存，那将无法工作，而迭代器就可以通过一条一条数据的读取(从文件或数据库)进行操作     </p>
 <h2 id="Iterator接口"><a href="#Iterator接口" class="headerlink" title="Iterator接口"></a>Iterator接口</h2><p>php提供的接口，我们看一下要实现的内容  </p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">Iterator extends Traversable &#123;  </div><div class="line">    <span class="comment">//重置索引游标  </span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> void rewind ( void )  </div><div class="line">    <span class="comment">//移动当前索引游标到下一元素  </span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> void next ( void )  </div><div class="line">    <span class="comment">//判断当前索引游标指向的元素是否有效  </span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> boolean valid ( void )  </div><div class="line">    <span class="comment">//返回当前索引游标指向的元素  </span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> mixed current ( void )  </div><div class="line">    <span class="comment">//返回当前索引游标指向的键  </span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> scalar key ( void )  </div><div class="line">&#125;  </div><div class="line">```  </div><div class="line"><span class="comment">## 实现一个简单的迭代器    </span></div><div class="line"></div><div class="line">```php</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">myIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span> </span>&#123;</div><div class="line">    <span class="comment">// 记录数组的位置</span></div><div class="line">    <span class="keyword">private</span> $position = <span class="number">0</span>;</div><div class="line">    <span class="comment">// 要遍历的数组</span></div><div class="line">    <span class="keyword">private</span> $array = <span class="keyword">array</span>(</div><div class="line">        <span class="string">"firstelement"</span>,</div><div class="line">        <span class="string">"secondelement"</span>,</div><div class="line">        <span class="string">"lastelement"</span>,</div><div class="line">    );  </div><div class="line">    <span class="comment">// foreach开始时执行一次，重置索引</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">rewind</span><span class="params">()</span> </span>&#123;</div><div class="line">        var_dump(<span class="keyword">__METHOD__</span>);</div><div class="line">        <span class="keyword">$this</span>-&gt;position = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 返回下一个索引</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">next</span><span class="params">()</span> </span>&#123;</div><div class="line">        var_dump(<span class="keyword">__METHOD__</span>);</div><div class="line">        ++<span class="keyword">$this</span>-&gt;position;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 判断当前索引对应的值是否有效，返回false将会终止遍历</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">valid</span><span class="params">()</span> </span>&#123;</div><div class="line">        var_dump(<span class="keyword">__METHOD__</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;array[<span class="keyword">$this</span>-&gt;position]);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 每次循环获取当前索引对应的值</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">current</span><span class="params">()</span> </span>&#123;</div><div class="line">        var_dump(<span class="keyword">__METHOD__</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;array[<span class="keyword">$this</span>-&gt;position];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 返回当前的索引</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">key</span><span class="params">()</span> </span>&#123;</div><div class="line">        var_dump(<span class="keyword">__METHOD__</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;position;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$it = <span class="keyword">new</span> myIterator;</div><div class="line"></div><div class="line"><span class="keyword">foreach</span>($it <span class="keyword">as</span> $key =&gt; $value) &#123;</div><div class="line">    var_dump($key, $value);</div><div class="line">    <span class="keyword">echo</span> <span class="string">"\n"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">Iterator extends Traversable &#123;  </div><div class="line">    <span class="comment">//重置索引游标  </span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> void rewind ( void )  </div><div class="line">    <span class="comment">//移动当前索引游标到下一元素  </span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> void next ( void )  </div><div class="line">    <span class="comment">//判断当前索引游标指向的元素是否有效  </span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> boolean valid ( void )  </div><div class="line">    <span class="comment">//返回当前索引游标指向的元素  </span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> mixed current ( void )  </div><div class="line">    <span class="comment">//返回当前索引游标指向的键  </span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> scalar key ( void )  </div><div class="line">&#125;  </div><div class="line">```  </div><div class="line">&lt;!--more--&gt;</div><div class="line"><span class="comment">## 实现一个简单的迭代器    </span></div><div class="line"></div><div class="line">```php</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">myIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span> </span>&#123;</div><div class="line">    <span class="comment">// 记录数组的位置</span></div><div class="line">    <span class="keyword">private</span> $position = <span class="number">0</span>;</div><div class="line">    <span class="comment">// 要遍历的数组</span></div><div class="line">    <span class="keyword">private</span> $array = <span class="keyword">array</span>(</div><div class="line">        <span class="string">"firstelement"</span>,</div><div class="line">        <span class="string">"secondelement"</span>,</div><div class="line">        <span class="string">"lastelement"</span>,</div><div class="line">    );  </div><div class="line">    <span class="comment">// foreach开始时执行一次，重置索引</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">rewind</span><span class="params">()</span> </span>&#123;</div><div class="line">        var_dump(<span class="keyword">__METHOD__</span>);</div><div class="line">        <span class="keyword">$this</span>-&gt;position = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 返回下一个索引</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">next</span><span class="params">()</span> </span>&#123;</div><div class="line">        var_dump(<span class="keyword">__METHOD__</span>);</div><div class="line">        ++<span class="keyword">$this</span>-&gt;position;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 判断当前索引对应的值是否有效，返回false将会终止遍历</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">valid</span><span class="params">()</span> </span>&#123;</div><div class="line">        var_dump(<span class="keyword">__METHOD__</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;array[<span class="keyword">$this</span>-&gt;position]);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 每次循环获取当前索引对应的值</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">current</span><span class="params">()</span> </span>&#123;</div><div class="line">        var_dump(<span class="keyword">__METHOD__</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;array[<span class="keyword">$this</span>-&gt;position];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 返回当前的索引</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">key</span><span class="params">()</span> </span>&#123;</div><div class="line">        var_dump(<span class="keyword">__METHOD__</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;position;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$it = <span class="keyword">new</span> myIterator;</div><div class="line"></div><div class="line"><span class="keyword">foreach</span>($it <span class="keyword">as</span> $key =&gt; $value) &#123;</div><div class="line">    var_dump($key, $value);</div><div class="line">    <span class="keyword">echo</span> <span class="string">"\n"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><a href="http://php.net/manual/zh/class.iterator.php" target="_blank" rel="external">PHP文档</a></p>
 
       
@@ -544,8 +544,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/11/yii/AFC验证/" rel="next" title="Yii-AFC验证">
-                <i class="fa fa-chevron-left"></i> Yii-AFC验证
+              <a href="/2018/10/11/yii/RBAC/" rel="next" title="Yii-RBAC">
+                <i class="fa fa-chevron-left"></i> Yii-RBAC
               </a>
             
           </div>
@@ -630,7 +630,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -669,7 +669,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -744,7 +756,23 @@
                     
                       
                     
-                    <span class="site-state-item-count">31</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
