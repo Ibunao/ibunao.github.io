@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://bunao.win/2018/10/11/python/%E8%BF%AD%E4%BB%A3%E5%99%A8&&%E7%94%9F%E6%88%90%E5%99%A8/</loc>
+    
+    <lastmod>2018-12-19T15:57:52.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://bunao.win/2018/10/11/python/python%E5%9F%BA%E7%A1%801/</loc>
+    
+    <lastmod>2018-12-19T15:57:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://bunao.win/2018/10/16/yii/RESTful/</loc>
+    
+    <lastmod>2018-12-19T13:50:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://bunao.win/2018/10/11/yii/RBAC/</loc>
+    
+    <lastmod>2018-12-17T12:27:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://bunao.win/2018/10/11/yii/AFC%E9%AA%8C%E8%AF%81/</loc>
+    
+    <lastmod>2018-12-17T12:27:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://bunao.win/2018/07/03/yii/yii-%E5%B0%8F%E7%82%B9%E6%B1%87%E6%80%BB/</loc>
     
     <lastmod>2018-12-15T08:39:30.000Z</lastmod>
@@ -12,13 +47,6 @@
     <loc>http://bunao.win/2017/07/03/yii/%E8%A7%86%E5%9B%BE/</loc>
     
     <lastmod>2018-12-15T08:38:04.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://bunao.win/2018/10/16/yii/RESTful/</loc>
-    
-    <lastmod>2018-12-14T13:41:48.000Z</lastmod>
     
   </url>
   
@@ -166,20 +194,6 @@
     <loc>http://bunao.win/2018/10/23/spider/scrapy%E5%8F%82%E8%80%83/</loc>
     
     <lastmod>2018-10-23T15:23:54.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://bunao.win/2018/10/11/yii/RBAC/</loc>
-    
-    <lastmod>2018-10-11T12:45:49.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://bunao.win/2018/10/11/yii/AFC%E9%AA%8C%E8%AF%81/</loc>
-    
-    <lastmod>2018-10-11T12:45:00.000Z</lastmod>
     
   </url>
   
