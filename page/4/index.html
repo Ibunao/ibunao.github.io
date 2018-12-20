@@ -348,7 +348,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/10/11/php/设计模式/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/10/11/yii/AFC验证/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -367,8 +367,8 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/11/php/设计模式/" itemprop="url">
-                  php设计模式简单解析
+                <a class="post-title-link" href="/2018/10/11/yii/AFC验证/" itemprop="url">
+                  Yii-AFC验证
                 </a>
               
             
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-13 23:12:08" itemprop="dateModified" datetime="2018-12-13T23:12:08+08:00">2018-12-13</time>
+                <time title="修改时间：2018-12-17 20:27:29" itemprop="dateModified" datetime="2018-12-17T20:27:29+08:00">2018-12-17</time>
               
             
           </span>
@@ -428,7 +428,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
 
                 
                 
@@ -442,7 +442,7 @@
 
           
           
-             <span id="/2018/10/11/php/设计模式/" class="leancloud_visitors" data-flag-title="php设计模式简单解析">
+             <span id="/2018/10/11/yii/AFC验证/" class="leancloud_visitors" data-flag-title="Yii-AFC验证">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -474,17 +474,200 @@
 
       
         
-          <h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><blockquote>
-<p>扩展类的原有方法，不需要继承重写，在方法的开始和结尾增加预处理方法  </p>
+          <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">web</span>\<span class="title">Controller</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">filters</span>\<span class="title">AccessControl</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SiteController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">behaviors</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> [</div><div class="line">            <span class="string">'access'</span> =&gt; [</div><div class="line">                <span class="string">'class'</span> =&gt; AccessControl::className(),</div><div class="line">                <span class="string">'only'</span> =&gt; [<span class="string">'login'</span>, <span class="string">'logout'</span>, <span class="string">'signup'</span>],</div><div class="line">                <span class="string">'except'</span> =&gt; [<span class="string">'login'</span>],</div><div class="line">                <span class="string">'rules'</span> =&gt; [</div><div class="line">                    [</div><div class="line">                        <span class="string">'allow'</span> =&gt; <span class="keyword">true</span>,</div><div class="line">                        <span class="string">'actions'</span> =&gt; [<span class="string">'login'</span>, <span class="string">'signup'</span>],</div><div class="line">                        <span class="string">'roles'</span> =&gt; [<span class="string">'?'</span>],</div><div class="line">                    ],</div><div class="line">                    [</div><div class="line">                        <span class="string">'allow'</span> =&gt; <span class="keyword">true</span>,</div><div class="line">                        <span class="string">'actions'</span> =&gt; [<span class="string">'logout'</span>],</div><div class="line">                        <span class="string">'roles'</span> =&gt; [<span class="string">'@'</span>],</div><div class="line">                    ],</div><div class="line">                ],</div><div class="line">            ],</div><div class="line">        ];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="验证流程"><a href="#验证流程" class="headerlink" title="验证流程"></a>验证流程</h2><h3 id="AccessControl过滤器"><a href="#AccessControl过滤器" class="headerlink" title="AccessControl过滤器"></a>AccessControl过滤器</h3><blockquote>
+<p>注意，如果AccessControll配置的需要验证的action，在配置的rules中如果验证没有通过或者没有rule来验证当前请求的action(也就是不符合所有rule需要验证的action)都会拒绝访问  </p>
 </blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>装饰器的思想就是方便对一个方法进行扩展，就和web框架中提供的 <code>beforeAction</code> 和 <code>afterAction</code> 一样  </p>
-<ol>
-<li>装饰模式,可以动态的添加修改类的功能</li>
-<li>一个类提供了一项功能,如果要在修改并添加额外的功能,传统的编程模式,需要写一个之类继承它,并重新实现类的方法</li>
-<li><p>使用装饰模式,仅需在运行时添加一个装饰对象即可实现,可以实现最大的灵活性  </p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/11/php/设计模式/#more" rel="contents">
+            <a class="btn" href="/2018/10/11/yii/AFC验证/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/10/11/php/对象数组-ArrayAccess/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/11/php/对象数组-ArrayAccess/" itemprop="url">
+                  像访问数组一样访问对象
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-11 00:00:02" itemprop="dateCreated datePublished" datetime="2018-10-11T00:00:02+08:00">2018-10-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-13 23:11:43" itemprop="dateModified" datetime="2018-12-13T23:11:43+08:00">2018-12-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/11/php/对象数组-ArrayAccess/" class="leancloud_visitors" data-flag-title="像访问数组一样访问对象">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过实现php提供的 <code>ArrayAccess</code> 接口，可以方便的实现像操作数组一样访问对象  </p>
+<h2 id="ArrayAccess接口"><a href="#ArrayAccess接口" class="headerlink" title="ArrayAccess接口"></a>ArrayAccess接口</h2><p>php提供的接口，我们看一下要实现的内容   </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">ArrayAccess &#123;</div><div class="line">    <span class="comment">// isset判断的时候自动调用</span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> boolean offsetExists ( mixed $offset )</div><div class="line">    <span class="comment">// 获取数组数据的时候自动调用</span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> mixed offsetGet ( mixed $offset )</div><div class="line">    <span class="comment">// 添加数据的时候自动调用</span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> void offsetSet ( mixed $offset , mixed $value )</div><div class="line">    <span class="comment">// unset的时候自动调用</span></div><div class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> void offsetUnset ( mixed $offset )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/11/php/对象数组-ArrayAccess/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1108,7 +1291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/控制器-Controller/">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/Request组件&&Response组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="echo-ding">
@@ -1127,8 +1310,8 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/03/yii/控制器-Controller/" itemprop="url">
-                  Yii-controller
+                <a class="post-title-link" href="/2017/07/03/yii/Request组件&&Response组件/" itemprop="url">
+                  Request组件和Response组件
                 </a>
               
             
@@ -1171,7 +1354,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-11 19:15:17" itemprop="dateModified" datetime="2018-12-11T19:15:17+08:00">2018-12-11</time>
+                <time title="修改时间：2018-12-10 23:19:34" itemprop="dateModified" datetime="2018-12-10T23:19:34+08:00">2018-12-10</time>
               
             
           </span>
@@ -1195,7 +1378,7 @@
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/controller/" itemprop="url" rel="index"><span itemprop="name">controller</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/请求和响应组件/" itemprop="url" rel="index"><span itemprop="name">请求和响应组件</span></a></span>
 
                 
                 
@@ -1209,7 +1392,7 @@
 
           
           
-             <span id="/2017/07/03/yii/控制器-Controller/" class="leancloud_visitors" data-flag-title="Yii-controller">
+             <span id="/2017/07/03/yii/Request组件&&Response组件/" class="leancloud_visitors" data-flag-title="Request组件和Response组件">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1241,216 +1424,14 @@
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>控制器作为最常用的一个类，也比较简单，这里只简单梳理一下<br>因为常用的是web形式，这里就以 <code>yii\web\Controller</code> 为基础进行分析  </p>
-<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>常用属性列表<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$id  <span class="comment"># 控制器id</span></div><div class="line">$module <span class="comment"># 如果有，则是该控制器所在的module模块对象  </span></div><div class="line">$defaultAction <span class="comment"># 默认的action，在请求没有指定控制器的action的时候默认请求这个  </span></div><div class="line">$layout <span class="comment"># 指定layout文件，如果不使用layout设置值为 false ，后面会详细分析  </span></div><div class="line">$enableCsrfValidation <span class="comment"># 是否验证csrf, 如果关闭，在beforeAction 中将不进行校验</span></div></pre></td></tr></table></figure></p>
-<h2 id="执行操作"><a href="#执行操作" class="headerlink" title="执行操作"></a>执行操作</h2><p>通过下面这两种方式执行action和正常的通过对象调用执行有什么区别？<br>直接通过对象调用的方式执行某个方法，只是执行了这个方法；而通过下面这两种方式(通过路由)执行的方式会完整的执行所属modules、controller的 <code>beforeAction</code> 和 <code>afterAction</code>(动作过滤器)  </p>
-<h3 id="runAction-执行本控制器的action"><a href="#runAction-执行本控制器的action" class="headerlink" title="runAction() 执行本控制器的action"></a>runAction() 执行本控制器的action</h3><p>通过本控制器的 <code>actionId</code> 完整的执行(就是包含动作过滤器)对应的 独立action 或 内联action  </p>
-<h3 id="run-根据路由相应的动作"><a href="#run-根据路由相应的动作" class="headerlink" title="run() 根据路由相应的动作"></a>run() 根据路由相应的动作</h3><p>看下面源码先有三种不同的情况  </p>
-<ol>
-<li>单独一个actionid    执行相对当前控制器下的action</li>
-<li>controllerid/actionid || module/controllerid/actionid 执行相对当前module下的路由</li>
-<li>/module/controllerid/actionid 执行绝对路由  </li>
-</ol>
-<p>其中第三种就是我们发送请求的时候所要执行的操作，而第二种其实和第三种是一样的(<code>$app</code>也是module)，只不过使用当前module往后找<br>
+          <h1 id="Request组件"><a href="#Request组件" class="headerlink" title="Request组件"></a>Request组件</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Request 中的方法并不难，主要是一些功能的封装罢了，原理上没有很复杂的东西。只是涉及到许多HTTP的有关知识,具体的代码分析和相关知识可以看</p>
+<p>这里主要归纳一下使用方法，以常用的 <code>yii\web\Request</code> 为例   </p>
+<h2 id="请求头请求体"><a href="#请求头请求体" class="headerlink" title="请求头请求体"></a>请求头请求体</h2><h3 id="getHeaders-获取请求头"><a href="#getHeaders-获取请求头" class="headerlink" title="getHeaders() 获取请求头"></a>getHeaders() 获取请求头</h3><p>可以获取所有的请求头  </p>
+<h3 id="getRawBody-获取请求体"><a href="#getRawBody-获取请求体" class="headerlink" title="getRawBody() 获取请求体"></a>getRawBody() 获取请求体</h3><p>使用了 <code>php://input</code> 来获取请求体，这个 <code>php://input</code> 有这么几个特点：</p>
+<p><code>php://input</code> 是个只读流，用于获取请求体。<br><code>php://input</code> 是返回整个HTTP请求中，除去HTTP头部的全部原始内容， 而不管是什么 <code>Content Type（或称为编码方式）</code>。 相比较之下， <code>$_POST</code> 只支持 <code>application/x-www-form-urlencoded</code> 和 <code>multipart/form-data-encoded</code> 两种 <code>Content Type</code> 。其中前一种就是简单的HTML表单以 <code>method=&quot;post&quot;</code> 提交时的形式， 后一种主要是用于上传文档。因此，对于诸如 <code>application/json</code> 等 <code>Content Type</code>，这往往是在 <code>AJAX</code> 场景下使用， 那么使用 <code>$_POST</code> 得到的是空的内容，这时就必须使用 <code>php://input</code> 。<br>相比较于 <code>$HTTP_RAW_POST_DATA</code> ， <code>php://input</code> 无需额外地在 <code>php.ini</code> 中 激活 <code>always-populate-raw-post-data</code> ，而且对于内存的压力也比较小。<br>当编码方式为 <code>multipart/form-data-encoded</code> 时， <code>php://input</code> 是无效的。这种情况一般为上传文档。 这种情况可以使用传统的 <code>$_FILES</code> 或者 <code>yii\web\UploadedFile</code>   </p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/yii/控制器-Controller/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/03/yii/模型类-Model/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
-      <meta itemprop="image" content="/images/my.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不孬">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/03/yii/模型类-Model/" itemprop="url">
-                  Yii-model
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-07-03 11:56:02" itemprop="dateCreated datePublished" datetime="2017-07-03T11:56:02+08:00">2017-07-03</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-10 23:19:19" itemprop="dateModified" datetime="2018-12-10T23:19:19+08:00">2018-12-10</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/model/" itemprop="url" rel="index"><span itemprop="name">model</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/07/03/yii/模型类-Model/" class="leancloud_visitors" data-flag-title="Yii-model">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>简单的接收数据的表单，使用继承自  <code>Model</code> 类的模型即可，如果是需要增删改之类的牵扯到表的则用 <code>Active Record 活动记录</code>(也是继承自 <code>Model</code>)    </p>
-<blockquote>
-<p>下面所述，字段和属性一个意思  </p>
-</blockquote>
-<h2 id="像数组一样访问和遍历模型"><a href="#像数组一样访问和遍历模型" class="headerlink" title="像数组一样访问和遍历模型"></a>像数组一样访问和遍历模型</h2><p>可像访问数组单元项一样访问属性，这要感谢 <code>yii\base\Model</code> 支持 <code>ArrayAccess</code> 数组访问<a href="https://www.bunao.win/2018/10/11/php/%E5%AF%B9%E8%B1%A1%E6%95%B0%E7%BB%84-ArrayAccess/" target="_blank" rel="external">参考链接</a> 和 <code>ArrayIterator</code> 数组迭代器<a href="https://www.bunao.win/2018/10/11/php/%E8%BF%AD%E4%BB%A3%E5%99%A8-Iterator/" target="_blank" rel="external">参考链接</a>:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionModel</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    $model = <span class="keyword">new</span> TestForm;</div><div class="line">    <span class="comment">// 显示所有的公有属性</span></div><div class="line">    var_dump($model-&gt;attributes);</div><div class="line">    <span class="comment">//  yii\base\Model 支持 ArrayAccess 数组访问 可以像访问数组但愿项一样访问属性</span></div><div class="line">    $model[<span class="string">'name'</span>] = <span class="string">'example'</span>;</div><div class="line">    <span class="keyword">echo</span> $model[<span class="string">'name'</span>];</div><div class="line"></div><div class="line">    <span class="comment">// Model 支持 ArrayIterator 数组迭代器，迭代器遍历模型，访问所有的公有属性  </span></div><div class="line">    <span class="keyword">foreach</span> ($model <span class="keyword">as</span> $name =&gt; $value) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"$name: $value\n"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/03/yii/模型类-Model/#more" rel="contents">
+            <a class="btn" href="/2017/07/03/yii/Request组件&&Response组件/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1542,7 +1523,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1692,7 +1673,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">42</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">45</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
