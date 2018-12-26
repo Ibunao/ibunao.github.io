@@ -115,7 +115,7 @@
 <meta property="og:url" content="http://bunao.win/2018/12/26/yii/Ip访问速率控制/index.html">
 <meta property="og:site_name" content="不孬">
 <meta property="og:description" content="前言Yii 的 restful 实现了用户访问速率的控制(RateLimiter)，但是是基于 user 组件的，也就是说用户需要先登录。这里仿照 RateLimiter 写了一个基于 Ip 的控制访问速率的，需要用到 cache 组件用来进行存储每个ip访问的次数和时间。   配置和扩展把过滤器注册进控制器中12345678910public function behaviors()&amp;#123;">
-<meta property="og:updated_time" content="2018-12-26T12:25:13.000Z">
+<meta property="og:updated_time" content="2018-12-26T13:51:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ip访问速率控制">
 <meta name="twitter:description" content="前言Yii 的 restful 实现了用户访问速率的控制(RateLimiter)，但是是基于 user 组件的，也就是说用户需要先登录。这里仿照 RateLimiter 写了一个基于 Ip 的控制访问速率的，需要用到 cache 组件用来进行存储每个ip访问的次数和时间。   配置和扩展把过滤器注册进控制器中12345678910public function behaviors()&amp;#123;">
@@ -391,7 +391,7 @@
                 
               
 
-              <time title="创建时间：2018-12-26 20:00:02 / 修改时间：20:25:13" itemprop="dateCreated datePublished" datetime="2018-12-26T20:00:02+08:00">2018-12-26</time>
+              <time title="创建时间：2018-12-26 20:00:02 / 修改时间：21:51:25" itemprop="dateCreated datePublished" datetime="2018-12-26T20:00:02+08:00">2018-12-26</time>
             
 
             
@@ -459,143 +459,11 @@
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Yii 的 restful 实现了用户访问速率的控制(<code>RateLimiter</code>)，但是是基于 <code>user</code> 组件的，也就是说用户需要先登录。这里仿照 <code>RateLimiter</code> 写了一个基于 <code>Ip</code> 的控制访问速率的，需要用到 <code>cache</code> 组件用来进行存储每个ip访问的次数和时间。  </p>
-<h2 id="配置和扩展"><a href="#配置和扩展" class="headerlink" title="配置和扩展"></a>配置和扩展</h2><p>把过滤器注册进控制器中<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public function behaviors()</div><div class="line">&#123;</div><div class="line">    return [</div><div class="line">        'ipRateLimiter' =&gt; [</div><div class="line">            'class' =&gt; IpRateLimiter::className(),</div><div class="line">            # 开启过滤</div><div class="line">            'enabled' =&gt; true</div><div class="line">        ],</div><div class="line">    ];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>扩展的话需要先看一下下面给出的代码。需要更改的有三个方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">getRateLimit($request, $action)</div><div class="line">loadAllowance($request, $action)</div><div class="line">saveAllowance($request, $action, $allowance, $timestamp)</div></pre></td></tr></table></figure></p>
+<h2 id="配置和扩展"><a href="#配置和扩展" class="headerlink" title="配置和扩展"></a>配置和扩展</h2><p>把过滤器注册进控制器中<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">behaviors</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [</div><div class="line">        <span class="string">'ipRateLimiter'</span> =&gt; [</div><div class="line">            <span class="string">'class'</span> =&gt; IpRateLimiter::className(),</div><div class="line">            <span class="comment"># 开启过滤</span></div><div class="line">            <span class="string">'enabled'</span> =&gt; <span class="keyword">true</span></div><div class="line">        ],</div><div class="line">    ];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>扩展的话需要先看一下下面给出的代码。需要更改的有三个方法<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">getRateLimit($request, $action)</div><div class="line">loadAllowance($request, $action)</div><div class="line">saveAllowance($request, $action, $allowance, $timestamp)</div></pre></td></tr></table></figure></p>
 <p>这三个方法的作用下面代码中的备注已经很清楚了，也给了一个简单的 dome。<br>三个方法都包含了 <code>$request, $action</code> 两个参数，可以通过这两个对每个 <code>action</code> 的访问进行更精细的控制  </p>
 <a id="more"></a>
-<h2 id="IpRateLimiter-代码参考"><a href="#IpRateLimiter-代码参考" class="headerlink" title="IpRateLimiter 代码参考"></a><code>IpRateLimiter</code> 代码参考</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">common</span>\<span class="title">behaviors</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Yii</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">base</span>\<span class="title">ActionFilter</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">web</span>\<span class="title">Request</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">web</span>\<span class="title">Response</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">web</span>\<span class="title">TooManyRequestsHttpException</span>;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * IpRateLimiter implements a rate limiting algorithm based on the [leaky bucket algorithm](http://en.wikipedia.org/wiki/Leaky_bucket).</div><div class="line"> *</div><div class="line"> * You may use IpRateLimiter by attaching it as a behavior to a controller or module, like the following,</div><div class="line"> *</div><div class="line"> * ```php</div><div class="line"> * public function behaviors()</div><div class="line"> * &#123;</div><div class="line"> *     return [</div><div class="line"> *         'ipRateLimiter' =&gt; [</div><div class="line"> *             'class' =&gt; \common\behaviors\IpRateLimiter::className(),</div><div class="line"> *             'enabled' =&gt; true</div><div class="line"> *         ],</div><div class="line"> *     ];</div><div class="line"> * &#125;</div><div class="line"> *</div></pre></td></tr></table></figure>
-<p> *</p>
-<ul>
-<li>When the user has exceeded his rate limit, RateLimiter will throw a [[TooManyRequestsHttpException]] exception.<br><em>
-</em></li>
-<li>@since 2.0<br><em>/<br>class IpRateLimiter extends ActionFilter<br>{<br> /*</em><ul>
-<li>@var bool whether to include rate limit headers in the response<br><em>/<br>public $enableRateLimitHeaders = true;<br>/*</em></li>
-<li>@var string the message to be displayed when rate limit exceeds<br><em>/<br>public $errorMessage = ‘Rate limit exceeded.’;<br>/*</em></li>
-<li>访问的ip<br>*/<br>public $ip;<h1 id="缓存的key"><a href="#缓存的key" class="headerlink" title="缓存的key"></a>缓存的key</h1>private $cacheKey;<br>/**</li>
-<li>是否启用</li>
-<li>@var [type]<br><em>/<br>public $enabled = false;<br>/*</em></li>
-<li>@var Request the current request. If not set, the <code>request</code> application component will be used.<br><em>/<br>public $request;<br>/*</em></li>
-<li>@var Response the response to be sent. If not set, the <code>response</code> application component will be used.<br>*/<br>public $response;</li>
-</ul>
-</li>
-</ul>
-<pre><code>/**
- * {@inheritdoc}
- */
-public function init()
-{
-    if ($this-&gt;request === null) {
-        $this-&gt;request = Yii::$app-&gt;getRequest();
-    }
-    if ($this-&gt;response === null) {
-        $this-&gt;response = Yii::$app-&gt;getResponse();
-    }
-    if ($this-&gt;ip === null) {
-        $this-&gt;ip = $this-&gt;request-&gt;getUserIP();
-    }
-    $this-&gt;cacheKey = &apos;ip-rate-limiter-key&apos;.$this-&gt;ip;
-}
-
-/**
- * {@inheritdoc}
- */
-public function beforeAction($action)
-{
-    # 如果配置了速率，进行检查
-    if ($this-&gt;enabled) {
-        Yii::debug(&apos;Check ip rate limit&apos;, __METHOD__);
-        $this-&gt;checkRateLimit($this-&gt;request, $this-&gt;response, $action);
-    }
-
-    return true;
-}
-
-/**
- * 检查速率
- * Checks whether the rate limit exceeds.
- * @param RateLimitInterface $user the current user
- * @param Request $request
- * @param Response $response
- * @param \yii\base\Action $action the action to be executed
- * @throws TooManyRequestsHttpException if rate limit exceeds
- */
-public function checkRateLimit($request, $response, $action)
-{
-    // 获取速率限制 最大次数 时间段
-    list($limit, $window) = $this-&gt;getRateLimit($request, $action);
-    // 剩余允许请求数量 上次访问的时间戳
-    list($allowance, $timestamp) = $this-&gt;loadAllowance($request, $action);
-
-    $current = time();
-    // 计算允许的请求数量
-    $allowance += (int) (($current - $timestamp) * $limit / $window);
-    if ($allowance &gt; $limit) {
-        $allowance = $limit;
-    }
-    // 请求量用完了, 直接抛出异常
-    if ($allowance &lt; 1) {
-        $this-&gt;saveAllowance($request, $action, 0, $current);
-        $this-&gt;addRateLimitHeaders($response, $limit, 0, $window);
-        throw new TooManyRequestsHttpException($this-&gt;errorMessage);
-    }
-
-    $this-&gt;saveAllowance($request, $action, $allowance - 1, $current);
-    $this-&gt;addRateLimitHeaders($response, $limit, $allowance - 1, (int) (($limit - $allowance + 1) * $window / $limit));
-}
-
-/**
- * Adds the rate limit headers to the response.
- * @param Response $response
- * @param int $limit the maximum number of allowed requests during a period
- * @param int $remaining the remaining number of allowed requests within the current period
- * @param int $reset the number of seconds to wait before having maximum number of allowed requests again
- */
-public function addRateLimitHeaders($response, $limit, $remaining, $reset)
-{
-    if ($this-&gt;enableRateLimitHeaders) {
-        $response-&gt;getHeaders()
-            -&gt;set(&apos;X-Rate-Limit-Limit&apos;, $limit)// 同一个时间段所允许的请求的最大数目;
-            -&gt;set(&apos;X-Rate-Limit-Remaining&apos;, $remaining)// 在当前时间段内剩余的请求的数量;
-            -&gt;set(&apos;X-Rate-Limit-Reset&apos;, $reset);// 为了得到最大请求数所等待的秒数。
-    }
-}
-/**
- * 返回一段时间内允许请求的最大次数
- * @param  [type] $request request 对象
- * @param  [type] $action  访问的action
- * @return [type]          [description]
- */
-public function getRateLimit($request, $action)
-{
-    // 每五秒可以访问2次
-    return [2, 5];
-}
-/**
- * 获取允许请求的数量和最后的访问的时间戳
- * @param  [type] $request request 对象
- * @param  [type] $action  访问的action
- * @return [type]  [请求次数, 最后访问时间]  
- */
-public function loadAllowance($request, $action)
-{
-    if ($data = Yii::$app-&gt;cache-&gt;get($this-&gt;cacheKey)) {
-        return $data;
-    }
-    return [0, 0];
-}
-/**
- * 保存剩余的请求数量和最后的访问时间
- * @param  [type] $request   request 对象
- * @param  [type] $action    请求的action
- * @param  [type] $allowance 允许的次数
- * @param  [type] $timestamp 当前时间
- * @return [type]            [description]
- */
-public function saveAllowance($request, $action, $allowance, $timestamp)
-{
-    Yii::$app-&gt;cache-&gt;set($this-&gt;cacheKey, [$allowance, $timestamp]);
-}
-</code></pre><p>}<br>```</p>
+<h2 id="IpRateLimiter-代码参考"><a href="#IpRateLimiter-代码参考" class="headerlink" title="IpRateLimiter 代码参考"></a><code>IpRateLimiter</code> 代码参考</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">common</span>\<span class="title">behaviors</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Yii</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">base</span>\<span class="title">ActionFilter</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">web</span>\<span class="title">Request</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">web</span>\<span class="title">Response</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">web</span>\<span class="title">TooManyRequestsHttpException</span>;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * IpRateLimiter implements a rate limiting algorithm based on the [leaky bucket algorithm](http://en.wikipedia.org/wiki/Leaky_bucket).</div><div class="line"> *</div><div class="line"> * You may use IpRateLimiter by attaching it as a behavior to a controller or module, like the following,</div><div class="line"> *</div><div class="line"> *</div><div class="line"> * public function behaviors()</div><div class="line"> * &#123;</div><div class="line"> *     return [</div><div class="line"> *         'ipRateLimiter' =&gt; [</div><div class="line"> *             'class' =&gt; \common\behaviors\IpRateLimiter::className(),</div><div class="line"> *             'enabled' =&gt; true</div><div class="line"> *         ],</div><div class="line"> *     ];</div><div class="line"> * &#125;</div><div class="line"> * </div><div class="line"> *</div><div class="line"> * When the user has exceeded his rate limit, RateLimiter will throw a [[TooManyRequestsHttpException]] exception.</div><div class="line"> *</div><div class="line"> *</div><div class="line"> * <span class="doctag">@since</span> 2.0</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IpRateLimiter</span> <span class="keyword">extends</span> <span class="title">ActionFilter</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@var</span> bool whether to include rate limit headers in the response</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $enableRateLimitHeaders = <span class="keyword">true</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@var</span> string the message to be displayed when rate limit exceeds</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $errorMessage = <span class="string">'Rate limit exceeded.'</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 访问的ip</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $ip;</div><div class="line">    <span class="comment"># 缓存的key</span></div><div class="line">    <span class="keyword">private</span> $cacheKey;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 是否启用</div><div class="line">     * <span class="doctag">@var</span> [type]</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $enabled = <span class="keyword">false</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@var</span> Request the current request. If not set, the `request` application component will be used.</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $request;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@var</span> Response the response to be sent. If not set, the `response` application component will be used.</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> $response;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#123;<span class="doctag">@inheritdoc</span>&#125;</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;request === <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">$this</span>-&gt;request = Yii::$app-&gt;getRequest();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;response === <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">$this</span>-&gt;response = Yii::$app-&gt;getResponse();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;ip === <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">$this</span>-&gt;ip = <span class="keyword">$this</span>-&gt;request-&gt;getUserIP();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">$this</span>-&gt;cacheKey = <span class="string">'ip-rate-limiter-key'</span>.<span class="keyword">$this</span>-&gt;ip;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#123;<span class="doctag">@inheritdoc</span>&#125;</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">beforeAction</span><span class="params">($action)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment"># 如果配置了速率，进行检查</span></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;enabled) &#123;</div><div class="line">            Yii::debug(<span class="string">'Check ip rate limit'</span>, <span class="keyword">__METHOD__</span>);</div><div class="line">            <span class="keyword">$this</span>-&gt;checkRateLimit(<span class="keyword">$this</span>-&gt;request, <span class="keyword">$this</span>-&gt;response, $action);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 检查速率</div><div class="line">     * Checks whether the rate limit exceeds.</div><div class="line">     * <span class="doctag">@param</span> RateLimitInterface $user the current user</div><div class="line">     * <span class="doctag">@param</span> Request $request</div><div class="line">     * <span class="doctag">@param</span> Response $response</div><div class="line">     * <span class="doctag">@param</span> \yii\base\Action $action the action to be executed</div><div class="line">     * <span class="doctag">@throws</span> TooManyRequestsHttpException if rate limit exceeds</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">checkRateLimit</span><span class="params">($request, $response, $action)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 获取速率限制 最大次数 时间段</span></div><div class="line">        <span class="keyword">list</span>($limit, $window) = <span class="keyword">$this</span>-&gt;getRateLimit($request, $action);</div><div class="line">        <span class="comment">// 剩余允许请求数量 上次访问的时间戳</span></div><div class="line">        <span class="keyword">list</span>($allowance, $timestamp) = <span class="keyword">$this</span>-&gt;loadAllowance($request, $action);</div><div class="line"></div><div class="line">        $current = time();</div><div class="line">        <span class="comment">// 计算允许的请求数量</span></div><div class="line">        $allowance += (int) (($current - $timestamp) * $limit / $window);</div><div class="line">        <span class="keyword">if</span> ($allowance &gt; $limit) &#123;</div><div class="line">            $allowance = $limit;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 请求量用完了, 直接抛出异常</span></div><div class="line">        <span class="keyword">if</span> ($allowance &lt; <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">$this</span>-&gt;saveAllowance($request, $action, <span class="number">0</span>, $current);</div><div class="line">            <span class="keyword">$this</span>-&gt;addRateLimitHeaders($response, $limit, <span class="number">0</span>, $window);</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> TooManyRequestsHttpException(<span class="keyword">$this</span>-&gt;errorMessage);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">$this</span>-&gt;saveAllowance($request, $action, $allowance - <span class="number">1</span>, $current);</div><div class="line">        <span class="keyword">$this</span>-&gt;addRateLimitHeaders($response, $limit, $allowance - <span class="number">1</span>, (int) (($limit - $allowance + <span class="number">1</span>) * $window / $limit));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Adds the rate limit headers to the response.</div><div class="line">     * <span class="doctag">@param</span> Response $response</div><div class="line">     * <span class="doctag">@param</span> int $limit the maximum number of allowed requests during a period</div><div class="line">     * <span class="doctag">@param</span> int $remaining the remaining number of allowed requests within the current period</div><div class="line">     * <span class="doctag">@param</span> int $reset the number of seconds to wait before having maximum number of allowed requests again</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">addRateLimitHeaders</span><span class="params">($response, $limit, $remaining, $reset)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;enableRateLimitHeaders) &#123;</div><div class="line">            $response-&gt;getHeaders()</div><div class="line">                -&gt;set(<span class="string">'X-Rate-Limit-Limit'</span>, $limit)<span class="comment">// 同一个时间段所允许的请求的最大数目;</span></div><div class="line">                -&gt;set(<span class="string">'X-Rate-Limit-Remaining'</span>, $remaining)<span class="comment">// 在当前时间段内剩余的请求的数量;</span></div><div class="line">                -&gt;set(<span class="string">'X-Rate-Limit-Reset'</span>, $reset);<span class="comment">// 为了得到最大请求数所等待的秒数。</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 返回一段时间内允许请求的最大次数</div><div class="line">     * <span class="doctag">@param</span>  [type] $request request 对象</div><div class="line">     * <span class="doctag">@param</span>  [type] $action  访问的action</div><div class="line">     * <span class="doctag">@return</span> [type]          [description]</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRateLimit</span><span class="params">($request, $action)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 每五秒可以访问2次</span></div><div class="line">        <span class="keyword">return</span> [<span class="number">2</span>, <span class="number">5</span>];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 获取允许请求的数量和最后的访问的时间戳</div><div class="line">     * <span class="doctag">@param</span>  [type] $request request 对象</div><div class="line">     * <span class="doctag">@param</span>  [type] $action  访问的action</div><div class="line">     * <span class="doctag">@return</span> [type]  [请求次数, 最后访问时间]  </div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">loadAllowance</span><span class="params">($request, $action)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> ($data = Yii::$app-&gt;cache-&gt;get(<span class="keyword">$this</span>-&gt;cacheKey)) &#123;</div><div class="line">            <span class="keyword">return</span> $data;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> [<span class="number">0</span>, <span class="number">0</span>];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 保存剩余的请求数量和最后的访问时间</div><div class="line">     * <span class="doctag">@param</span>  [type] $request   request 对象</div><div class="line">     * <span class="doctag">@param</span>  [type] $action    请求的action</div><div class="line">     * <span class="doctag">@param</span>  [type] $allowance 允许的次数</div><div class="line">     * <span class="doctag">@param</span>  [type] $timestamp 当前时间</div><div class="line">     * <span class="doctag">@return</span> [type]            [description]</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">saveAllowance</span><span class="params">($request, $action, $allowance, $timestamp)</span></span></div><div class="line">    &#123;</div><div class="line">        Yii::$app-&gt;cache-&gt;set(<span class="keyword">$this</span>-&gt;cacheKey, [$allowance, $timestamp]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -988,7 +856,7 @@ public function saveAllowance($request, $action, $allowance, $timestamp)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置和扩展"><span class="nav-number">2.</span> <span class="nav-text">配置和扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IpRateLimiter-代码参考"><span class="nav-number">3.</span> <span class="nav-text">IpRateLimiter 代码参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存的key"><span class="nav-number"></span> <span class="nav-text">缓存的key</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置和扩展"><span class="nav-number">2.</span> <span class="nav-text">配置和扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IpRateLimiter-代码参考"><span class="nav-number">3.</span> <span class="nav-text">IpRateLimiter 代码参考</span></a></li></ol></div>
             
 
           </div>

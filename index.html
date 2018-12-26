@@ -394,7 +394,7 @@
                 
               
 
-              <time title="创建时间：2018-12-26 20:00:02 / 修改时间：20:25:13" itemprop="dateCreated datePublished" datetime="2018-12-26T20:00:02+08:00">2018-12-26</time>
+              <time title="创建时间：2018-12-26 20:00:02 / 修改时间：21:51:25" itemprop="dateCreated datePublished" datetime="2018-12-26T20:00:02+08:00">2018-12-26</time>
             
 
             
@@ -463,8 +463,8 @@
       
         
           <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Yii 的 restful 实现了用户访问速率的控制(<code>RateLimiter</code>)，但是是基于 <code>user</code> 组件的，也就是说用户需要先登录。这里仿照 <code>RateLimiter</code> 写了一个基于 <code>Ip</code> 的控制访问速率的，需要用到 <code>cache</code> 组件用来进行存储每个ip访问的次数和时间。  </p>
-<h2 id="配置和扩展"><a href="#配置和扩展" class="headerlink" title="配置和扩展"></a>配置和扩展</h2><p>把过滤器注册进控制器中<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public function behaviors()</div><div class="line">&#123;</div><div class="line">    return [</div><div class="line">        'ipRateLimiter' =&gt; [</div><div class="line">            'class' =&gt; IpRateLimiter::className(),</div><div class="line">            # 开启过滤</div><div class="line">            'enabled' =&gt; true</div><div class="line">        ],</div><div class="line">    ];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>扩展的话需要先看一下下面给出的代码。需要更改的有三个方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">getRateLimit($request, $action)</div><div class="line">loadAllowance($request, $action)</div><div class="line">saveAllowance($request, $action, $allowance, $timestamp)</div></pre></td></tr></table></figure></p>
+<h2 id="配置和扩展"><a href="#配置和扩展" class="headerlink" title="配置和扩展"></a>配置和扩展</h2><p>把过滤器注册进控制器中<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">behaviors</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [</div><div class="line">        <span class="string">'ipRateLimiter'</span> =&gt; [</div><div class="line">            <span class="string">'class'</span> =&gt; IpRateLimiter::className(),</div><div class="line">            <span class="comment"># 开启过滤</span></div><div class="line">            <span class="string">'enabled'</span> =&gt; <span class="keyword">true</span></div><div class="line">        ],</div><div class="line">    ];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>扩展的话需要先看一下下面给出的代码。需要更改的有三个方法<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">getRateLimit($request, $action)</div><div class="line">loadAllowance($request, $action)</div><div class="line">saveAllowance($request, $action, $allowance, $timestamp)</div></pre></td></tr></table></figure></p>
 <p>这三个方法的作用下面代码中的备注已经很清楚了，也给了一个简单的 dome。<br>三个方法都包含了 <code>$request, $action</code> 两个参数，可以通过这两个对每个 <code>action</code> 的访问进行更精细的控制  </p>
           <!--noindex-->
           <div class="post-button text-center">
