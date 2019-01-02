@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://bunao.win/2019/01/03/yii/yii-apidoc%E6%89%A9%E5%B1%95/</loc>
+    
+    <lastmod>2019-01-02T16:10:09.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://bunao.win/2018/10/23/spider/scrapy%E5%8F%82%E8%80%83/</loc>
     
     <lastmod>2018-12-26T14:31:16.000Z</lastmod>
@@ -65,14 +72,14 @@
   </url>
   
   <url>
-    <loc>http://bunao.win/2018/10/11/yii/AFC%E9%AA%8C%E8%AF%81/</loc>
+    <loc>http://bunao.win/2018/10/11/yii/RBAC/</loc>
     
     <lastmod>2018-12-17T12:27:29.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://bunao.win/2018/10/11/yii/RBAC/</loc>
+    <loc>http://bunao.win/2018/10/11/yii/AFC%E9%AA%8C%E8%AF%81/</loc>
     
     <lastmod>2018-12-17T12:27:29.000Z</lastmod>
     
