@@ -115,10 +115,13 @@
 <meta property="og:url" content="http://bunao.win/2019/01/03/yii/yii-apidoc扩展/index.html">
 <meta property="og:site_name" content="不孬">
 <meta property="og:description" content="前言我们可以通过 yii-apidoc 来通过反射拿取备注的方式生成类的说明文档，也可以根据md文件转换成说明文档，这里主要运用的是md来转换成使用文档，和 hexo 的原理一样     安装apidoc文档说明   1composer require yiisoft/yii2-apidoc 安装的时候可能会进行报错12345678910111213141516......Your require">
-<meta property="og:updated_time" content="2019-01-02T16:10:09.000Z">
+<meta property="og:image" content="http://bunao.win/images/yii/apidoc/apidoc1.png">
+<meta property="og:image" content="http://bunao.win/images/yii/apidoc/apidoc1.png">
+<meta property="og:updated_time" content="2019-01-02T16:17:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii-apidoc的使用">
 <meta name="twitter:description" content="前言我们可以通过 yii-apidoc 来通过反射拿取备注的方式生成类的说明文档，也可以根据md文件转换成说明文档，这里主要运用的是md来转换成使用文档，和 hexo 的原理一样     安装apidoc文档说明   1composer require yiisoft/yii2-apidoc 安装的时候可能会进行报错12345678910111213141516......Your require">
+<meta name="twitter:image" content="http://bunao.win/images/yii/apidoc/apidoc1.png">
 
 
 
@@ -391,7 +394,7 @@
                 
               
 
-              <time title="创建时间：2019-01-03 00:00:02 / 修改时间：00:10:09" itemprop="dateCreated datePublished" datetime="2019-01-03T00:00:02+08:00">2019-01-03</time>
+              <time title="创建时间：2019-01-03 00:00:02 / 修改时间：00:17:11" itemprop="dateCreated datePublished" datetime="2019-01-03T00:00:02+08:00">2019-01-03</time>
             
 
             
@@ -466,7 +469,8 @@
 <p>意思就是要删除 <code>cebe/markdown</code> 这个依赖包<br>使用 <code>composer remove cebe/markdown</code> 删除，发现 <strong>没用</strong> 。 <code>composer.lock</code> 中依旧还有。好吧，我承认我的 composer 不太会用，直接在 <code>composer.lock</code> 中把 <code>cebe/markdown 1.1.2</code> 和 <code>phpdocumentor/reflection-docblock 3.3.2</code> 的包删除就可以进行安装了  </p>
 <h2 id="使用yii-apidoc"><a href="#使用yii-apidoc" class="headerlink" title="使用yii-apidoc"></a>使用yii-apidoc</h2><p><code>yii-apidoc</code> 有两个功能，一个是根据类的注释自动生成类的说明文档，生成结果可以参考 <a href="https://www.yiichina.com/doc/api/2.0/yii-base-arrayable" target="_blank" rel="external">yii-类参考文档</a> ，另一个就是根据 <code>md</code> 文档来生成文档，这个用处挺大我们主讲。</p>
 <h3 id="生成类的使用说明"><a href="#生成类的使用说明" class="headerlink" title="生成类的使用说明"></a>生成类的使用说明</h3><p>以项目的 <code>frontend</code> <strong>文件夹下</strong> 的类为列生成类说明文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vendor/bin/apidoc api frontend classdoc</div></pre></td></tr></table></figure></p>
-<p>如果成功执行将会创建 <code>classdoc</code> 文件夹，里面存放着生成的类说明文档<br>具体的注释格式可以参考 <a href="https://www.jianshu.com/p/d324810d694d" target="_blank" rel="external">apidoc 使用说明</a>   </p>
+<p>如果成功执行将会创建 <code>classdoc</code> 文件夹，里面存放着生成的类说明文档<br>具体的注释格式可以参考 <a href="https://www.jianshu.com/p/d324810d694d" target="_blank" rel="external">apidoc 使用说明</a></p>
+<p><img src="/images/yii/apidoc/apidoc1.png" alt="图1"></p>
 <h3 id="通过md文件生成文档"><a href="#通过md文件生成文档" class="headerlink" title="通过md文件生成文档"></a>通过md文件生成文档</h3><p>将我们写的md文档生成html做成网站、也可以生成pdf，可以说非常方便 <a href="https://www.yiichina.com/tutorial/1097" target="_blank" rel="external">参考</a>  </p>
 <p>我们举个例子以创建的 <code>sourcedocs</code> 文件加下的md文件为例</p>
 <ol>
@@ -478,8 +482,10 @@
 <li><p>生成html  </p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vendor/bin/apidoc guide sourcedocs mddoc</div></pre></td></tr></table></figure>
 </li>
-<li><p>生成pdf的自己测试，官方文档上有   </p>
-</li>
+</ol>
+<p><img src="/images/yii/apidoc/apidoc1.png" alt="图1"></p>
+<ol>
+<li>生成pdf的自己测试，官方文档上有   </li>
 </ol>
 <blockquote>
 <p>其实原理和hexo一样，将md按照模版转换成html，我们在熟悉之后可以对模版进行修改来更改外观<br>有一点暇疵的是，根据目录归类后会导致点击目录的时候不选中当前，需要都放在一个目录下，如 <code>sourcedocs</code> 有时间可以看看改改  </p>
