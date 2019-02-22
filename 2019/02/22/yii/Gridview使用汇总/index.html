@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="列相关先看一个gii生成的正常状态下的Gridview123456789101112131415161718192021GridView::widget([    &apos;dataProvider&apos; =&amp;gt; $dataProvider,    &apos;filterModel&apos; =&amp;gt; $searchModel,    &apos;columns&apos; =&amp;gt; [        // [&apos;class&apos; =&amp;gt;">
+<meta name="keywords" content="yii,gridview">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gridview使用汇总">
+<meta property="og:url" content="http://bunao.win/2019/02/22/yii/Gridview使用汇总/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="列相关先看一个gii生成的正常状态下的Gridview123456789101112131415161718192021GridView::widget([    &apos;dataProvider&apos; =&amp;gt; $dataProvider,    &apos;filterModel&apos; =&amp;gt; $searchModel,    &apos;columns&apos; =&amp;gt; [        // [&apos;class&apos; =&amp;gt;">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/14/163fd14c7acd08dc?w=1744&h=666&f=jpeg&s=122564">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/14/163fd150d07cd170?w=1726&h=836&f=jpeg&s=214974">
+<meta property="og:updated_time" content="2019-02-22T12:39:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gridview使用汇总">
+<meta name="twitter:description" content="列相关先看一个gii生成的正常状态下的Gridview123456789101112131415161718192021GridView::widget([    &apos;dataProvider&apos; =&amp;gt; $dataProvider,    &apos;filterModel&apos; =&amp;gt; $searchModel,    &apos;columns&apos; =&amp;gt; [        // [&apos;class&apos; =&amp;gt;">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/6/14/163fd14c7acd08dc?w=1744&h=666&f=jpeg&s=122564">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2019/02/22/yii/Gridview使用汇总/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Gridview使用汇总 | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">less is more</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2019/02/22/yii/Gridview使用汇总/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Gridview使用汇总
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-22 20:00:02 / 修改时间：20:39:46" itemprop="dateCreated datePublished" datetime="2019-02-22T20:00:02+08:00">2019-02-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/22/yii/Gridview使用汇总/" class="leancloud_visitors" data-flag-title="Gridview使用汇总">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="列相关"><a href="#列相关" class="headerlink" title="列相关"></a>列相关</h2><p>先看一个gii生成的正常状态下的Gridview<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">GridView::widget([</div><div class="line">    <span class="string">'dataProvider'</span> =&gt; $dataProvider,</div><div class="line">    <span class="string">'filterModel'</span> =&gt; $searchModel,</div><div class="line">    <span class="string">'columns'</span> =&gt; [</div><div class="line">        <span class="comment">// ['class' =&gt; 'yii\grid\SerialColumn'],</span></div><div class="line">        [<span class="string">'class'</span> =&gt; <span class="string">'yii\grid\CheckboxColumn'</span>],</div><div class="line"></div><div class="line">        <span class="string">'id'</span>,</div><div class="line">        <span class="string">'user_id'</span>,</div><div class="line">        <span class="string">'goods_id'</span>,</div><div class="line">        <span class="string">'need_num'</span>,</div><div class="line">        <span class="string">'has_num'</span>,</div><div class="line">        <span class="string">'status'</span>,</div><div class="line">        <span class="string">'created_at:datetime'</span>,</div><div class="line">        <span class="string">'end_time:datetime'</span>,</div><div class="line">        <span class="comment">//'updated_at',</span></div><div class="line">        <span class="comment">//'ver',</span></div><div class="line"></div><div class="line">        [<span class="string">'class'</span> =&gt; <span class="string">'yii\grid\ActionColumn'</span>],</div><div class="line">    ],</div><div class="line">]);</div></pre></td></tr></table></figure></p>
+<p>我们要修改展示内容，修改的就是 <code>columns</code> 下的值  </p>
+<h3 id="格式化列的值"><a href="#格式化列的值" class="headerlink" title="格式化列的值"></a>格式化列的值</h3><p>一般修改一个列的值的使用格式如下，将数值对应成文字<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    <span class="string">'attribute'</span> =&gt; <span class="string">'groupon_status'</span>,  <span class="comment"># 对应的属性</span></div><div class="line">    <span class="string">'label'</span> =&gt; <span class="string">'团购状态'</span>,  <span class="comment"># 列的title</span></div><div class="line">    <span class="string">'value'</span> =&gt; <span class="function"><span class="keyword">function</span><span class="params">($model)</span> </span>&#123; <span class="comment"># 根据对应的属性值返回要显示的数据</span></div><div class="line">        <span class="keyword">return</span> $model-&gt;groupon_status == <span class="number">1</span> ? <span class="string">'进行中'</span> : <span class="string">'已成团'</span>;</div><div class="line">    &#125;,</div><div class="line">],</div></pre></td></tr></table></figure></p>
+<p>当然为了方便，yii也提供了一些特有的格式化<br>格式化时间戳<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    <span class="string">'time:datetime'</span>, <span class="comment"># 时间戳格式化成时间</span></div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>下面罗列一下额外的参数配置  </p>
+<h3 id="单元格显示html"><a href="#单元格显示html" class="headerlink" title="单元格显示html"></a>单元格显示html</h3><p>默认是过滤html的<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    <span class="string">'attribute'</span> =&gt; <span class="string">'groupon_id'</span>,</div><div class="line">    <span class="string">'label'</span> =&gt; <span class="string">'团购信息'</span>,</div><div class="line">    <span class="string">'format'</span>=&gt;<span class="string">'raw'</span>,<span class="comment">// 一定要设置这个才可以显示html</span></div><div class="line">    <span class="string">'value'</span> =&gt; <span class="function"><span class="keyword">function</span><span class="params">($model)</span></span></div><div class="line">    &#123;</div><div class="line">        $url = <span class="string">"/groupon/view?id="</span>.$model-&gt;groupon_id;</div><div class="line">        <span class="keyword">return</span> Html::a(<span class="string">'点击查看团购信息'</span>, $url, [<span class="string">'title'</span> =&gt; <span class="string">'点击查看团购信息'</span>]);</div><div class="line">    &#125;,</div><div class="line">],</div></pre></td></tr></table></figure></p>
+<h3 id="自定义按钮"><a href="#自定义按钮" class="headerlink" title="自定义按钮"></a>自定义按钮</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    [</div><div class="line">    	<span class="string">'class'</span> =&gt; <span class="string">'yii\grid\ActionColumn'</span>,</div><div class="line">    	<span class="string">'template'</span> =&gt; <span class="string">'&#123;view&#125; &#123;update&#125; &#123;delete&#125;'</span>,</div><div class="line">    	<span class="string">'header'</span> =&gt; <span class="string">'操作'</span>,</div><div class="line">    	<span class="string">'buttons'</span> =&gt; [</div><div class="line">    		<span class="string">'view'</span>=&gt; <span class="function"><span class="keyword">function</span> <span class="params">($url, $model, $key)</span></span>&#123;</div><div class="line">    			$str = <span class="string">'&lt;span class="glyphicon glyphicon-eye-open"&gt;&lt;/span&gt;'</span>;</div><div class="line">    			<span class="keyword">return</span> Html::a($str, <span class="keyword">null</span>,  [<span class="string">'lay-href'</span> =&gt; Url::to([<span class="string">'view'</span>, <span class="string">'id'</span>=&gt;$model-&gt;id])]) ;</div><div class="line">    		&#125;,</div><div class="line">    		<span class="string">'update'</span>=&gt; <span class="function"><span class="keyword">function</span> <span class="params">($url, $model, $key)</span></span>&#123;</div><div class="line">    			$str = <span class="string">'&lt;span class="glyphicon glyphicon-pencil"&gt;&lt;/span&gt;'</span>;</div><div class="line">    			<span class="keyword">return</span> Html::a($str, <span class="keyword">null</span>,  [<span class="string">'lay-href'</span> =&gt; Url::to([<span class="string">'update'</span>, <span class="string">'id'</span>=&gt;$model-&gt;id])]) ;</div><div class="line">    		&#125;,</div><div class="line">    		<span class="string">'delete'</span>=&gt; <span class="function"><span class="keyword">function</span> <span class="params">($url, $model, $key)</span></span>&#123;</div><div class="line">    			$str = $model-&gt;putaway ? <span class="string">'下架'</span> : <span class="string">'上架'</span>;</div><div class="line">    			<span class="keyword">return</span> Html::a($str, [<span class="string">'putaway'</span>, <span class="string">'id'</span>=&gt;$model-&gt;id],</div><div class="line">    				[</div><div class="line">        				<span class="string">'data-confirm'</span> =&gt; <span class="string">'确定'</span>.$str.<span class="string">'该商品？'</span>, <span class="comment">//添加确认框</span></div><div class="line">        				<span class="string">'style'</span> =&gt; $model-&gt;putaway ? <span class="string">''</span>:<span class="string">'color:red'</span></div><div class="line">        			]) ;</div><div class="line">    		&#125;</div><div class="line">    	],</div><div class="line">    ],</div><div class="line">]</div></pre></td></tr></table></figure>
+<h3 id="搜索改为下拉框"><a href="#搜索改为下拉框" class="headerlink" title="搜索改为下拉框"></a>搜索改为下拉框</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    <span class="string">'attribute'</span> =&gt; <span class="string">'groupon_status'</span>,  <span class="comment"># 对应的属性</span></div><div class="line">    <span class="string">'label'</span> =&gt; <span class="string">'团购状态'</span>,  <span class="comment"># 列的title</span></div><div class="line">    <span class="string">'value'</span> =&gt; <span class="function"><span class="keyword">function</span><span class="params">($model)</span> </span>&#123; <span class="comment"># 根据对应的属性值返回要显示的数据</span></div><div class="line">        <span class="keyword">return</span> $model-&gt;groupon_status == <span class="number">1</span> ? <span class="string">'进行中'</span> : <span class="string">'已成团'</span>;</div><div class="line">    &#125;,</div><div class="line">    <span class="string">'filter'</span> =&gt; [ <span class="number">1</span> =&gt; <span class="string">'进行中'</span>, <span class="number">2</span> =&gt; <span class="string">'已成团'</span>]  <span class="comment"># 搜索框改成下拉选项</span></div><div class="line">],</div></pre></td></tr></table></figure>
+<h3 id="列title不使用排序功能"><a href="#列title不使用排序功能" class="headerlink" title="列title不使用排序功能"></a>列title不使用排序功能</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    <span class="string">'attribute'</span> =&gt; <span class="string">'groupon_status'</span>,  <span class="comment"># 对应的属性</span></div><div class="line">    <span class="string">'label'</span> =&gt; <span class="string">'团购状态'</span>,  <span class="comment"># 列的title</span></div><div class="line">    <span class="string">'enableSorting'</span>=&gt;<span class="keyword">false</span>, <span class="comment"># 不使用排序功能  </span></div><div class="line">],</div></pre></td></tr></table></figure>
+<p>这个可以在gii生成的对应的 <code>search</code> 模型中进行更改，相对比较麻烦<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span><span class="params">($params)</span></span></div><div class="line">&#123;</div><div class="line">    $query = Groupon::find();</div><div class="line"></div><div class="line">    $dataProvider = <span class="keyword">new</span> ActiveDataProvider([</div><div class="line">        <span class="string">'query'</span> =&gt; $query,</div><div class="line">    ]);</div><div class="line"></div><div class="line">    <span class="comment">// 排序功能，只有写在attributes里面的属性才会有排序功能</span></div><div class="line">    $dataProvider-&gt;setSort([</div><div class="line">        <span class="string">'attributes'</span> =&gt; [</div><div class="line">            <span class="string">'groupon_status'</span>,</div><div class="line">        ]</div><div class="line">    ]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="headerOptions-控制列属性-样式"><a href="#headerOptions-控制列属性-样式" class="headerlink" title="headerOptions 控制列属性 样式"></a>headerOptions 控制列属性 样式</h3><p>针对于列样式，GridView提供了3个属性，分别为 <code>headerOptions</code> 、 <code>contentOptions</code> 和 <code>footerOptions</code>(还没发现footer有实际用途)<br><code>headerOptions</code> 控制的是 <code>th</code> 的样式 也就是我们看到的title<br><code>contentOptions</code> 控制的是 <code>td</code> 的样式 也就是我们看到的显示的列内容<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    <span class="string">'attribute'</span> =&gt; <span class="string">'groupon_status'</span>,  <span class="comment"># 对应的属性</span></div><div class="line">    <span class="string">'label'</span> =&gt; <span class="string">'团购状态'</span>,  <span class="comment"># 列的title</span></div><div class="line">    <span class="string">'headerOptions'</span> =&gt; [<span class="string">'style'</span>=&gt;<span class="string">'color:red'</span>], <span class="comment"># title的文字颜色改成红色</span></div><div class="line">    <span class="string">'contentOptions'</span> =&gt; [<span class="string">'style'</span>=&gt;<span class="string">'color:blue;min-width:100px;'</span>], <span class="comment"># 列文字改成绿色，列宽设置最小为100px  </span></div><div class="line">],</div></pre></td></tr></table></figure></p>
+<h3 id="隐藏列"><a href="#隐藏列" class="headerlink" title="隐藏列"></a>隐藏列</h3><p>GridView列的visible属性，此属性默认为true代表此列显示，通过设置visible属性可以隐藏一列，这种隐藏非css的display:none，而是在渲染表格的时候就去掉了此列。visible是可以传递一个表达式，实现逻辑判断，比如下面的需求当1号管理员登录的时候可以看到省市一列。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    <span class="string">'attribute'</span> =&gt; <span class="string">'groupon_status'</span>,  <span class="comment"># 对应的属性</span></div><div class="line">    <span class="string">'label'</span> =&gt; <span class="string">'团购状态'</span>,  <span class="comment"># 列的title</span></div><div class="line">    <span class="string">'visible'</span> =&gt;  (Yii::$app-&gt;admin-&gt;id === <span class="number">1</span>) <span class="comment"># 只有id === 1 的才显示这一列  </span></div><div class="line">],</div></pre></td></tr></table></figure></p>
+<h3 id="增加列表勾选框列"><a href="#增加列表勾选框列" class="headerlink" title="增加列表勾选框列"></a>增加列表勾选框列</h3><p>在cloumns中加入以下代码  虽然不知道有什么用处<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">'class'</span> =&gt; <span class="string">'yii\grid\CheckboxColumn'</span>],</div></pre></td></tr></table></figure></p>
+<h2 id="行相关"><a href="#行相关" class="headerlink" title="行相关"></a>行相关</h2><h3 id="rowOptions-管理tbody下tr的属性"><a href="#rowOptions-管理tbody下tr的属性" class="headerlink" title="rowOptions 管理tbody下tr的属性"></a>rowOptions 管理tbody下tr的属性</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">GridView::widget([</div><div class="line">    <span class="string">'dataProvider'</span> =&gt; $dataProvider,</div><div class="line">    <span class="string">'filterModel'</span> =&gt; $searchModel,</div><div class="line">    <span class="string">'caption'</span>=&gt;<span class="string">"会员列表"</span>, <span class="comment"># 显示table的标题</span></div><div class="line">    <span class="string">'captionOptions'</span> =&gt; [<span class="string">'style'</span> =&gt; <span class="string">'color:red'</span>], <span class="comment"># 控制caption的属性  </span></div><div class="line">    <span class="string">'columns'</span> =&gt; [</div><div class="line">        ...</div><div class="line">    ],</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * $model 当前对象</div><div class="line">     * $key 当前对象的主键</div><div class="line">     * $index 当前页面第几行，从0开始</div><div class="line">     * $grid Gridview 对象</div><div class="line">     *</div><div class="line">     * goods_id 等于 11 的行背景改为红色  </div><div class="line">     */</div><div class="line">    <span class="string">'rowOptions'</span>=&gt;<span class="function"><span class="keyword">function</span><span class="params">($model, $key, $index, $grid)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>($model-&gt;goods_id == <span class="number">11</span>)&#123;</div><div class="line">            <span class="keyword">return</span> [<span class="string">'style'</span>=&gt;<span class="string">'background:red'</span>];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">]);</div></pre></td></tr></table></figure>
+<h3 id="beforeRow和afterRow-行前行后增加要显示的数据"><a href="#beforeRow和afterRow-行前行后增加要显示的数据" class="headerlink" title="beforeRow和afterRow 行前行后增加要显示的数据"></a>beforeRow和afterRow 行前行后增加要显示的数据</h3><p>这是一对非常灵活的属性，它们接收一个匿名函数。分别表示在渲染了一行之前和之后发生点什么<br>要记住的是，匿名函数返回的结果也会作为一行纳入到渲染过程，比如当我们遇到奇数的时候就在此行下面添加一行，可以如下代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">GridView::widget([</div><div class="line">    <span class="string">'dataProvider'</span> =&gt; $dataProvider,</div><div class="line">    <span class="string">'columns'</span>=&gt;[</div><div class="line">        .....</div><div class="line">    ],</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * $model 当前对象</div><div class="line">     * $key 当前对象的主键</div><div class="line">     * $index 当前页面第几行，从0开始</div><div class="line">     * $grid Gridview 对象</div><div class="line">     */</div><div class="line">    <span class="string">'afterRow'</span>=&gt;<span class="function"><span class="keyword">function</span><span class="params">($model, $key, $index, $grid)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(($index+<span class="number">1</span>)%<span class="number">2</span> != <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">"&lt;tr&gt;&lt;td colspan='4'&gt;我是基数&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">]);</div></pre></td></tr></table></figure></p>
+<h2 id="整体显示相关"><a href="#整体显示相关" class="headerlink" title="整体显示相关"></a>整体显示相关</h2><h3 id="更改layout"><a href="#更改layout" class="headerlink" title="更改layout"></a>更改layout</h3><p>layout表示列表显示的样式，一个列表有三个部分组成 <code>items</code> 列表部分、<code>summary</code> 显示第几页共几页的部分、 <code>pages</code> 分页部分<br><img src="https://user-gold-cdn.xitu.io/2018/6/14/163fd14c7acd08dc?w=1744&amp;h=666&amp;f=jpeg&amp;s=122564" alt="引用图片">  </p>
+<p>更改显示顺序，把显示第几页共几页部分放到列表下面<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">GridView::widget([</div><div class="line">    <span class="string">'dataProvider'</span> =&gt; $dataProvider,</div><div class="line">    <span class="string">'filterModel'</span> =&gt; $searchModel,</div><div class="line">    <span class="string">'layout'</span>=&gt;<span class="string">"&#123;items&#125;\n&#123;summary&#125;\n&#123;pager&#125;"</span>, <span class="comment"># 显示调整</span></div><div class="line">    <span class="string">'columns'</span> =&gt; [</div><div class="line">        ...</div><div class="line">    ],</div><div class="line">]);</div></pre></td></tr></table></figure></p>
+<h4 id="修改分页显示"><a href="#修改分页显示" class="headerlink" title="修改分页显示"></a>修改分页显示</h4><p>显示在右侧，并替换分页的显示的内容<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">GridView::widget([</div><div class="line">    <span class="string">'dataProvider'</span> =&gt; $dataProvider,</div><div class="line">    <span class="string">'filterModel'</span> =&gt; $searchModel,</div><div class="line">    <span class="comment">//重新定义分页样式</span></div><div class="line">    <span class="string">'layout'</span>=&gt; <span class="string">'&#123;items&#125;&lt;div class="text-right tooltip-demo"&gt;&#123;pager&#125;&lt;/div&gt;'</span>,</div><div class="line">    <span class="string">'pager'</span>=&gt;[</div><div class="line">        <span class="comment">//'options'=&gt;['class'=&gt;'hidden']//关闭分页</span></div><div class="line">        <span class="string">'firstPageLabel'</span>=&gt;<span class="string">"First"</span>,</div><div class="line">        <span class="string">'prevPageLabel'</span>=&gt;<span class="string">'Prev'</span>,</div><div class="line">        <span class="string">'nextPageLabel'</span>=&gt;<span class="string">'Next'</span>,</div><div class="line">        <span class="string">'lastPageLabel'</span>=&gt;<span class="string">'Last'</span>,</div><div class="line">    ],</div><div class="line">    <span class="string">'columns'</span> =&gt; [</div><div class="line">        ...</div><div class="line">    ],</div><div class="line">]);</div></pre></td></tr></table></figure></p>
+<h3 id="不显示title和搜索框"><a href="#不显示title和搜索框" class="headerlink" title="不显示title和搜索框"></a>不显示title和搜索框</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">GridView::widget([</div><div class="line">    <span class="string">'dataProvider'</span> =&gt; $dataProvider,</div><div class="line">    <span class="string">'filterModel'</span> =&gt; $searchModel,</div><div class="line">    <span class="string">'showHeader'</span>=&gt;<span class="keyword">false</span>, <span class="comment"># 不显示title和搜索框  </span></div><div class="line">    <span class="string">'columns'</span> =&gt; [</div><div class="line">        ...</div><div class="line">    ],</div><div class="line">]);</div></pre></td></tr></table></figure>
+<h3 id="增加表的标题"><a href="#增加表的标题" class="headerlink" title="增加表的标题"></a>增加表的标题</h3><p>也就是增加table的caption，在table的上边显示标题<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">GridView::widget([</div><div class="line">    <span class="string">'dataProvider'</span> =&gt; $dataProvider,</div><div class="line">    <span class="string">'filterModel'</span> =&gt; $searchModel,</div><div class="line">    <span class="string">'caption'</span>=&gt;<span class="string">"会员列表"</span>, <span class="comment"># 显示table的标题</span></div><div class="line">    <span class="string">'captionOptions'</span> =&gt; [<span class="string">'style'</span> =&gt; <span class="string">'color:red'</span>], <span class="comment"># 控制caption的属性  </span></div><div class="line">    <span class="string">'columns'</span> =&gt; [</div><div class="line">        ...</div><div class="line">    ],</div><div class="line">]);</div></pre></td></tr></table></figure></p>
+<h3 id="tableOptions和options属性-管理table属性"><a href="#tableOptions和options属性-管理table属性" class="headerlink" title="tableOptions和options属性 管理table属性"></a>tableOptions和options属性 管理table属性</h3><p>这两个属性有的开发者可能会混淆，接下来我用一张图让你瞬间明白。<br><img src="https://user-gold-cdn.xitu.io/2018/6/14/163fd150d07cd170?w=1726&amp;h=836&amp;f=jpeg&amp;s=214974" alt="options"><br>就是说GridView渲染的时候首先弄出来一个div容器，这是这个GridView的代表，接下来在此容器内放各种元素，比如 <code>{summary}、{items}</code> 等等。<br><code>options</code> 控制着 <code>div容器</code> 的属性，默认添加一个 <code>class=&quot;grid-view&quot;</code><br><code>tableOptions</code> 控制着 <code>{items}</code> 表格table的属性，默认为其添加一个 <code>class=&quot;table table-striped table-bordered&quot;</code></p>
+<h3 id="headerRowOptions-管理thead下的tr属性"><a href="#headerRowOptions-管理thead下的tr属性" class="headerlink" title="headerRowOptions 管理thead下的tr属性"></a>headerRowOptions 管理thead下的tr属性</h3><p><code>headerRowOptions</code> 它管理的是thead下tr的属性。</p>
+<h3 id="emptyCell-管理空单元格的显示"><a href="#emptyCell-管理空单元格的显示" class="headerlink" title="emptyCell 管理空单元格的显示"></a>emptyCell 管理空单元格的显示</h3><p>emptyCell 又是一个小细节，如果一个单元格为空，用什么字符填充那？默认是 &amp;nbsp，你可以重新指定。</p>
+<h2 id="控制分页显示数量"><a href="#控制分页显示数量" class="headerlink" title="控制分页显示数量"></a>控制分页显示数量</h2><p>这个可以在gii生成的对应的 <code>search</code> 模型中进行更改，相对比较麻烦<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span><span class="params">($params)</span></span></div><div class="line">&#123;</div><div class="line">    $query = Groupon::find();</div><div class="line"></div><div class="line">    $dataProvider = <span class="keyword">new</span> ActiveDataProvider([</div><div class="line">        <span class="string">'query'</span> =&gt; $query,</div><div class="line">        <span class="comment"># 设置分页大小</span></div><div class="line">        <span class="string">'pagination'</span> =&gt; [<span class="string">'pageSize'</span> =&gt; <span class="number">1</span>],</div><div class="line">    ]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="让关联字段带搜索和排序功能"><a href="#让关联字段带搜索和排序功能" class="headerlink" title="让关联字段带搜索和排序功能"></a>让关联字段带搜索和排序功能</h2><p>假设现在有一张团购表 <code>groupon</code> 通过Gridview进行展示，表中存有 <code>goods_id</code> 关联的是 <code>goods</code> 表的 <code>id</code>, <code>user_id</code> 关联的是 <code>user</code> 表的 <code>id</code><br>现在要在展示的时候把对应的id转换成名称，这就需要进行表的关联  </p>
+<h3 id="1-model中定义关联表"><a href="#1-model中定义关联表" class="headerlink" title="1. model中定义关联表"></a>1. model中定义关联表</h3><p>AR模型类<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Groupon</span> <span class="keyword">extends</span> \<span class="title">yii</span>\<span class="title">db</span>\<span class="title">ActiveRecord</span></span></div><div class="line">&#123;</div><div class="line">    .....</div><div class="line">    .....</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 关联user表</div><div class="line">     * <span class="doctag">@return</span> [type] [description]</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;hasOne(User::className(), [<span class="string">'id'</span> =&gt; <span class="string">'user_id'</span>]);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 关联商品表</div><div class="line">     * <span class="doctag">@return</span> [type] [description]</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getGoods</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;hasOne(GoodsModel::className(), [<span class="string">'id'</span> =&gt; <span class="string">'goods_id'</span>]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="2-search-模型的修改"><a href="#2-search-模型的修改" class="headerlink" title="2. search 模型的修改"></a>2. search 模型的修改</h3><p>gii根据AR模型类生成的search模型<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GrouponSearch</span> <span class="keyword">extends</span> <span class="title">Groupon</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 定义属性和规则是为了让可以搜索   </span></div><div class="line">    <span class="keyword">public</span> $username;</div><div class="line">    <span class="keyword">public</span> $goodsName;</div><div class="line">    <span class="keyword">public</span> $goodsNo;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &#123;<span class="doctag">@inheritdoc</span>&#125;</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">rules</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> [</div><div class="line">            ....</div><div class="line">            <span class="comment">// 添加属性规则，添加了才会有搜索</span></div><div class="line">            [[<span class="string">'username'</span>, <span class="string">'goodsName'</span>, <span class="string">'goodsNo'</span>], <span class="string">'safe'</span>],</div><div class="line">        ];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span><span class="params">($params)</span></span></div><div class="line">    &#123;</div><div class="line">        $query = Groupon::find();</div><div class="line">        <span class="comment">// 进行联表，joinWith联表 即时加载 ，也就是用了in的搜索，减少查询次数  </span></div><div class="line">        <span class="comment">// 此处的user和goods对应的是model中定义的getUser和getGoods关联  </span></div><div class="line">        $query-&gt;joinWith([<span class="string">'user'</span>]);</div><div class="line">        $query-&gt;joinWith([<span class="string">'goods'</span>]);</div><div class="line"></div><div class="line">        $dataProvider = <span class="keyword">new</span> ActiveDataProvider([</div><div class="line">            <span class="string">'query'</span> =&gt; $query,</div><div class="line">            <span class="comment"># 设置分页大小</span></div><div class="line">            <span class="string">'pagination'</span> =&gt; [<span class="string">'pageSize'</span> =&gt; <span class="number">1</span>],</div><div class="line">        ]);</div><div class="line"></div><div class="line">        <span class="comment">// 排序功能(点击title进行排序)，定义在attributes中的属性才能使用排序功能</span></div><div class="line">        $dataProvider-&gt;setSort([</div><div class="line">            <span class="string">'attributes'</span> =&gt; array_merge(<span class="keyword">self</span>::attributes(),</div><div class="line">            [</div><div class="line">                <span class="string">'username'</span> =&gt; [</div><div class="line">                    <span class="string">'asc'</span> =&gt; [<span class="string">'user.username'</span> =&gt; SORT_ASC],</div><div class="line">                    <span class="string">'desc'</span> =&gt; [<span class="string">'user.username'</span> =&gt; SORT_DESC],</div><div class="line">                    <span class="string">'label'</span> =&gt; <span class="string">'Customer Name'</span></div><div class="line">                ],</div><div class="line">            ])</div><div class="line">        ]);</div><div class="line"></div><div class="line">        ...</div><div class="line">        ...</div><div class="line">        <span class="comment">// 添加搜索过滤条件</span></div><div class="line">        $query-&gt;andFilterWhere([<span class="string">'like'</span>, <span class="string">'user.username'</span>, <span class="keyword">$this</span>-&gt;username]) ;</div><div class="line">        $query-&gt;andFilterWhere([<span class="string">'like'</span>, <span class="string">'goods.goods_name'</span>, <span class="keyword">$this</span>-&gt;goodsName]) ;</div><div class="line">        $query-&gt;andFilterWhere([<span class="string">'like'</span>, <span class="string">'goods.goods_no'</span>, <span class="keyword">$this</span>-&gt;goodsNo]) ;</div><div class="line">        <span class="keyword">return</span> $dataProvider;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="3-视图修改"><a href="#3-视图修改" class="headerlink" title="3. 视图修改"></a>3. 视图修改</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">GridView::widget([</div><div class="line">    <span class="string">'dataProvider'</span> =&gt; $dataProvider,</div><div class="line">    <span class="string">'filterModel'</span> =&gt; $searchModel,</div><div class="line">    <span class="string">'columns'</span> =&gt; [</div><div class="line">        <span class="comment">// ['class' =&gt; 'yii\grid\SerialColumn'],</span></div><div class="line">        [<span class="string">'class'</span> =&gt; <span class="string">'yii\grid\CheckboxColumn'</span>],</div><div class="line"></div><div class="line">        <span class="string">'id'</span>,</div><div class="line">        <span class="string">'user_id'</span>,</div><div class="line">        [</div><div class="line">            <span class="string">'label'</span>=&gt;<span class="string">'用户名'</span>,  </div><div class="line">            <span class="string">'attribute'</span> =&gt; <span class="string">'username'</span>,  <span class="comment"># search模型中定义的属性</span></div><div class="line">            <span class="string">'value'</span> =&gt; <span class="string">'user.username'</span> <span class="comment"># 联表user对应的属性值</span></div><div class="line">        ],</div><div class="line">        [</div><div class="line">            <span class="string">'label'</span>=&gt;<span class="string">'商品名'</span>,  </div><div class="line">            <span class="string">'attribute'</span> =&gt; <span class="string">'goodsName'</span>,  <span class="comment"># search模型中定义的属性</span></div><div class="line">            <span class="string">'value'</span> =&gt; <span class="string">'goods.goods_name'</span> <span class="comment"># 联表goods对应的属性值</span></div><div class="line">        ],</div><div class="line">        [</div><div class="line">            <span class="string">'label'</span>=&gt;<span class="string">'商品编号'</span>,  </div><div class="line">            <span class="string">'attribute'</span> =&gt; <span class="string">'goodsNo'</span>,  <span class="comment"># search模型中定义的属性</span></div><div class="line">            <span class="string">'value'</span> =&gt; <span class="string">'goods.goods_no'</span> <span class="comment"># 联表goods对应的属性值</span></div><div class="line">        ],</div><div class="line">        <span class="string">'created_at:datetime'</span>,</div><div class="line">        <span class="string">'end_time:datetime'</span>,</div><div class="line"></div><div class="line">        [<span class="string">'class'</span> =&gt; <span class="string">'yii\grid\ActionColumn'</span>],</div><div class="line">    ],</div><div class="line">]);</div></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://www.imooc.com/article/36206" target="_blank" rel="external">Yii2的GridView使用大全</a><br><a href="https://www.yiichina.com/code/906" target="_blank" rel="external">yii2数据列表插件-gridview</a><br><a href="https://segmentfault.com/a/1190000003765961" target="_blank" rel="external">yii2-GridView在开发中常用的功能及技巧</a><br><a href="https://www.yiichina.com/tutorial/120" target="_blank" rel="external">Yii2-GridView 中让关联字段带搜索和排序功能</a>  </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/yii/" rel="tag"># yii</a>
+          
+            <a href="/tags/gridview/" rel="tag"># gridview</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/04/yii/自己写的一个yii-apidoc扩展/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">纸上得来终觉浅，绝知此事要躬行。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/u/6346736172" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-angry"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank" rel="external nofollow">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#列相关"><span class="nav-number">1.</span> <span class="nav-text">列相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化列的值"><span class="nav-number">1.1.</span> <span class="nav-text">格式化列的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单元格显示html"><span class="nav-number">1.2.</span> <span class="nav-text">单元格显示html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义按钮"><span class="nav-number">1.3.</span> <span class="nav-text">自定义按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索改为下拉框"><span class="nav-number">1.4.</span> <span class="nav-text">搜索改为下拉框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列title不使用排序功能"><span class="nav-number">1.5.</span> <span class="nav-text">列title不使用排序功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#headerOptions-控制列属性-样式"><span class="nav-number">1.6.</span> <span class="nav-text">headerOptions 控制列属性 样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏列"><span class="nav-number">1.7.</span> <span class="nav-text">隐藏列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加列表勾选框列"><span class="nav-number">1.8.</span> <span class="nav-text">增加列表勾选框列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行相关"><span class="nav-number">2.</span> <span class="nav-text">行相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rowOptions-管理tbody下tr的属性"><span class="nav-number">2.1.</span> <span class="nav-text">rowOptions 管理tbody下tr的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#beforeRow和afterRow-行前行后增加要显示的数据"><span class="nav-number">2.2.</span> <span class="nav-text">beforeRow和afterRow 行前行后增加要显示的数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整体显示相关"><span class="nav-number">3.</span> <span class="nav-text">整体显示相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更改layout"><span class="nav-number">3.1.</span> <span class="nav-text">更改layout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改分页显示"><span class="nav-number">3.1.1.</span> <span class="nav-text">修改分页显示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不显示title和搜索框"><span class="nav-number">3.2.</span> <span class="nav-text">不显示title和搜索框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加表的标题"><span class="nav-number">3.3.</span> <span class="nav-text">增加表的标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tableOptions和options属性-管理table属性"><span class="nav-number">3.4.</span> <span class="nav-text">tableOptions和options属性 管理table属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#headerRowOptions-管理thead下的tr属性"><span class="nav-number">3.5.</span> <span class="nav-text">headerRowOptions 管理thead下的tr属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emptyCell-管理空单元格的显示"><span class="nav-number">3.6.</span> <span class="nav-text">emptyCell 管理空单元格的显示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制分页显示数量"><span class="nav-number">4.</span> <span class="nav-text">控制分页显示数量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#让关联字段带搜索和排序功能"><span class="nav-number">5.</span> <span class="nav-text">让关联字段带搜索和排序功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-model中定义关联表"><span class="nav-number">5.1.</span> <span class="nav-text">1. model中定义关联表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-search-模型的修改"><span class="nav-number">5.2.</span> <span class="nav-text">2. search 模型的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-视图修改"><span class="nav-number">5.3.</span> <span class="nav-text">3. 视图修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io" rel="external nofollow" >Hexo</a> 强力驱动 v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
