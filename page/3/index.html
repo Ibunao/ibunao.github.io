@@ -348,6 +348,380 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/11/09/yii/基础类-Object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/09/yii/基础类-Object/" itemprop="url">
+                  yii基础类Object
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-09 00:00:02" itemprop="dateCreated datePublished" datetime="2018-11-09T00:00:02+08:00">2018-11-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-06 21:29:46" itemprop="dateModified" datetime="2018-12-06T21:29:46+08:00">2018-12-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/09/yii/基础类-Object/" class="leancloud_visitors" data-flag-title="yii基础类Object">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>object</code> 作为Yii的最基础的类，只是简单的实现了属性的功能  </p>
+<h2 id="方法解析"><a href="#方法解析" class="headerlink" title="方法解析"></a>方法解析</h2><h3 id="构造函数–配置对象"><a href="#构造函数–配置对象" class="headerlink" title="构造函数–配置对象"></a>构造函数–配置对象</h3><p>通过数组来对对象的属性进行配置    </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($config = [])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">empty</span>($config)) &#123;</div><div class="line">        Yii::configure(<span class="keyword">$this</span>, $config);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//调用初始化方法</span></div><div class="line">    <span class="keyword">$this</span>-&gt;init();    </div><div class="line">&#125;</div><div class="line"><span class="comment">//Yii::configure($this, $config); 给对象的属性赋值</span></div><div class="line">如下</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">configure</span><span class="params">($object, $properties)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">foreach</span> ($properties <span class="keyword">as</span> $name =&gt; $value) &#123;</div><div class="line">        $object-&gt;$name = $value;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> $object;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/09/yii/基础类-Object/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/11/09/yii/基础类-Yii/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/09/yii/基础类-Yii/" itemprop="url">
+                  Yii类了解一下
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-09 00:00:02" itemprop="dateCreated datePublished" datetime="2018-11-09T00:00:02+08:00">2018-11-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-06 21:29:44" itemprop="dateModified" datetime="2018-12-06T21:29:44+08:00">2018-12-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/09/yii/基础类-Yii/" class="leancloud_visitors" data-flag-title="Yii类了解一下">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Yii这个类相对比较简单，主要做的功能应该就是自动加载，和一些其他全局使用的方法  </p>
+<h2 id="自动加载"><a href="#自动加载" class="headerlink" title="自动加载"></a>自动加载</h2><p>Yii自带的自动加载比较简单，一个亮点是为了更快的加载使用了一个自定义的类-路径映射，我们在优化的时候也开把自己要加载的提前放进这个数组中。<code>Composer</code> 自带的自动加载这里也不打算分析了<a href="http://www.leoyang90.cn/2017/03/18/Composer-Autoload-Source-Reading-%E2%80%94%E2%80%94-Register-and-Run/" target="_blank" rel="external">composer自动加载分析</a>]  </p>
+<h3 id="注册自动加载"><a href="#注册自动加载" class="headerlink" title="注册自动加载"></a>注册自动加载</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Yii</span> <span class="keyword">extends</span> \<span class="title">yii</span>\<span class="title">BaseYii</span></span></div><div class="line">&#123;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 注册自动加载，注册到在此之前已经注册的所有自动加载的最前端，也就是会先使用Yii的自动加载进行加载</span></div><div class="line">spl_autoload_register([<span class="string">'Yii'</span>, <span class="string">'autoload'</span>], <span class="keyword">true</span>, <span class="keyword">true</span>);</div><div class="line"><span class="comment">// 设置类与路径的加载映射，加快自动加载</span></div><div class="line">Yii::$classMap = <span class="keyword">require</span>(<span class="keyword">__DIR__</span> . <span class="string">'/classes.php'</span>);</div><div class="line"><span class="comment">// 容器</span></div><div class="line">Yii::$container = <span class="keyword">new</span> yii\di\Container();</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/09/yii/基础类-Yii/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/11/09/yii/依赖注入容器&&服务定位器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -479,192 +853,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/11/09/yii/依赖注入容器&&服务定位器/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/11/09/yii/基础类-Component-Behavior/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
-      <meta itemprop="image" content="/images/my.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不孬">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/yii/基础类-Component-Behavior/" itemprop="url">
-                  Component实现行为和事件
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 00:00:02" itemprop="dateCreated datePublished" datetime="2018-11-09T00:00:02+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-06 21:29:40" itemprop="dateModified" datetime="2018-12-06T21:29:40+08:00">2018-12-06</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/09/yii/基础类-Component-Behavior/" class="leancloud_visitors" data-flag-title="Component实现行为和事件">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>Component</code> 算是yii最核心的基础类了，同时实现了事件和 Behavior<br><code>Component</code> 虽然继承与 <code>Object</code> ，但为了实现 Behavior 对象的属性和方法的注入， <code>Component</code> 重写了 <code>Object</code> 中所有和调用属性和方法有关的方法。原理也很简单，就是在当前对象找不到的属性或方法，在绑定的行为里再找一遍  </p>
-<p>例如调用不存在的方法的时候<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span><span class="params">($name, $params)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 先确保注册的behaviors绑定</span></div><div class="line">    <span class="keyword">$this</span>-&gt;ensureBehaviors();</div><div class="line">    <span class="comment">// 检查绑定的behaviors中有没有要调用的方法  </span></div><div class="line">    <span class="keyword">foreach</span> (<span class="keyword">$this</span>-&gt;_behaviors <span class="keyword">as</span> $object) &#123;</div><div class="line">        <span class="keyword">if</span> ($object-&gt;hasMethod($name)) &#123;</div><div class="line">            <span class="keyword">return</span> call_user_func_array([$object, $name], $params);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnknownMethodException(<span class="string">'Calling unknown method: '</span> .</div><div class="line">        get_class(<span class="keyword">$this</span>) . <span class="string">"::$name()"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/09/yii/基础类-Component-Behavior/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1267,192 +1455,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/10/16/yii/RESTful/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
-      <meta itemprop="image" content="/images/my.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不孬">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/16/yii/RESTful/" itemprop="url">
-                  Yii-轻松实现RESTful风格的接口
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-16 20:00:02" itemprop="dateCreated datePublished" datetime="2018-10-16T20:00:02+08:00">2018-10-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-19 21:50:33" itemprop="dateModified" datetime="2018-12-19T21:50:33+08:00">2018-12-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/10/16/yii/RESTful/" class="leancloud_visitors" data-flag-title="Yii-轻松实现RESTful风格的接口">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Yii轻松实现RESTful风格的接口"><a href="#Yii轻松实现RESTful风格的接口" class="headerlink" title="Yii轻松实现RESTful风格的接口"></a>Yii轻松实现RESTful风格的接口</h2><h3 id="创建api模块"><a href="#创建api模块" class="headerlink" title="创建api模块"></a>创建api模块</h3><p>我们可以直接复制一份其他的模块，如 <code>frontend</code> 模块，假设起名为 <code>restful</code></p>
-<h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><p>首先我们修改一下配置，为了能够实现模块的自动加载<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">common\config\bootstrap.php</div><div class="line"></div><div class="line"><span class="comment">// 添加的模块要在这里设置一下别名,为了自动加载</span></div><div class="line">Yii::setAlias(<span class="string">'@restful'</span>, dirname(dirname(<span class="keyword">__DIR__</span>)) . <span class="string">'/restful'</span>);</div><div class="line">```  </div><div class="line">然后修改 restful 模块的配置  </div><div class="line">```php</div><div class="line">restful/config/main.php</div><div class="line"></div><div class="line">...</div><div class="line">...</div><div class="line"></div><div class="line"><span class="keyword">return</span> [</div><div class="line">    <span class="comment"># 更改项目id</span></div><div class="line">    <span class="string">'id'</span> =&gt; <span class="string">'app-restful'</span>,</div><div class="line">    <span class="comment"># 设置控制器命名空间  </span></div><div class="line">    <span class="string">'controllerNamespace'</span> =&gt; <span class="string">'restful\controllers'</span>,</div><div class="line">    <span class="string">'components'</span> =&gt; [</div><div class="line">        <span class="string">'request'</span> =&gt; [</div><div class="line">            <span class="string">'csrfParam'</span> =&gt; <span class="string">'_csrf-restful'</span>,</div><div class="line">            <span class="comment"># 配置获取请求参数的格式，可以接收并解析json格式的数据</span></div><div class="line">            <span class="string">'parsers'</span> =&gt; [</div><div class="line">                <span class="string">'application/json'</span> =&gt; <span class="string">'yii\web\JsonParser'</span>,</div><div class="line">            ]</div><div class="line">        ],</div><div class="line">        <span class="string">'user'</span> =&gt; [</div><div class="line">            <span class="string">'identityClass'</span> =&gt; <span class="string">'common\models\User'</span>,</div><div class="line">            <span class="comment">// 不允许使用session</span></div><div class="line">            <span class="string">'enableSession'</span> =&gt; <span class="keyword">false</span>,</div><div class="line">        ],</div><div class="line"></div><div class="line">        ...</div><div class="line">        ...</div><div class="line"></div><div class="line">        <span class="string">'urlManager'</span> =&gt; [</div><div class="line">            <span class="string">'enablePrettyUrl'</span> =&gt; <span class="keyword">true</span>,</div><div class="line">            <span class="comment">// 如果如开启，在不满足配置的路由规则后或使用默认的路由规则进行解析  </span></div><div class="line">            <span class="comment">// 'enableStrictParsing' =&gt; true,</span></div><div class="line">            <span class="string">'showScriptName'</span> =&gt; <span class="keyword">false</span>,</div><div class="line">            <span class="string">'rules'</span> =&gt; [</div><div class="line">                <span class="comment">/**</span></div><div class="line">                 * 配置url解析规则类</div><div class="line">                 * controller 配置的控制器id 配置的控制器访问的时候要用复数的形式</div><div class="line">                 */</div><div class="line">                [<span class="string">'class'</span> =&gt; <span class="string">'yii\rest\UrlRule'</span>, <span class="string">'controller'</span> =&gt; [<span class="string">'user'</span>]],</div><div class="line">            ],</div><div class="line">        ],</div><div class="line">    ],</div><div class="line">];</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/16/yii/RESTful/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1504,7 +1506,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1561,7 +1563,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1672,7 +1678,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">49</span>
+                      
+                    
+                    <span class="site-state-item-count">50</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -109,7 +109,7 @@
 
 
   <meta name="description" content="前言Component 算是yii最核心的基础类了，同时实现了事件和 BehaviorComponent 虽然继承与 Object ，但为了实现 Behavior 对象的属性和方法的注入， Component 重写了 Object 中所有和调用属性和方法有关的方法。原理也很简单，就是在当前对象找不到的属性或方法，在绑定的行为里再找一遍   例如调用不存在的方法的时候1234567891011121">
-<meta name="keywords" content="yii,行为Behavior,事件Event">
+<meta name="keywords" content="yii,事件Event,行为Behavior">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Component实现行为和事件">
 <meta property="og:url" content="http://bunao.win/2018/11/09/yii/基础类-Component-Behavior/index.html">
@@ -553,9 +553,9 @@
           
             <a href="/tags/yii/" rel="tag"># yii</a>
           
-            <a href="/tags/行为Behavior/" rel="tag"># 行为Behavior</a>
-          
             <a href="/tags/事件Event/" rel="tag"># 事件Event</a>
+          
+            <a href="/tags/行为Behavior/" rel="tag"># 行为Behavior</a>
           
         </div>
       
@@ -568,8 +568,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/24/others/资源/" rel="next" title="gitbook等其他资源">
-                <i class="fa fa-chevron-left"></i> gitbook等其他资源
+              <a href="/2018/11/09/yii/基础类-Object/" rel="next" title="yii基础类Object">
+                <i class="fa fa-chevron-left"></i> yii基础类Object
               </a>
             
           </div>
@@ -578,8 +578,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/09/yii/依赖注入容器&&服务定位器/" rel="prev" title="Yii的依赖注入容器和服务定位器">
-                Yii的依赖注入容器和服务定位器 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/09/yii/基础类-Event/" rel="prev" title="类级别事件">
+                类级别事件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -654,7 +654,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -711,7 +711,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -822,7 +826,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">49</span>
+                      
+                    
+                    <span class="site-state-item-count">50</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
