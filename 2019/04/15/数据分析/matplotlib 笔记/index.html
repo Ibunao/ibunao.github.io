@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/bunao.ico?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/bunao.ico?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="基础设置12# 引入from matplotlib import pyplot as plt 示例">
+<meta name="keywords" content="matplotlib">
+<meta property="og:type" content="article">
+<meta property="og:title" content="matplotlib 基础">
+<meta property="og:url" content="http://bunao.win/2019/04/15/数据分析/matplotlib 笔记/index.html">
+<meta property="og:site_name" content="不孬">
+<meta property="og:description" content="基础设置12# 引入from matplotlib import pyplot as plt 示例">
+<meta property="og:image" content="http://bunao.win/images/shuju/Python_Figure_Structure.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_4_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_6_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_8_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_11_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_14_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_17_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_20_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_23_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_25_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_26_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_29_2.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_32_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_34_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_37_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_39_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_41_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_42_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_49_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_51_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_52_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_53_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_55_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_56_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_58_1.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_60_0.png">
+<meta property="og:image" content="http://bunao.win/images/shuju/output_64_0.png">
+<meta property="og:updated_time" content="2019-04-15T12:47:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="matplotlib 基础">
+<meta name="twitter:description" content="基础设置12# 引入from matplotlib import pyplot as plt 示例">
+<meta name="twitter:image" content="http://bunao.win/images/shuju/Python_Figure_Structure.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://bunao.win/2019/04/15/数据分析/matplotlib 笔记/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>matplotlib 基础 | 不孬</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4719716f509495788172dc0058a6f11e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不孬</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">less is more</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2019/04/15/数据分析/matplotlib 笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">matplotlib 基础
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-15 11:56:02 / 修改时间：20:47:53" itemprop="dateCreated datePublished" datetime="2019-04-15T11:56:02+08:00">2019-04-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据分析/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据分析/matplotlib/" itemprop="url" rel="index"><span itemprop="name">matplotlib</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/15/数据分析/matplotlib 笔记/" class="leancloud_visitors" data-flag-title="matplotlib 基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基础设置"><a href="#基础设置" class="headerlink" title="基础设置"></a>基础设置</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 引入</span></div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</div></pre></td></tr></table></figure>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p><img src="/images/shuju/Python_Figure_Structure.png" alt=""></p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 获取x轴的点，需要是可迭代对象</span></div><div class="line">x = range(<span class="number">2</span>, <span class="number">26</span>, <span class="number">2</span>)</div><div class="line"><span class="comment"># 获取y轴的点，需要是可迭代对象</span></div><div class="line">y = [<span class="number">15</span>, <span class="number">13</span>, <span class="number">14.5</span>, <span class="number">17</span>, <span class="number">20</span>, <span class="number">25</span>, <span class="number">26</span>, <span class="number">26</span>, <span class="number">24</span>, <span class="number">22</span>, <span class="number">18</span>, <span class="number">15</span>]</div><div class="line"><span class="comment"># 通过plot绘制折线图， x 和 y 是对应的关系，也就是长度要一样 </span></div><div class="line">plt.plot(x, y)</div><div class="line"><span class="comment"># 展示图形</span></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_4_0.png" alt="png"></p>
+<h3 id="设置图片大小、质量"><a href="#设置图片大小、质量" class="headerlink" title="设置图片大小、质量"></a>设置图片大小、质量</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 画图之前设置图片信息  figsize 设置图片的大小； dpi 设置图片的质量，让图片更清晰</span></div><div class="line">fig = plt.figure(figsize=(<span class="number">6</span>, <span class="number">4</span>), dpi= <span class="number">80</span>)</div><div class="line">x = range(<span class="number">2</span>, <span class="number">26</span>, <span class="number">2</span>)</div><div class="line">y = [<span class="number">15</span>, <span class="number">13</span>, <span class="number">14.5</span>, <span class="number">17</span>, <span class="number">20</span>, <span class="number">25</span>, <span class="number">26</span>, <span class="number">26</span>, <span class="number">24</span>, <span class="number">22</span>, <span class="number">18</span>, <span class="number">15</span>]</div><div class="line">plt.plot(x, y)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_6_0.png" alt="png"></p>
+<h3 id="下载图片"><a href="#下载图片" class="headerlink" title="下载图片"></a>下载图片</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 画图之前设置图片信息  figsize 设置图片的大小； dpi 设置图片的质量，让图片更清晰</span></div><div class="line">fig = plt.figure(figsize=(<span class="number">6</span>, <span class="number">4</span>), dpi= <span class="number">80</span>)</div><div class="line">x = range(<span class="number">2</span>, <span class="number">26</span>, <span class="number">2</span>)</div><div class="line">y = [<span class="number">15</span>, <span class="number">13</span>, <span class="number">14.5</span>, <span class="number">17</span>, <span class="number">20</span>, <span class="number">25</span>, <span class="number">26</span>, <span class="number">26</span>, <span class="number">24</span>, <span class="number">22</span>, <span class="number">18</span>, <span class="number">15</span>]</div><div class="line">plt.plot(x, y)</div><div class="line"><span class="comment"># 保存图片，可以根据后缀名来指定保存的格式</span></div><div class="line">plt.savefig(<span class="string">'savefig.png'</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_8_0.png" alt="png"></p>
+<h3 id="调整-X-或者-Y-轴上的刻度和显示内容"><a href="#调整-X-或者-Y-轴上的刻度和显示内容" class="headerlink" title="调整 X 或者 Y 轴上的刻度和显示内容"></a>调整 X 或者 Y 轴上的刻度和显示内容</h3><p>虽然指定了 x 轴和 y 轴对应点的关系，但是 x 轴和 y 轴的刻度并没有指定，如果默认的刻度不满足需求，我们可以进行更改 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 画图之前设置图片信息  figsize 设置图片的大小； dpi 设置图片的质量，让图片更清晰</span></div><div class="line">fig = plt.figure(figsize=(<span class="number">6</span>, <span class="number">4</span>), dpi= <span class="number">80</span>)</div><div class="line">x = range(<span class="number">2</span>, <span class="number">26</span>, <span class="number">2</span>)</div><div class="line">y = [<span class="number">15</span>, <span class="number">13</span>, <span class="number">14.5</span>, <span class="number">17</span>, <span class="number">20</span>, <span class="number">25</span>, <span class="number">26</span>, <span class="number">26</span>, <span class="number">24</span>, <span class="number">22</span>, <span class="number">18</span>, <span class="number">15</span>]</div><div class="line">plt.plot(x, y)</div><div class="line"><span class="comment"># 指定x轴的刻度值</span></div><div class="line"><span class="comment"># plt.xticks(x)</span></div><div class="line"><span class="comment"># 可以调整刻度的稀疏</span></div><div class="line">plt.xticks(x[::<span class="number">2</span>])</div><div class="line"><span class="comment"># 保存图片，可以根据后缀名来指定保存的格式</span></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_11_0.png" alt="png"></p>
+<h4 id="设置-x、y-轴刻度的别名、刻度方向"><a href="#设置-x、y-轴刻度的别名、刻度方向" class="headerlink" title="设置 x、y 轴刻度的别名、刻度方向"></a>设置 x、y 轴刻度的别名、刻度方向</h4><p>那么问题来了:<br>       如果列表a表示10点到12点的每一分钟的气温,如何绘制折线图观察每分钟气温的变化情况?<br>       <figure class="highlight plain"><figcaption><span>[random.randint(20,35) for i in range(120)]```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">```python</div><div class="line">import random</div><div class="line">fig = plt.figure(figsize = (28, 8))</div><div class="line">y = [random.randint(20,35) for i in range(120)]</div><div class="line">x = range(120)</div><div class="line">plt.plot(x, y)</div><div class="line"># 生成x坐标对应的别名</div><div class="line">_x_ticks = [&apos;10点&#123;&#125;分&apos;.format(i) for i in x if i &lt; 60]</div><div class="line">_x_ticks += [&apos;11点&#123;&#125;分&apos;.format(i) for i in x if i &gt; 60]</div><div class="line"># 前两个参数要一一对应，表示刻度和别名的对应关系</div><div class="line"># rotation参数表示刻度显示旋转的方向</div><div class="line"># plt.xticks(x, _x_ticks, rotation = 45)</div><div class="line">plt.xticks(x[::5], _x_ticks[::5], rotation = 45)</div><div class="line">plt.show()</div></pre></td></tr></table></figure></p>
+<p><img src="/images/shuju/output_14_0.png" alt="png"></p>
+<h3 id="设置显示中文"><a href="#设置显示中文" class="headerlink" title="设置显示中文"></a>设置显示中文</h3><p><code>matplotlib</code> 默认不支持中文字符，因为默认的英文字体无法显示汉字<br>查看 <code>linux/mac</code> 下面支持的字体:<br><code>fc-list</code>   查看支持的字体<br><code>fc-list :lang=zh</code> 查看支持的中文(冒号前面有空格)  </p>
+<blockquote>
+<p>mac 下如果不支持该命令，需要安装 <code>brew install fontconfig</code>  </p>
+</blockquote>
+<p>那么问题来了:如何修改 <code>matplotlib</code> 的默认字体?</p>
+<ol>
+<li>通过 <code>matplotlib.rc</code> 可以修改,具体方法参见源码( <code>windows/linux</code> 平台下可行)</li>
+<li>通过 <code>matplotlib</code> 下的 <code>font_manager</code> 可以解决( <code>windows/linux/mac</code> 平台下可行)</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> random  </div><div class="line"><span class="keyword">import</span> matplotlib</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> font_manager  </div><div class="line"><span class="comment"># 全局的字体设置(没实验成功，没找到字体名)</span></div><div class="line"><span class="comment"># font = &#123;</span></div><div class="line"><span class="comment">#     'family': "Microsoft Yahei",</span></div><div class="line"><span class="comment">#     'size': "10"</span></div><div class="line"><span class="comment"># &#125;</span></div><div class="line"><span class="comment"># matplotlib.rc('font', **font)</span></div><div class="line"></div><div class="line"></div><div class="line">fig = plt.figure(figsize = (<span class="number">28</span>, <span class="number">8</span>))</div><div class="line">y = [random.randint(<span class="number">20</span>,<span class="number">35</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">120</span>)]</div><div class="line">x = range(<span class="number">120</span>)</div><div class="line">plt.plot(x, y)</div><div class="line">_x_ticks = [<span class="string">'10点&#123;&#125;分'</span>.format(i) <span class="keyword">for</span> i <span class="keyword">in</span> x <span class="keyword">if</span> i &lt; <span class="number">60</span>]</div><div class="line">_x_ticks += [<span class="string">'11点&#123;&#125;分'</span>.format(i) <span class="keyword">for</span> i <span class="keyword">in</span> x <span class="keyword">if</span> i &gt; <span class="number">60</span>]</div><div class="line"></div><div class="line"><span class="comment"># 指定字体路径，然后在需要显示中文的地方添加 fontproperties 参数  </span></div><div class="line">my_font = font_manager.FontProperties(fname=<span class="string">'/System/Library/Fonts/Pingfang.ttc'</span>)</div><div class="line">plt.xticks(x[::<span class="number">5</span>], _x_ticks[::<span class="number">5</span>], rotation = <span class="number">45</span>, fontproperties = my_font)</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_17_0.png" alt="png"></p>
+<h3 id="给图像添加描述信息"><a href="#给图像添加描述信息" class="headerlink" title="给图像添加描述信息"></a>给图像添加描述信息</h3><h4 id="设置图的-title-和轴的-label，显示网格"><a href="#设置图的-title-和轴的-label，显示网格" class="headerlink" title="设置图的 title 和轴的 label，显示网格"></a>设置图的 title 和轴的 label，显示网格</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">fig = plt.figure(figsize = (<span class="number">28</span>, <span class="number">8</span>))</div><div class="line">y = [random.randint(<span class="number">20</span>,<span class="number">35</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">120</span>)]</div><div class="line">x = range(<span class="number">120</span>)</div><div class="line">plt.plot(x, y)</div><div class="line">_x_ticks = [<span class="string">'10点&#123;&#125;分'</span>.format(i) <span class="keyword">for</span> i <span class="keyword">in</span> x <span class="keyword">if</span> i &lt; <span class="number">60</span>]</div><div class="line">_x_ticks += [<span class="string">'11点&#123;&#125;分'</span>.format(i) <span class="keyword">for</span> i <span class="keyword">in</span> x <span class="keyword">if</span> i &gt; <span class="number">60</span>]</div><div class="line"></div><div class="line"><span class="comment"># 指定字体路径，然后在需要显示中文的地方添加 fontproperties 参数  </span></div><div class="line">my_font = font_manager.FontProperties(fname=<span class="string">'/System/Library/Fonts/Pingfang.ttc'</span>)</div><div class="line">plt.xticks(x[::<span class="number">5</span>], _x_ticks[::<span class="number">5</span>], rotation = <span class="number">45</span>, fontproperties = my_font)</div><div class="line"></div><div class="line"><span class="comment"># 设置x、y轴的label</span></div><div class="line">plt.xlabel(<span class="string">'时间'</span>, fontproperties = my_font)</div><div class="line">plt.ylabel(<span class="string">'温度'</span>, fontproperties = my_font)</div><div class="line"><span class="comment"># 设置图的标题</span></div><div class="line">plt.title(<span class="string">'10-11点的温度记录'</span>, fontproperties = my_font)</div><div class="line"><span class="comment"># 显示网格</span></div><div class="line">plt.grid(alpha = <span class="number">0.4</span>)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_20_0.png" alt="png"></p>
+<h4 id="设置线条样式和图例位置"><a href="#设置线条样式和图例位置" class="headerlink" title="设置线条样式和图例位置"></a>设置线条样式和图例位置</h4><p>线条样式参数值  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">颜色字符(color)</th>
+<th style="text-align:left">风格字符(linestyle)</th>
+<th style="text-align:left">点样式(marker)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>r</code>红色</td>
+<td style="text-align:left"><code>-</code> or <code>solid</code> 实线</td>
+<td style="text-align:left"><code>.</code> point</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>g</code>绿色</td>
+<td style="text-align:left"><code>--</code> or <code>dashed</code> 虚线</td>
+<td style="text-align:left"><code>,</code> pixel</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>g</code>蓝色</td>
+<td style="text-align:left"><code>-.</code> or <code>dashdot</code> 点划线</td>
+<td style="text-align:left"><code>o</code> circle</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>w</code>白色</td>
+<td style="text-align:left"><code>:</code> or <code>dotted</code> 点虚线</td>
+<td style="text-align:left"><code>v</code> triangle_down</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>c</code>青色</td>
+<td style="text-align:left"><code> </code>空或者空格，无线条</td>
+<td style="text-align:left"><code>^</code> triangle_up</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>m</code>洋红</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>&lt;</code> triangle_left</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>y</code>黄色</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>k</code>黑色</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>#00ff00</code>16进制</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">a = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]</div><div class="line">b = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span> ,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]</div><div class="line">x = range(<span class="number">20</span>)</div><div class="line"><span class="comment"># 绘制两条线  </span></div><div class="line"><span class="comment"># label 线条数名; color 设置字体颜色； linestyle 设置线条样式； linewidth 设置线条宽度； alpha 设置线条透明度</span></div><div class="line">plt.plot(x, a, label=<span class="string">'线1'</span>, color=<span class="string">'r'</span>, linestyle=<span class="string">'--'</span>, linewidth=<span class="number">5</span>, alpha=<span class="number">0.5</span>)</div><div class="line">plt.plot(x, b, label=<span class="string">'线2'</span>)</div><div class="line">my_font = font_manager.FontProperties(fname=<span class="string">'/System/Library/Fonts/Pingfang.ttc'</span>)</div><div class="line"><span class="comment"># 显示图例 prop 指定文字类型， loc 指定显示位置</span></div><div class="line">plt.legend(prop = my_font, loc = <span class="string">'best'</span>)</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_23_0.png" alt="png"></p>
+<h3 id="添加注解"><a href="#添加注解" class="headerlink" title="添加注解"></a>添加注解</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># text添加文字注解</span></div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> random</div><div class="line">random.seed(<span class="number">10</span>)</div><div class="line">plt.plot(random.randn(<span class="number">30</span>).cumsum(), <span class="string">'ko--'</span>)</div><div class="line"><span class="comment"># 添加注解</span></div><div class="line">plt.text(<span class="number">5</span>, <span class="number">2</span>, <span class="string">'hello'</span>, family=<span class="string">'monospace'</span>, fontsize = <span class="number">10</span>)</div></pre></td></tr></table></figure>
+<pre><code>Text(5, 2, &apos;hello&apos;)
+</code></pre><p><img src="/images/shuju/output_25_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># annotate 添加注解</span></div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> random</div><div class="line">random.seed(<span class="number">10</span>)</div><div class="line">plt.plot(random.randn(<span class="number">30</span>).cumsum(), <span class="string">'ko--'</span>)</div><div class="line"><span class="comment"># 添加注解</span></div><div class="line">plt.annotate(<span class="string">'jinrong'</span>, </div><div class="line">             xy=(<span class="number">6</span>, <span class="number">2</span>), <span class="comment"># 指向的点</span></div><div class="line">             xytext=(<span class="number">6</span>, <span class="number">6</span>), <span class="comment"># 文字位置</span></div><div class="line">             arrowprops=dict(facecolor=<span class="string">'green'</span>, headwidth=<span class="number">6</span>, headlength=<span class="number">6</span>, width=<span class="number">2</span>),<span class="comment"># 设置箭头 颜色 头的宽度 头的高度 线宽</span></div><div class="line">             horizontalalignment=<span class="string">'right'</span>, <span class="comment"># 文字在箭头的左侧还是右侧</span></div><div class="line">             verticalalignment=<span class="string">'top'</span> <span class="comment"># 文字在箭头的顶部还是底部</span></div><div class="line">            )</div></pre></td></tr></table></figure>
+<pre><code>Text(6, 6, &apos;jinrong&apos;)
+</code></pre><p><img src="/images/shuju/output_26_1.png" alt="png"></p>
+<h2 id="折线图plot"><a href="#折线图plot" class="headerlink" title="折线图plot"></a>折线图plot</h2><p>上面的都是以折线图为例子的，看下就OK</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> randn</div><div class="line">data = randn(<span class="number">30</span>).cumsum()</div><div class="line"><span class="comment"># plt.plot(randn(30).cumsum(), 'ko--')</span></div><div class="line"><span class="comment"># 扩展开就是下面这种形式 marker 绘制点</span></div><div class="line">plt.plot(data, color=<span class="string">'k'</span>, linestyle=<span class="string">'dashed'</span>, marker=<span class="string">'o'</span>)</div><div class="line"><span class="comment"># 在线型图中，非实际数据点默认是按线性方式插值的。可以通过drawstyle选项修改</span></div><div class="line">plt.plot(data, <span class="string">'k-'</span>, drawstyle=<span class="string">'steps-post'</span>)</div><div class="line"><span class="comment"># 返回当前的X轴绘图范围</span></div><div class="line">print(plt.xlim())</div><div class="line"><span class="comment"># 设置x轴绘制范围</span></div><div class="line">plt.xlim([<span class="number">0</span>, <span class="number">50</span>])</div></pre></td></tr></table></figure>
+<pre><code>(-1.4500000000000002, 30.45)
+
+
+
+
+
+(0, 50)
+</code></pre><p><img src="/images/shuju/output_29_2.png" alt="png"></p>
+<h2 id="散点图scatter"><a href="#散点图scatter" class="headerlink" title="散点图scatter"></a>散点图scatter</h2><p>散点图和折线图的用法相似，基本把plot改成scatter方法  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 假设下面是3,10月份每天白天的最高气温</span></div><div class="line">y_a = [<span class="number">11</span>,<span class="number">17</span>,<span class="number">16</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">6</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">12</span>,<span class="number">15</span>,<span class="number">14</span>,<span class="number">17</span>,<span class="number">18</span>,<span class="number">21</span>,<span class="number">16</span>,<span class="number">17</span>,<span class="number">20</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">15</span>,<span class="number">15</span>,<span class="number">19</span>,<span class="number">21</span>,<span class="number">22</span>,<span class="number">22</span>,<span class="number">22</span>,<span class="number">23</span>]</div><div class="line">y_b = [<span class="number">26</span>,<span class="number">26</span>,<span class="number">28</span>,<span class="number">19</span>,<span class="number">21</span>,<span class="number">17</span>,<span class="number">16</span>,<span class="number">19</span>,<span class="number">18</span>,<span class="number">20</span>,<span class="number">20</span>,<span class="number">19</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">17</span>,<span class="number">20</span>,<span class="number">21</span>,<span class="number">20</span>,<span class="number">22</span>,<span class="number">15</span>,<span class="number">11</span>,<span class="number">15</span>,<span class="number">5</span>,<span class="number">13</span>,<span class="number">17</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">13</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">6</span>]</div><div class="line"></div><div class="line">fig = plt.figure(figsize = (<span class="number">28</span>, <span class="number">8</span>))</div><div class="line"><span class="comment"># 分别获取a、b对应的x的坐标</span></div><div class="line">x_a = range(<span class="number">1</span>, <span class="number">32</span>)</div><div class="line">x_b = range(<span class="number">51</span>, <span class="number">82</span>)</div><div class="line"></div><div class="line"><span class="comment"># 绘制散点图</span></div><div class="line">plt.scatter(x_a, y_a)</div><div class="line">plt.scatter(x_b, y_b)</div><div class="line"></div><div class="line">_x_ticks = [<span class="string">'3月&#123;&#125;日'</span>.format(i) <span class="keyword">for</span> i <span class="keyword">in</span> x_a]</div><div class="line">_x_ticks += [<span class="string">'10月&#123;&#125;日'</span>.format(i - <span class="number">50</span>) <span class="keyword">for</span> i <span class="keyword">in</span> x_b]</div><div class="line"></div><div class="line"><span class="comment"># 指定字体路径，然后在需要显示中文的地方添加 fontproperties 参数  </span></div><div class="line">my_font = font_manager.FontProperties(fname=<span class="string">'/System/Library/Fonts/Pingfang.ttc'</span>)</div><div class="line">plt.xticks(list(x_a) + list(x_b), _x_ticks, rotation = <span class="number">45</span>, fontproperties = my_font)</div><div class="line"></div><div class="line"><span class="comment"># 设置x、y轴的label</span></div><div class="line">plt.xlabel(<span class="string">'时间'</span>, fontproperties = my_font)</div><div class="line">plt.ylabel(<span class="string">'温度'</span>, fontproperties = my_font)</div><div class="line"><span class="comment"># 设置图的标题</span></div><div class="line">plt.title(<span class="string">'3月、10月的温度记录'</span>, fontproperties = my_font)</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_32_0.png" alt="png"></p>
+<h2 id="条形图bar-竖着的-、barh-横着的"><a href="#条形图bar-竖着的-、barh-横着的" class="headerlink" title="条形图bar(竖着的)、barh(横着的)"></a>条形图bar(竖着的)、barh(横着的)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">fig = plt.figure(figsize = (<span class="number">28</span>, <span class="number">8</span>))</div><div class="line"><span class="comment"># 指定字体路径，然后在需要显示中文的地方添加 fontproperties 参数  </span></div><div class="line">my_font = font_manager.FontProperties(fname=<span class="string">'/System/Library/Fonts/Pingfang.ttc'</span>)</div><div class="line"></div><div class="line">a = [<span class="string">"战狼2"</span>,<span class="string">"速度与激情8"</span>,<span class="string">"功夫瑜伽"</span>,<span class="string">"西游伏妖篇"</span>,<span class="string">"变形金刚5：最后的骑士"</span>,<span class="string">"摔跤吧！爸爸"</span>,<span class="string">"加勒比海盗5：死无对证"</span>,<span class="string">"金刚：骷髅岛"</span>,<span class="string">"极限特工：终极回归"</span>,<span class="string">"生化危机6：终章"</span>,<span class="string">"乘风破浪"</span>,<span class="string">"神偷奶爸3"</span>,<span class="string">"智取威虎山"</span>,<span class="string">"大闹天竺"</span>,<span class="string">"金刚狼3：殊死一战"</span>,<span class="string">"蜘蛛侠：英雄归来"</span>,<span class="string">"悟空传"</span>,<span class="string">"银河护卫队2"</span>,<span class="string">"情圣"</span>,<span class="string">"新木乃伊"</span>,]</div><div class="line"></div><div class="line">b = [<span class="number">56.01</span>,<span class="number">26.94</span>,<span class="number">17.53</span>,<span class="number">16.49</span>,<span class="number">15.45</span>,<span class="number">12.96</span>,<span class="number">11.8</span>,<span class="number">11.61</span>,<span class="number">11.28</span>,<span class="number">11.12</span>,<span class="number">10.49</span>,<span class="number">10.3</span>,<span class="number">8.75</span>,<span class="number">7.55</span>,<span class="number">7.32</span>,<span class="number">6.99</span>,<span class="number">6.88</span>,<span class="number">6.86</span>,<span class="number">6.58</span>,<span class="number">6.23</span>] </div><div class="line"></div><div class="line"><span class="comment"># 画竖着的条形图 width 设置条形的宽度  </span></div><div class="line"><span class="comment"># plt.bar(range(len(a)), b, width = 0.6)</span></div><div class="line"><span class="comment"># 设置x轴别名</span></div><div class="line"><span class="comment"># plt.xticks(range(len(a)), a, rotation = 45, fontproperties = my_font)</span></div><div class="line"></div><div class="line"><span class="comment"># 画横着的条形图 height 设置条形的宽度</span></div><div class="line">plt.barh(range(len(a)), b, height = <span class="number">0.6</span>)</div><div class="line"><span class="comment"># 设置y轴别名</span></div><div class="line">plt.yticks(range(len(a)), a, rotation = <span class="number">45</span>, fontproperties = my_font)</div><div class="line"></div><div class="line"><span class="comment"># 设置x、y轴的label</span></div><div class="line">plt.xlabel(<span class="string">'电影名称'</span>, fontproperties = my_font)</div><div class="line">plt.ylabel(<span class="string">'票房：亿'</span>, fontproperties = my_font)</div><div class="line"><span class="comment"># 设置图的标题</span></div><div class="line">plt.title(<span class="string">'票房记录'</span>, fontproperties = my_font)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_34_0.png" alt="png"></p>
+<h3 id="多次条形图"><a href="#多次条形图" class="headerlink" title="多次条形图"></a>多次条形图</h3><p>假设你知道了列表a中电影分别在2017-09-14(b_14), 2017-09-15(b_15), 2017-09-16(b_16)三天的票房,为了展示列表中电影本身的票房以及同其他电影的数据对比情况,应该如何更加直观的呈现该数据?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">fig = plt.figure(figsize = (<span class="number">28</span>, <span class="number">8</span>))</div><div class="line"><span class="comment"># 指定字体路径，然后在需要显示中文的地方添加 fontproperties 参数  </span></div><div class="line">my_font = font_manager.FontProperties(fname=<span class="string">'/System/Library/Fonts/Pingfang.ttc'</span>)</div><div class="line"></div><div class="line">a = [<span class="string">"猩球崛起3：终极之战"</span>,<span class="string">"敦刻尔克"</span>,<span class="string">"蜘蛛侠：英雄归来"</span>,<span class="string">"战狼2"</span>]</div><div class="line">b_16 = [<span class="number">15746</span>,<span class="number">312</span>,<span class="number">4497</span>,<span class="number">319</span>]</div><div class="line">b_15 = [<span class="number">12357</span>,<span class="number">156</span>,<span class="number">2045</span>,<span class="number">168</span>]</div><div class="line">b_14 = [<span class="number">2358</span>,<span class="number">399</span>,<span class="number">2358</span>,<span class="number">362</span>]</div><div class="line"></div><div class="line"><span class="comment"># 多个条形图根据条形图的宽度错开</span></div><div class="line">bar_width = <span class="number">0.2</span></div><div class="line">x_14 = range(len(a))</div><div class="line">x_15 = [i + bar_width <span class="keyword">for</span> i <span class="keyword">in</span> x_14]</div><div class="line">x_16 = [i + bar_width * <span class="number">2</span> <span class="keyword">for</span> i <span class="keyword">in</span> x_14]</div><div class="line"></div><div class="line"><span class="comment"># 画竖着的条形图 width 设置条形的宽度  </span></div><div class="line">plt.bar(x_14, b_14, width = bar_width, label = <span class="string">'2017-09-14日'</span>)</div><div class="line">plt.bar(x_15, b_15, width = bar_width, label = <span class="string">'2017-09-15日'</span>)</div><div class="line">plt.bar(x_16, b_16, width = bar_width, label = <span class="string">'2017-09-16日'</span>)</div><div class="line"><span class="comment"># 设置图例</span></div><div class="line">plt.legend(prop = my_font)</div><div class="line"></div><div class="line"><span class="comment"># 设置x轴别名</span></div><div class="line">plt.xticks(x_15, a, rotation = <span class="number">45</span>, fontproperties = my_font)</div><div class="line"></div><div class="line"><span class="comment"># 设置x、y轴的label</span></div><div class="line">plt.xlabel(<span class="string">'电影名称'</span>, fontproperties = my_font)</div><div class="line">plt.ylabel(<span class="string">'票房：亿'</span>, fontproperties = my_font)</div><div class="line"><span class="comment"># 设置图的标题</span></div><div class="line">plt.title(<span class="string">'票房记录'</span>, fontproperties = my_font)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_37_0.png" alt="png"></p>
+<h2 id="直方图hist"><a href="#直方图hist" class="headerlink" title="直方图hist"></a>直方图hist</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">fig = plt.figure(figsize = (<span class="number">28</span>, <span class="number">8</span>))</div><div class="line"><span class="comment"># 指定字体路径，然后在需要显示中文的地方添加 fontproperties 参数  </span></div><div class="line">my_font = font_manager.FontProperties(fname=<span class="string">'/System/Library/Fonts/Pingfang.ttc'</span>)</div><div class="line"></div><div class="line">a=[<span class="number">131</span>,  <span class="number">98</span>, <span class="number">125</span>, <span class="number">131</span>, <span class="number">124</span>, <span class="number">139</span>, <span class="number">131</span>, <span class="number">117</span>, <span class="number">128</span>, <span class="number">108</span>, <span class="number">135</span>, <span class="number">138</span>, <span class="number">131</span>, <span class="number">102</span>, <span class="number">107</span>, <span class="number">114</span>, <span class="number">119</span>, <span class="number">128</span>, <span class="number">121</span>, <span class="number">142</span>, <span class="number">127</span>, <span class="number">130</span>, <span class="number">124</span>, <span class="number">101</span>, <span class="number">110</span>, <span class="number">116</span>, <span class="number">117</span>, <span class="number">110</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">115</span>,  <span class="number">99</span>, <span class="number">136</span>, <span class="number">126</span>, <span class="number">134</span>,  <span class="number">95</span>, <span class="number">138</span>, <span class="number">117</span>, <span class="number">111</span>,<span class="number">78</span>, <span class="number">132</span>, <span class="number">124</span>, <span class="number">113</span>, <span class="number">150</span>, <span class="number">110</span>, <span class="number">117</span>,  <span class="number">86</span>,  <span class="number">95</span>, <span class="number">144</span>, <span class="number">105</span>, <span class="number">126</span>, <span class="number">130</span>,<span class="number">126</span>, <span class="number">130</span>, <span class="number">126</span>, <span class="number">116</span>, <span class="number">123</span>, <span class="number">106</span>, <span class="number">112</span>, <span class="number">138</span>, <span class="number">123</span>,  <span class="number">86</span>, <span class="number">101</span>,  <span class="number">99</span>, <span class="number">136</span>,<span class="number">123</span>, <span class="number">117</span>, <span class="number">119</span>, <span class="number">105</span>, <span class="number">137</span>, <span class="number">123</span>, <span class="number">128</span>, <span class="number">125</span>, <span class="number">104</span>, <span class="number">109</span>, <span class="number">134</span>, <span class="number">125</span>, <span class="number">127</span>,<span class="number">105</span>, <span class="number">120</span>, <span class="number">107</span>, <span class="number">129</span>, <span class="number">116</span>, <span class="number">108</span>, <span class="number">132</span>, <span class="number">103</span>, <span class="number">136</span>, <span class="number">118</span>, <span class="number">102</span>, <span class="number">120</span>, <span class="number">114</span>,<span class="number">105</span>, <span class="number">115</span>, <span class="number">132</span>, <span class="number">145</span>, <span class="number">119</span>, <span class="number">121</span>, <span class="number">112</span>, <span class="number">139</span>, <span class="number">125</span>, <span class="number">138</span>, <span class="number">109</span>, <span class="number">132</span>, <span class="number">134</span>,<span class="number">156</span>, <span class="number">106</span>, <span class="number">117</span>, <span class="number">127</span>, <span class="number">144</span>, <span class="number">139</span>, <span class="number">139</span>, <span class="number">119</span>, <span class="number">140</span>,  <span class="number">83</span>, <span class="number">110</span>, <span class="number">102</span>,<span class="number">123</span>,<span class="number">107</span>, <span class="number">143</span>, <span class="number">115</span>, <span class="number">136</span>, <span class="number">118</span>, <span class="number">139</span>, <span class="number">123</span>, <span class="number">112</span>, <span class="number">118</span>, <span class="number">125</span>, <span class="number">109</span>, <span class="number">119</span>, <span class="number">133</span>,<span class="number">112</span>, <span class="number">114</span>, <span class="number">122</span>, <span class="number">109</span>, <span class="number">106</span>, <span class="number">123</span>, <span class="number">116</span>, <span class="number">131</span>, <span class="number">127</span>, <span class="number">115</span>, <span class="number">118</span>, <span class="number">112</span>, <span class="number">135</span>,<span class="number">115</span>, <span class="number">146</span>, <span class="number">137</span>, <span class="number">116</span>, <span class="number">103</span>, <span class="number">144</span>,  <span class="number">83</span>, <span class="number">123</span>, <span class="number">111</span>, <span class="number">110</span>, <span class="number">111</span>, <span class="number">100</span>, <span class="number">154</span>,<span class="number">136</span>, <span class="number">100</span>, <span class="number">118</span>, <span class="number">119</span>, <span class="number">133</span>, <span class="number">134</span>, <span class="number">106</span>, <span class="number">129</span>, <span class="number">126</span>, <span class="number">110</span>, <span class="number">111</span>, <span class="number">109</span>, <span class="number">141</span>,<span class="number">120</span>, <span class="number">117</span>, <span class="number">106</span>, <span class="number">149</span>, <span class="number">122</span>, <span class="number">122</span>, <span class="number">110</span>, <span class="number">118</span>, <span class="number">127</span>, <span class="number">121</span>, <span class="number">114</span>, <span class="number">125</span>, <span class="number">126</span>,<span class="number">114</span>, <span class="number">140</span>, <span class="number">103</span>, <span class="number">130</span>, <span class="number">141</span>, <span class="number">117</span>, <span class="number">106</span>, <span class="number">114</span>, <span class="number">121</span>, <span class="number">114</span>, <span class="number">133</span>, <span class="number">137</span>,  <span class="number">92</span>,<span class="number">121</span>, <span class="number">112</span>, <span class="number">146</span>,  <span class="number">97</span>, <span class="number">137</span>, <span class="number">105</span>,  <span class="number">98</span>, <span class="number">117</span>, <span class="number">112</span>,  <span class="number">81</span>,  <span class="number">97</span>, <span class="number">139</span>, <span class="number">113</span>,<span class="number">134</span>, <span class="number">106</span>, <span class="number">144</span>, <span class="number">110</span>, <span class="number">137</span>, <span class="number">137</span>, <span class="number">111</span>, <span class="number">104</span>, <span class="number">117</span>, <span class="number">100</span>, <span class="number">111</span>, <span class="number">101</span>, <span class="number">110</span>,<span class="number">105</span>, <span class="number">129</span>, <span class="number">137</span>, <span class="number">112</span>, <span class="number">120</span>, <span class="number">113</span>, <span class="number">133</span>, <span class="number">112</span>,  <span class="number">83</span>,  <span class="number">94</span>, <span class="number">146</span>, <span class="number">133</span>, <span class="number">101</span>,<span class="number">131</span>, <span class="number">116</span>, <span class="number">111</span>,  <span class="number">84</span>, <span class="number">137</span>, <span class="number">115</span>, <span class="number">122</span>, <span class="number">106</span>, <span class="number">144</span>, <span class="number">109</span>, <span class="number">123</span>, <span class="number">116</span>, <span class="number">111</span>,<span class="number">111</span>, <span class="number">133</span>, <span class="number">150</span>]</div><div class="line"></div><div class="line"><span class="comment"># 设置组距,这个要求有点高，设置不好图形会偏(要能被max(a) - min(a)整除)</span></div><div class="line">bin_width = <span class="number">6</span> </div><div class="line"><span class="comment"># 计算组数  </span></div><div class="line">num_bins = int((max(a) - min(a))//bin_width)</div><div class="line">print(num_bins, max(a), min(a), max(a) - min(a))</div><div class="line"><span class="comment"># 绘制直方图，传入数据和组数即可</span></div><div class="line">plt.hist(a, num_bins)</div><div class="line"><span class="comment"># 默认绘制的是频数，density = 1 设置成频数</span></div><div class="line"><span class="comment"># plt.hist(a, num_bins, density = 1)</span></div><div class="line"><span class="comment"># 也可以通过列表来指定各个组距，通常在组距不均匀的时候使用，长度为组数，值为分组依据</span></div><div class="line"><span class="comment"># plt.hist(a, [min(a) + i * bin_width for i in range(num_bins)])</span></div><div class="line"></div><div class="line">plt.xticks(list(range(min(a), max(a)))[::bin_width], rotation = <span class="number">45</span>)</div><div class="line">plt.grid()</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<pre><code>13 156 78 78
+</code></pre><p><img src="/images/shuju/output_39_1.png" alt="png"></p>
+<h2 id="一页创建多张图-subplot"><a href="#一页创建多张图-subplot" class="headerlink" title="一页创建多张图 subplot"></a>一页创建多张图 subplot</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line">fig = plt.figure()</div><div class="line"><span class="comment"># 图像应该是2×2的（即最多4张图），且当前选中的是4个subplot中的第一个（编号从1开始）</span></div><div class="line">ax1 = fig.add_subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>)</div><div class="line">ax2 = fig.add_subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>)</div><div class="line">ax3 = fig.add_subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>)</div><div class="line"><span class="comment"># 直方图</span></div><div class="line">ax1.hist(np.random.randn(<span class="number">100</span>), bins=<span class="number">20</span>, color=<span class="string">'k'</span>, alpha=<span class="number">0.3</span>)</div><div class="line"><span class="comment"># 散点图</span></div><div class="line">ax2.scatter(np.arange(<span class="number">30</span>), np.arange(<span class="number">30</span>) + <span class="number">3</span> * np.random.randn(<span class="number">30</span>))</div><div class="line"><span class="comment"># 在第三张上画图，  k-- 表示黑色虚线 k表示黑色 -- 表示虚线</span></div><div class="line">ax3.plot(np.random.randn(<span class="number">50</span>).cumsum(), <span class="string">'k--'</span>)</div></pre></td></tr></table></figure>
+<pre><code>[&lt;matplotlib.lines.Line2D at 0x8444080&gt;]
+</code></pre><p><img src="/images/shuju/output_41_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 快速创建一图多张表 figsize 是figure的参数</span></div><div class="line"><span class="comment"># fig是figure对象 axes 是各个图表列表</span></div><div class="line">fig, axes = plt.subplots(<span class="number">2</span>, <span class="number">3</span>, figsize=(<span class="number">18</span>, <span class="number">6</span>))</div><div class="line">print(axes)</div><div class="line"><span class="comment"># subplots_adjues 调整个图表之间的间距</span></div><div class="line">plt.subplots_adjust(wspace=<span class="number">0</span>, hspace=<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<pre><code>[[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x000000000907BB70&gt;
+  &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000000090A4C50&gt;
+  &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000000090D4208&gt;]
+ [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000000090F9780&gt;
+  &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000000095A2CF8&gt;
+  &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000000095D32B0&gt;]]
+</code></pre><p><img src="/images/shuju/output_42_1.png" alt="png"></p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="1-导入包"><a href="#1-导入包" class="headerlink" title="1. 导入包"></a>1. 导入包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div></pre></td></tr></table></figure>
+<h3 id="2-准备数据"><a href="#2-准备数据" class="headerlink" title="2. 准备数据"></a>2. 准备数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 定义数据部分</span></div><div class="line">x = np.arange(<span class="number">0.</span>, <span class="number">10</span>, <span class="number">0.2</span>)</div><div class="line">y1 = np.cos(x)</div><div class="line">y2 = np.sin(x)</div><div class="line">y3 = np.sqrt(x)</div></pre></td></tr></table></figure>
+<h3 id="3-绘制基本曲线"><a href="#3-绘制基本曲线" class="headerlink" title="3. 绘制基本曲线"></a>3. 绘制基本曲线</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 plot 函数直接绘制上述函数曲线，可以通过配置 plot 函数参数调整曲线的样式、粗细、颜色、标记等：</span></div><div class="line"><span class="comment"># 绘制 3 条函数曲线</span></div><div class="line">plt.plot(x, y1, color=<span class="string">'blue'</span>, linewidth=<span class="number">1.5</span>, linestyle=<span class="string">'-'</span>, marker=<span class="string">'.'</span>, label=<span class="string">r'$y = cos&#123;x&#125;$'</span>)</div><div class="line">plt.plot(x, y2, color=<span class="string">'green'</span>, linewidth=<span class="number">1.5</span>, linestyle=<span class="string">'-'</span>, marker=<span class="string">'*'</span>, label=<span class="string">r'$y = sin&#123;x&#125;$'</span>)</div><div class="line">plt.plot(x, y3, color=<span class="string">'m'</span>, linewidth=<span class="number">1.5</span>, linestyle=<span class="string">'-'</span>, marker=<span class="string">'x'</span>, label=<span class="string">r'$y = \sqrt&#123;x&#125;$'</span>)</div></pre></td></tr></table></figure>
+<pre><code>[&lt;matplotlib.lines.Line2D at 0x8315b00&gt;]
+</code></pre><p><img src="/images/shuju/output_49_1.png" alt="png"></p>
+<h3 id="4-设置坐标轴"><a href="#4-设置坐标轴" class="headerlink" title="4. 设置坐标轴"></a>4. 设置坐标轴</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 坐标轴上移</span></div><div class="line">ax = plt.subplot(<span class="number">111</span>)</div><div class="line"><span class="comment"># 去掉右边的边框线</span></div><div class="line">ax.spines[<span class="string">'right'</span>].set_color(<span class="string">'none'</span>)     </div><div class="line"><span class="comment"># 去掉上边的边框线</span></div><div class="line">ax.spines[<span class="string">'top'</span>].set_color(<span class="string">'none'</span>)  </div><div class="line"></div><div class="line"><span class="comment"># 移动下边边框线，相当于移动 X 轴</span></div><div class="line">ax.xaxis.set_ticks_position(<span class="string">'bottom'</span>)    </div><div class="line"><span class="comment"># 下边框线移动到 y=0 的位置</span></div><div class="line">ax.spines[<span class="string">'bottom'</span>].set_position((<span class="string">'data'</span>, <span class="number">0</span>))</div><div class="line"></div><div class="line"><span class="comment"># 移动左边边框线，相当于移动 y 轴</span></div><div class="line">ax.yaxis.set_ticks_position(<span class="string">'left'</span>)</div><div class="line"><span class="comment"># 左边框线移动到 x=0 的位置</span></div><div class="line">ax.spines[<span class="string">'left'</span>].set_position((<span class="string">'data'</span>, <span class="number">0</span>))</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_51_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 设置 x, y 轴的刻度取值范围</span></div><div class="line">plt.xlim(x.min()*<span class="number">1.1</span>, x.max()*<span class="number">1.1</span>)</div><div class="line">plt.ylim(<span class="number">-1.5</span>, <span class="number">4.0</span>)</div><div class="line"><span class="comment"># 设置 x, y 轴的刻度标签值</span></div><div class="line">plt.xticks([<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>], [<span class="string">r'2.0'</span>, <span class="string">r'4'</span>, <span class="string">r'6'</span>, <span class="string">r'8'</span>, <span class="string">r'10'</span>])</div><div class="line">plt.yticks([<span class="number">-1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>],</div><div class="line">    [<span class="string">r'-1.00'</span>, <span class="string">r'0.00'</span>, <span class="string">r'1.00'</span>, <span class="string">r'2.00'</span>, <span class="string">r'3.00'</span>, <span class="string">r'4.00'</span>])</div></pre></td></tr></table></figure>
+<pre><code>([&lt;matplotlib.axis.YTick at 0x7f3fb00&gt;,
+  &lt;matplotlib.axis.YTick at 0x7f3f438&gt;,
+  &lt;matplotlib.axis.YTick at 0x7f5b438&gt;,
+  &lt;matplotlib.axis.YTick at 0x8103940&gt;,
+  &lt;matplotlib.axis.YTick at 0x8103e48&gt;,
+  &lt;matplotlib.axis.YTick at 0x8109390&gt;],
+ &lt;a list of 6 Text yticklabel objects&gt;)
+</code></pre><p><img src="/images/shuju/output_52_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 设置标题、x轴、y轴</span></div><div class="line">plt.title(<span class="string">r'$the \ function \ figure \ of \ cos(), \ sin() \ and \ sqrt()$'</span>, fontsize=<span class="number">19</span>)</div><div class="line">plt.xlabel(<span class="string">r'$the \ input \ value \ of \ x$'</span>, fontsize=<span class="number">18</span>, labelpad=<span class="number">88.8</span>)</div><div class="line">plt.ylabel(<span class="string">r'$y = f(x)$'</span>, fontsize=<span class="number">18</span>, labelpad=<span class="number">12.5</span>)</div></pre></td></tr></table></figure>
+<pre><code>Text(0, 0.5, &apos;$y = f(x)$&apos;)
+</code></pre><p><img src="/images/shuju/output_53_1.png" alt="png"></p>
+<h3 id="5-设置文字描述、注解"><a href="#5-设置文字描述、注解" class="headerlink" title="5. 设置文字描述、注解"></a>5. 设置文字描述、注解</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">plt.text(<span class="number">4</span>, <span class="number">1.68</span>, <span class="string">r'$x \in [0.0, \ 10.0]$'</span>, color=<span class="string">'k'</span>, fontsize=<span class="number">15</span>)</div><div class="line">plt.text(<span class="number">4</span>, <span class="number">1.38</span>, <span class="string">r'$y \in [-1.0, \ 4.0]$'</span>, color=<span class="string">'k'</span>, fontsize=<span class="number">15</span>)</div></pre></td></tr></table></figure>
+<pre><code>Text(4, 1.38, &apos;$y \\in [-1.0, \\ 4.0]$&apos;)
+</code></pre><p><img src="/images/shuju/output_55_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 特殊点添加注解</span></div><div class="line"><span class="comment"># 使用散点图放大当前点</span></div><div class="line">plt.scatter([<span class="number">8</span>,],[np.sqrt(<span class="number">8</span>),], <span class="number">50</span>, color =<span class="string">'m'</span>)</div><div class="line">plt.annotate(<span class="string">r'$2\sqrt&#123;2&#125;$'</span>, xy=(<span class="number">8</span>, np.sqrt(<span class="number">8</span>)), xytext=(<span class="number">8.5</span>, <span class="number">2.2</span>), fontsize=<span class="number">16</span>, color=<span class="string">'#090909'</span>, arrowprops=dict(arrowstyle=<span class="string">'-&gt;'</span>, connectionstyle=<span class="string">'arc3, rad=0.1'</span>, color=<span class="string">'#090909'</span>))</div></pre></td></tr></table></figure>
+<pre><code>Text(8.5, 2.2, &apos;$2\\sqrt{2}$&apos;)
+</code></pre><p><img src="/images/shuju/output_56_1.png" alt="png"></p>
+<h3 id="6-设置图例"><a href="#6-设置图例" class="headerlink" title="6. 设置图例"></a>6. 设置图例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plt.legend([<span class="string">'cos(x)'</span>, <span class="string">'sin(x)'</span>, <span class="string">'sqrt(x)'</span>], loc=<span class="string">'upper right'</span>)</div></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.legend.Legend at 0x9495c88&gt;
+</code></pre><p><img src="/images/shuju/output_58_1.png" alt="png"></p>
+<h3 id="7-网格线开关"><a href="#7-网格线开关" class="headerlink" title="7. 网格线开关"></a>7. 网格线开关</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 显示网格线</span></div><div class="line">plt.grid(<span class="keyword">True</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_60_0.png" alt="png"></p>
+<h3 id="8-显示"><a href="#8-显示" class="headerlink" title="8. 显示"></a>8. 显示</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 显示</span></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<h3 id="完整的绘制程序"><a href="#完整的绘制程序" class="headerlink" title="完整的绘制程序"></a>完整的绘制程序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line"><span class="comment"># 定义数据部分</span></div><div class="line">x = np.arange(<span class="number">0.</span>, <span class="number">10</span>, <span class="number">0.2</span>)</div><div class="line">y1 = np.cos(x)</div><div class="line">y2 = np.sin(x)</div><div class="line">y3 = np.sqrt(x)</div><div class="line"></div><div class="line"><span class="comment"># 绘制 3 条函数曲线</span></div><div class="line">plt.plot(x, y1, color=<span class="string">'blue'</span>, linewidth=<span class="number">1.5</span>, linestyle=<span class="string">'-'</span>, marker=<span class="string">'.'</span>, label=<span class="string">r'$y = cos&#123;x&#125;$'</span>)</div><div class="line">plt.plot(x, y2, color=<span class="string">'green'</span>, linewidth=<span class="number">1.5</span>, linestyle=<span class="string">'-'</span>, marker=<span class="string">'*'</span>, label=<span class="string">r'$y = sin&#123;x&#125;$'</span>)</div><div class="line">plt.plot(x, y3, color=<span class="string">'m'</span>, linewidth=<span class="number">1.5</span>, linestyle=<span class="string">'-'</span>, marker=<span class="string">'x'</span>, label=<span class="string">r'$y = \sqrt&#123;x&#125;$'</span>)</div><div class="line"></div><div class="line"><span class="comment"># 坐标轴上移</span></div><div class="line">ax = plt.subplot(<span class="number">111</span>)</div><div class="line">ax.spines[<span class="string">'right'</span>].set_color(<span class="string">'none'</span>)     <span class="comment"># 去掉右边的边框线</span></div><div class="line">ax.spines[<span class="string">'top'</span>].set_color(<span class="string">'none'</span>)       <span class="comment"># 去掉上边的边框线</span></div><div class="line"></div><div class="line"><span class="comment"># 移动下边边框线，相当于移动 X 轴</span></div><div class="line">ax.xaxis.set_ticks_position(<span class="string">'bottom'</span>)    </div><div class="line"><span class="comment"># 下边框线移动到 y=0 的位置</span></div><div class="line">ax.spines[<span class="string">'bottom'</span>].set_position((<span class="string">'data'</span>, <span class="number">0</span>))</div><div class="line"></div><div class="line"><span class="comment"># 移动左边边框线，相当于移动 y 轴</span></div><div class="line">ax.yaxis.set_ticks_position(<span class="string">'left'</span>)</div><div class="line"><span class="comment"># 左边框线移动到 x=0 的位置</span></div><div class="line">ax.spines[<span class="string">'left'</span>].set_position((<span class="string">'data'</span>, <span class="number">0</span>))</div><div class="line"></div><div class="line"><span class="comment"># 设置 x, y 轴的取值范围</span></div><div class="line">plt.xlim(x.min()*<span class="number">1.1</span>, x.max()*<span class="number">1.1</span>)</div><div class="line">plt.ylim(<span class="number">-1.5</span>, <span class="number">4.0</span>)</div><div class="line"></div><div class="line"><span class="comment"># 设置 x, y 轴的刻度值</span></div><div class="line">plt.xticks([<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>], [<span class="string">r'2'</span>, <span class="string">r'4'</span>, <span class="string">r'6'</span>, <span class="string">r'8'</span>, <span class="string">r'10'</span>])</div><div class="line">plt.yticks([<span class="number">-1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>], </div><div class="line">    [<span class="string">r'-1.0'</span>, <span class="string">r'0.0'</span>, <span class="string">r'1.0'</span>, <span class="string">r'2.0'</span>, <span class="string">r'3.0'</span>, <span class="string">r'4.0'</span>])</div><div class="line"></div><div class="line"><span class="comment"># 添加文字</span></div><div class="line">plt.text(<span class="number">4</span>, <span class="number">1.68</span>, <span class="string">r'$x \in [0.0, \ 10.0]$'</span>, color=<span class="string">'k'</span>, fontsize=<span class="number">15</span>)</div><div class="line">plt.text(<span class="number">4</span>, <span class="number">1.38</span>, <span class="string">r'$y \in [-1.0, \ 4.0]$'</span>, color=<span class="string">'k'</span>, fontsize=<span class="number">15</span>)</div><div class="line"></div><div class="line"><span class="comment"># 特殊点添加注解</span></div><div class="line">plt.scatter([<span class="number">8</span>,],[np.sqrt(<span class="number">8</span>),], <span class="number">50</span>, color =<span class="string">'m'</span>)  <span class="comment"># 使用散点图放大当前点</span></div><div class="line">plt.annotate(<span class="string">r'$2\sqrt&#123;2&#125;$'</span>, xy=(<span class="number">8</span>, np.sqrt(<span class="number">8</span>)), xytext=(<span class="number">8.5</span>, <span class="number">2.2</span>), fontsize=<span class="number">16</span>, color=<span class="string">'#090909'</span>, arrowprops=dict(arrowstyle=<span class="string">'-&gt;'</span>, connectionstyle=<span class="string">'arc3, rad=0.1'</span>, color=<span class="string">'#090909'</span>))</div><div class="line"></div><div class="line"><span class="comment"># 设置标题、x轴、y轴</span></div><div class="line">plt.title(<span class="string">r'$the \ function \ figure \ of \ cos(), \ sin() \ and \ sqrt()$'</span>, fontsize=<span class="number">19</span>)</div><div class="line">plt.xlabel(<span class="string">r'$the \ input \ value \ of \ x$'</span>, fontsize=<span class="number">18</span>, labelpad=<span class="number">88.8</span>)</div><div class="line">plt.ylabel(<span class="string">r'$y = f(x)$'</span>, fontsize=<span class="number">18</span>, labelpad=<span class="number">12.5</span>)</div><div class="line"></div><div class="line"><span class="comment"># 设置图例及位置</span></div><div class="line">plt.legend(loc=<span class="string">'up right'</span>)    </div><div class="line"><span class="comment"># plt.legend(['cos(x)', 'sin(x)', 'sqrt(x)'], loc='up right')</span></div><div class="line"></div><div class="line"><span class="comment"># 显示网格线</span></div><div class="line">plt.grid(<span class="keyword">True</span>)    </div><div class="line"></div><div class="line"><span class="comment"># 显示绘图</span></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/images/shuju/output_64_0.png" alt="png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://matplotlib.org/gallery/index.html" target="_blank" rel="external">官方案例</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/my.jpg" alt="echo-ding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/my.jpg" alt="echo-ding 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/my.jpg" alt="echo-ding 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/matplotlib/" rel="tag"># matplotlib</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/11/数据分析/NumPy 笔记/" rel="next" title="Numpy 基础">
+                <i class="fa fa-chevron-left"></i> Numpy 基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my.jpg"
+                alt="echo-ding" />
+            
+              <p class="site-author-name" itemprop="name">echo-ding</p>
+              <p class="site-description motion-element" itemprop="description">纸上得来终觉浅，绝知此事要躬行。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">51</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bunao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:ibunao@163.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/u/6346736172" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎" rel="external nofollow"><i class="fa fa-fw fa-angry"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bunao.me/" title="bunao" target="_blank" rel="external nofollow">bunao</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础设置"><span class="nav-number">1.</span> <span class="nav-text">基础设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">1.1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置图片大小、质量"><span class="nav-number">1.2.</span> <span class="nav-text">设置图片大小、质量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载图片"><span class="nav-number">1.3.</span> <span class="nav-text">下载图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调整-X-或者-Y-轴上的刻度和显示内容"><span class="nav-number">1.4.</span> <span class="nav-text">调整 X 或者 Y 轴上的刻度和显示内容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置-x、y-轴刻度的别名、刻度方向"><span class="nav-number">1.4.1.</span> <span class="nav-text">设置 x、y 轴刻度的别名、刻度方向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置显示中文"><span class="nav-number">1.5.</span> <span class="nav-text">设置显示中文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给图像添加描述信息"><span class="nav-number">1.6.</span> <span class="nav-text">给图像添加描述信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置图的-title-和轴的-label，显示网格"><span class="nav-number">1.6.1.</span> <span class="nav-text">设置图的 title 和轴的 label，显示网格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置线条样式和图例位置"><span class="nav-number">1.6.2.</span> <span class="nav-text">设置线条样式和图例位置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加注解"><span class="nav-number">1.7.</span> <span class="nav-text">添加注解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#折线图plot"><span class="nav-number">2.</span> <span class="nav-text">折线图plot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#散点图scatter"><span class="nav-number">3.</span> <span class="nav-text">散点图scatter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条形图bar-竖着的-、barh-横着的"><span class="nav-number">4.</span> <span class="nav-text">条形图bar(竖着的)、barh(横着的)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多次条形图"><span class="nav-number">4.1.</span> <span class="nav-text">多次条形图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直方图hist"><span class="nav-number">5.</span> <span class="nav-text">直方图hist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一页创建多张图-subplot"><span class="nav-number">6.</span> <span class="nav-text">一页创建多张图 subplot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战"><span class="nav-number">7.</span> <span class="nav-text">实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-导入包"><span class="nav-number">7.1.</span> <span class="nav-text">1. 导入包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-准备数据"><span class="nav-number">7.2.</span> <span class="nav-text">2. 准备数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-绘制基本曲线"><span class="nav-number">7.3.</span> <span class="nav-text">3. 绘制基本曲线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-设置坐标轴"><span class="nav-number">7.4.</span> <span class="nav-text">4. 设置坐标轴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-设置文字描述、注解"><span class="nav-number">7.5.</span> <span class="nav-text">5. 设置文字描述、注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-设置图例"><span class="nav-number">7.6.</span> <span class="nav-text">6. 设置图例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-网格线开关"><span class="nav-number">7.7.</span> <span class="nav-text">7. 网格线开关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-显示"><span class="nav-number">7.8.</span> <span class="nav-text">8. 显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整的绘制程序"><span class="nav-number">7.9.</span> <span class="nav-text">完整的绘制程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echo-ding</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io" rel="external nofollow" >Hexo</a> 强力驱动 v3.3.7</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "JoifQWva3MrLxWwEjXGYYvNw-gzGzoHsz",
+                'X-LC-Key': "IEzrlKqyuxO8jhwp2ds1P0Rf",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
