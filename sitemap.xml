@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://bunao.win/2019/05/07/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/pandas%20%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2019-05-07T12:21:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://bunao.win/2019/04/15/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/matplotlib%20%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2019-04-15T12:47:53.000Z</lastmod>
@@ -9,14 +16,14 @@
   </url>
   
   <url>
-    <loc>http://bunao.win/2018/10/23/spider/xpath%E5%8F%82%E8%80%83/</loc>
+    <loc>http://bunao.win/2018/10/23/spider/scrapy%E5%8F%82%E8%80%83/</loc>
     
     <lastmod>2019-04-11T13:54:22.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://bunao.win/2018/10/23/spider/scrapy%E5%8F%82%E8%80%83/</loc>
+    <loc>http://bunao.win/2018/10/23/spider/xpath%E5%8F%82%E8%80%83/</loc>
     
     <lastmod>2019-04-11T13:54:22.000Z</lastmod>
     
