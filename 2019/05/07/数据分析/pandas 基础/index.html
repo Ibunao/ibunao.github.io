@@ -137,7 +137,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7178691-7e8bb217f599b4ae.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7178691-c9e01844c4803a42.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7178691-6c602152c2bba658.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-07T12:21:10.000Z">
+<meta property="og:updated_time" content="2019-07-18T10:36:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pandas 基础">
 <meta name="twitter:description" content="《利用 python 进行数据分析*第二版》 123456import pandas as pdfrom pandas import Series, DataFrameimport numpy as npfrom numpy import nan as NAimport sqlite3import re 基础部分数据结构Series 数据结构Series 数据结构就是列表和字典的结合体，下面看一下">
@@ -414,12 +414,24 @@
                 
               
 
-              <time title="创建时间：2019-05-07 20:20:02 / 修改时间：20:21:10" itemprop="dateCreated datePublished" datetime="2019-05-07T20:20:02+08:00">2019-05-07</time>
+              <time title="创建时间：2019-05-07 20:20:02" itemprop="dateCreated datePublished" datetime="2019-05-07T20:20:02+08:00">2019-05-07</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-18 18:36:07" itemprop="dateModified" datetime="2019-07-18T18:36:07+08:00">2019-07-18</time>
               
             
           </span>
@@ -548,10 +560,70 @@ Name: population, dtype: float64
 <p>columns 相当于 sql 中的字段， index 相当于 sql 中的索引</p>
 <p>建DataFrame的办法有很多，最常用的一种是直接传入一个由等长列表或NumPy数组组成的字典</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">data = &#123;<span class="string">'state'</span>: [<span class="string">'Ohio'</span>, <span class="string">'Ohio'</span>, <span class="string">'Ohio'</span>, <span class="string">'Nevada'</span>, <span class="string">'Nevada'</span>, <span class="string">'Nevada'</span>],</div><div class="line">        <span class="string">'year'</span>: [<span class="number">2000</span>, <span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2003</span>],</div><div class="line">        <span class="string">'pop'</span>: [<span class="number">1.5</span>, <span class="number">1.7</span>, <span class="number">3.6</span>, <span class="number">2.4</span>, <span class="number">2.9</span>, <span class="number">3.2</span>]&#125;</div><div class="line">frame = pd.DataFrame(data)</div><div class="line">frame</div></pre></td></tr></table></figure>
-<div><br><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br><br>    .dataframe thead th {<br>        text-align: right;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>state</th><br>      <th>year</th><br>      <th>pop</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>Ohio</td><br>      <td>2000</td><br>      <td>1.5</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>Ohio</td><br>      <td>2001</td><br>      <td>1.7</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>Ohio</td><br>      <td>2002</td><br>      <td>3.6</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>Nevada</td><br>      <td>2001</td><br>      <td>2.4</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>Nevada</td><br>      <td>2002</td><br>      <td>2.9</td><br>    </tr><br>    <tr><br>      <th>5</th><br>      <td>Nevada</td><br>      <td>2003</td><br>      <td>3.2</td><br>    </tr><br>  </tbody><br></table><br></div>
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>state</th>
+      <th>year</th>
+      <th>pop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Ohio</td>
+      <td>2000</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Ohio</td>
+      <td>2001</td>
+      <td>1.7</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Ohio</td>
+      <td>2002</td>
+      <td>3.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Nevada</td>
+      <td>2001</td>
+      <td>2.4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Nevada</td>
+      <td>2002</td>
+      <td>2.9</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Nevada</td>
+      <td>2003</td>
+      <td>3.2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 读取前 5 行，数据量大的时候非常有用</span></div><div class="line">frame.head()</div></pre></td></tr></table></figure>
 <div><br><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br><br>    .dataframe thead th {<br>        text-align: right;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>state</th><br>      <th>year</th><br>      <th>pop</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>Ohio</td><br>      <td>2000</td><br>      <td>1.5</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>Ohio</td><br>      <td>2001</td><br>      <td>1.7</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>Ohio</td><br>      <td>2002</td><br>      <td>3.6</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>Nevada</td><br>      <td>2001</td><br>      <td>2.4</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>Nevada</td><br>      <td>2002</td><br>      <td>2.9</td><br>    </tr><br>  </tbody><br></table><br></div>
@@ -631,7 +703,7 @@ Name: one, dtype: object
 
 
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 获取值 </span></div><div class="line">frame3.values</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 获取值</span></div><div class="line">frame3.values</div></pre></td></tr></table></figure>
 <pre><code>array([[nan, 1.5],
        [2.4, 1.7],
        [2.9, 3.6]])
@@ -651,7 +723,7 @@ Name: one, dtype: object
 </code></pre><p>与python的集合不同，pandas的Index可以包含重复的标签：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dup_labels = pd.Index([<span class="string">'foo'</span>, <span class="string">'foo'</span>, <span class="string">'bar'</span>, <span class="string">'bar'</span>])</div><div class="line">dup_labels</div></pre></td></tr></table></figure>
 <pre><code>Index([&apos;foo&apos;, &apos;foo&apos;, &apos;bar&apos;, &apos;bar&apos;], dtype=&apos;object&apos;)
-</code></pre><p>Index 索引对象有一些方法和属性，不怎么用 </p>
+</code></pre><p>Index 索引对象有一些方法和属性，不怎么用</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dup_labels.unique()</div></pre></td></tr></table></figure>
 <pre><code>Index([&apos;foo&apos;, &apos;bar&apos;], dtype=&apos;object&apos;)
 </code></pre><p><img src="http://upload-images.jianshu.io/upload_images/7178691-5499d14f0e2cd639.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/1240" alt="Index 方法和属性"></p>
@@ -1373,7 +1445,7 @@ three,9,10,11,12,foo
 2,three,9,10,11.0,12,foo
 </code></pre><p>当然，还可以使用其他分隔符（由于这里直接写出到sys.stdout，所以仅仅是打印出文本结果而已）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 设置分割符 | </span></div><div class="line">data.to_csv(sys.stdout, sep=<span class="string">'|'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 设置分割符 |</span></div><div class="line">data.to_csv(sys.stdout, sep=<span class="string">'|'</span>)</div></pre></td></tr></table></figure>
 <pre><code>|something|a|b|c|d|message
 0|one|1|2|3.0|4|
 1|two|5|6||8|world
@@ -1566,7 +1638,7 @@ dtype: float64
 
 
 
-<p><code>thresh</code> 参数 删除 行、列 空值超过指定数字的 </p>
+<p><code>thresh</code> 参数 删除 行、列 空值超过指定数字的</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data</div></pre></td></tr></table></figure>
 <div><br><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br><br>    .dataframe thead th {<br>        text-align: right;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>0</th><br>      <th>1</th><br>      <th>2</th><br>      <th>4</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>1.0</td><br>      <td>6.5</td><br>      <td>3.0</td><br>      <td>NaN</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>1.0</td><br>      <td>NaN</td><br>      <td>NaN</td><br>      <td>NaN</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>NaN</td><br>      <td>NaN</td><br>      <td>NaN</td><br>      <td>NaN</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>NaN</td><br>      <td>6.5</td><br>      <td>3.0</td><br>      <td>NaN</td><br>    </tr><br>  </tbody><br></table><br></div>
 
@@ -1585,7 +1657,7 @@ dtype: float64
 
 
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 填充成 0 </span></div><div class="line">df.fillna(<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 填充成 0</span></div><div class="line">df.fillna(<span class="number">0</span>)</div></pre></td></tr></table></figure>
 <div><br><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br><br>    .dataframe thead th {<br>        text-align: right;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>0</th><br>      <th>1</th><br>      <th>2</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>0.187550</td><br>      <td>0.000000</td><br>      <td>0.000000</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>-0.903578</td><br>      <td>0.000000</td><br>      <td>0.000000</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>0.142988</td><br>      <td>0.000000</td><br>      <td>-1.629844</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>0.346151</td><br>      <td>0.000000</td><br>      <td>-0.806237</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>0.125914</td><br>      <td>-0.188009</td><br>      <td>-1.067930</td><br>    </tr><br>    <tr><br>      <th>5</th><br>      <td>-1.181948</td><br>      <td>0.289074</td><br>      <td>-0.852676</td><br>    </tr><br>    <tr><br>      <th>6</th><br>      <td>0.568097</td><br>      <td>-0.950069</td><br>      <td>-2.165337</td><br>    </tr><br>  </tbody><br></table><br></div>
 
 
@@ -2055,7 +2127,7 @@ d  2    2.053691
    3    1.166844
 dtype: float64
 </code></pre><p>对于一个DataFrame，每条轴都可以有分层索引：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">frame = pd.DataFrame(np.arange(<span class="number">12</span>).reshape((<span class="number">4</span>, <span class="number">3</span>)), index=[[<span class="string">'a'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'b'</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>]], </div><div class="line">        columns=[[<span class="string">'Ohio'</span>, <span class="string">'Ohio'</span>, <span class="string">'Colorado'</span>], [<span class="string">'Green'</span>, <span class="string">'Red'</span>, <span class="string">'Green'</span>]])</div><div class="line">frame</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">frame = pd.DataFrame(np.arange(<span class="number">12</span>).reshape((<span class="number">4</span>, <span class="number">3</span>)), index=[[<span class="string">'a'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'b'</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>]],</div><div class="line">        columns=[[<span class="string">'Ohio'</span>, <span class="string">'Ohio'</span>, <span class="string">'Colorado'</span>], [<span class="string">'Green'</span>, <span class="string">'Red'</span>, <span class="string">'Green'</span>]])</div><div class="line">frame</div></pre></td></tr></table></figure>
 <div><br><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br><br>    .dataframe thead tr th {<br>        text-align: left;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr><br>      <th></th><br>      <th></th><br>      <th colspan="2" halign="left">Ohio</th><br>      <th>Colorado</th><br>    </tr><br>    <tr><br>      <th></th><br>      <th></th><br>      <th>Green</th><br>      <th>Red</th><br>      <th>Green</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th rowspan="2" valign="top">a</th><br>      <th>1</th><br>      <td>0</td><br>      <td>1</td><br>      <td>2</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>3</td><br>      <td>4</td><br>      <td>5</td><br>    </tr><br>    <tr><br>      <th rowspan="2" valign="top">b</th><br>      <th>1</th><br>      <td>6</td><br>      <td>7</td><br>      <td>8</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>9</td><br>      <td>10</td><br>      <td>11</td><br>    </tr><br>  </tbody><br></table><br></div>
 
 
@@ -2127,7 +2199,7 @@ dtype: float64
 
 
 <h3 id="使用DataFrame的列进行索引"><a href="#使用DataFrame的列进行索引" class="headerlink" title="使用DataFrame的列进行索引"></a>使用DataFrame的列进行索引</h3><p>人们经常想要将DataFrame的一个或多个列当做行索引来用，或者可能希望将行索引变成DataFrame的列。<br>DataFrame的set_index函数会将其一个或多个列转换为行索引，并创建一个新的DataFrame：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">frame = pd.DataFrame(&#123;<span class="string">'a'</span>: range(<span class="number">7</span>), <span class="string">'b'</span>: range(<span class="number">7</span>, <span class="number">0</span>, <span class="number">-1</span>), </div><div class="line">                      <span class="string">'c'</span>: [<span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'two'</span>, <span class="string">'two'</span>, <span class="string">'two'</span>],</div><div class="line">                      <span class="string">'d'</span>: [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;)</div><div class="line">frame</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">frame = pd.DataFrame(&#123;<span class="string">'a'</span>: range(<span class="number">7</span>), <span class="string">'b'</span>: range(<span class="number">7</span>, <span class="number">0</span>, <span class="number">-1</span>),</div><div class="line">                      <span class="string">'c'</span>: [<span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'two'</span>, <span class="string">'two'</span>, <span class="string">'two'</span>],</div><div class="line">                      <span class="string">'d'</span>: [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;)</div><div class="line">frame</div></pre></td></tr></table></figure>
 <div><br><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br><br>    .dataframe thead th {<br>        text-align: right;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>a</th><br>      <th>b</th><br>      <th>c</th><br>      <th>d</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>0</td><br>      <td>7</td><br>      <td>one</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>1</td><br>      <td>6</td><br>      <td>one</td><br>      <td>1</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>2</td><br>      <td>5</td><br>      <td>one</td><br>      <td>2</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>3</td><br>      <td>4</td><br>      <td>two</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>4</td><br>      <td>3</td><br>      <td>two</td><br>      <td>1</td><br>    </tr><br>    <tr><br>      <th>5</th><br>      <td>5</td><br>      <td>2</td><br>      <td>two</td><br>      <td>2</td><br>    </tr><br>    <tr><br>      <th>6</th><br>      <td>6</td><br>      <td>1</td><br>      <td>two</td><br>      <td>3</td><br>    </tr><br>  </tbody><br></table><br></div>
 
 
@@ -2194,7 +2266,7 @@ dtype: float64
 
 <p><img src="http://upload-images.jianshu.io/upload_images/7178691-e49b3341f4a3c90e.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240" alt="不同的连接类型"></p>
 <p>要根据多个键进行合并，传入一个由列名组成的列表即可：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">left = pd.DataFrame(&#123;<span class="string">'key1'</span>: [<span class="string">'foo'</span>, <span class="string">'foo'</span>, <span class="string">'bar'</span>], </div><div class="line">                     <span class="string">'key2'</span>: [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'one'</span>], </div><div class="line">                     <span class="string">'lval'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;)</div><div class="line"></div><div class="line">right = pd.DataFrame(&#123;<span class="string">'key1'</span>: [<span class="string">'foo'</span>, <span class="string">'foo'</span>, <span class="string">'bar'</span>, <span class="string">'bar'</span>],</div><div class="line">                               <span class="string">'key2'</span>: [<span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'two'</span>],</div><div class="line">                               <span class="string">'rval'</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]&#125;)</div><div class="line">left</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">left = pd.DataFrame(&#123;<span class="string">'key1'</span>: [<span class="string">'foo'</span>, <span class="string">'foo'</span>, <span class="string">'bar'</span>],</div><div class="line">                     <span class="string">'key2'</span>: [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'one'</span>],</div><div class="line">                     <span class="string">'lval'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;)</div><div class="line"></div><div class="line">right = pd.DataFrame(&#123;<span class="string">'key1'</span>: [<span class="string">'foo'</span>, <span class="string">'foo'</span>, <span class="string">'bar'</span>, <span class="string">'bar'</span>],</div><div class="line">                               <span class="string">'key2'</span>: [<span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'two'</span>],</div><div class="line">                               <span class="string">'rval'</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]&#125;)</div><div class="line">left</div></pre></td></tr></table></figure>
 <div><br><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br><br>    .dataframe thead th {<br>        text-align: right;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>key1</th><br>      <th>key2</th><br>      <th>lval</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>foo</td><br>      <td>one</td><br>      <td>1</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>foo</td><br>      <td>two</td><br>      <td>2</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>bar</td><br>      <td>one</td><br>      <td>3</td><br>    </tr><br>  </tbody><br></table><br></div>
 
 
@@ -2292,7 +2364,7 @@ dtype: float64
 
 
 
-<p>对于简单的索引合并，你还可以向join传入一组DataFrame </p>
+<p>对于简单的索引合并，你还可以向join传入一组DataFrame</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">another = pd.DataFrame([[<span class="number">7.</span>, <span class="number">8.</span>], [<span class="number">9.</span>, <span class="number">10.</span>], [<span class="number">11.</span>, <span class="number">12.</span>], [<span class="number">16.</span>, <span class="number">17.</span>]],</div><div class="line">                       index=[<span class="string">'a'</span>, <span class="string">'c'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>],</div><div class="line">                       columns=[<span class="string">'New York'</span>, <span class="string">'Oregon'</span>])</div><div class="line">another</div></pre></td></tr></table></figure>
 <div><br><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br><br>    .dataframe thead th {<br>        text-align: right;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>New York</th><br>      <th>Oregon</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>a</th><br>      <td>7.0</td><br>      <td>8.0</td><br>    </tr><br>    <tr><br>      <th>c</th><br>      <td>9.0</td><br>      <td>10.0</td><br>    </tr><br>    <tr><br>      <th>e</th><br>      <td>11.0</td><br>      <td>12.0</td><br>    </tr><br>    <tr><br>      <th>f</th><br>      <td>16.0</td><br>      <td>17.0</td><br>    </tr><br>  </tbody><br></table><br></div>
 
@@ -2833,7 +2905,7 @@ object
 </code></pre><h3 id="选取一列或列的子集"><a href="#选取一列或列的子集" class="headerlink" title="选取一列或列的子集"></a>选取一列或列的子集</h3><p>对于由DataFrame产生的GroupBy对象，如果用一个（单个字符串）或一组（字符串数组）列名对其进行索引，就能实现选取部分列进行聚合的目的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">df.groupby(&apos;key1&apos;)[&apos;data1&apos;]</div><div class="line">df.groupby(&apos;key1&apos;)[[&apos;data2&apos;]]</div></pre></td></tr></table></figure></p>
 <p>是以下代码的语法糖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">df[&apos;data1&apos;].groupby(df[&apos;key1&apos;])</div><div class="line">df[[&apos;data2&apos;]].groupby(df[&apos;key1&apos;])</div></pre></td></tr></table></figure></p>
 <p>尤其对于大数据集，很可能只需要对部分列进行聚合。<br>例如，在前面那个数据集中，如果只需计算data2列的平均值并以DataFrame形式得到结果，可以这样写：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 双 [[]] 要生成 dataframe </span></div><div class="line">df.groupby([<span class="string">'key1'</span>, <span class="string">'key2'</span>])[[<span class="string">'data2'</span>]].mean()</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 双 [[]] 要生成 dataframe</span></div><div class="line">df.groupby([<span class="string">'key1'</span>, <span class="string">'key2'</span>])[[<span class="string">'data2'</span>]].mean()</div></pre></td></tr></table></figure>
 <div><br><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br><br>    .dataframe thead th {<br>        text-align: right;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th></th><br>      <th>data2</th><br>    </tr><br>    <tr><br>      <th>key1</th><br>      <th>key2</th><br>      <th></th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th rowspan="2" valign="top">a</th><br>      <th>one</th><br>      <td>-0.454052</td><br>    </tr><br>    <tr><br>      <th>two</th><br>      <td>-0.621154</td><br>    </tr><br>    <tr><br>      <th rowspan="2" valign="top">b</th><br>      <th>one</th><br>      <td>-0.954289</td><br>    </tr><br>    <tr><br>      <th>two</th><br>      <td>-0.698834</td><br>    </tr><br>  </tbody><br></table><br></div>
 
 
@@ -3356,7 +3428,7 @@ dtype: object
 dtype: object
 </code></pre><p>这种用整数表示的方法称为分类或字典编码表示法。不同值得数组称为分类、字典或数据级。本书中，我们使用分类的说法。表示分类的整数值称为分类编码或简单地称为编码。</p>
 <h3 id="pandas的分类类型"><a href="#pandas的分类类型" class="headerlink" title="pandas的分类类型"></a>pandas的分类类型</h3><p>pandas有一个特殊的分类类型，用于保存使用整数分类表示法的数据。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">fruits = [<span class="string">'apple'</span>, <span class="string">'orange'</span>, <span class="string">'apple'</span>, <span class="string">'apple'</span>] * <span class="number">2</span></div><div class="line"></div><div class="line">N = len(fruits)</div><div class="line"></div><div class="line">df = pd.DataFrame(&#123;<span class="string">'fruit'</span>: fruits,  </div><div class="line">                   <span class="string">'basket_id'</span>: np.arange(N), </div><div class="line">                   <span class="string">'count'</span>: np.random.randint(<span class="number">3</span>, <span class="number">15</span>, size=N),</div><div class="line">                   <span class="string">'weight'</span>: np.random.uniform(<span class="number">0</span>, <span class="number">4</span>, size=N)&#125;,</div><div class="line">                   columns=[<span class="string">'basket_id'</span>, <span class="string">'fruit'</span>, <span class="string">'count'</span>, <span class="string">'weight'</span>])</div><div class="line">df</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">fruits = [<span class="string">'apple'</span>, <span class="string">'orange'</span>, <span class="string">'apple'</span>, <span class="string">'apple'</span>] * <span class="number">2</span></div><div class="line"></div><div class="line">N = len(fruits)</div><div class="line"></div><div class="line">df = pd.DataFrame(&#123;<span class="string">'fruit'</span>: fruits,  </div><div class="line">                   <span class="string">'basket_id'</span>: np.arange(N),</div><div class="line">                   <span class="string">'count'</span>: np.random.randint(<span class="number">3</span>, <span class="number">15</span>, size=N),</div><div class="line">                   <span class="string">'weight'</span>: np.random.uniform(<span class="number">0</span>, <span class="number">4</span>, size=N)&#125;,</div><div class="line">                   columns=[<span class="string">'basket_id'</span>, <span class="string">'fruit'</span>, <span class="string">'count'</span>, <span class="string">'weight'</span>])</div><div class="line">df</div></pre></td></tr></table></figure>
 <div><br><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align: top;<br>    }<br><br>    .dataframe thead th {<br>        text-align: right;<br>    }<br></style><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>basket_id</th><br>      <th>fruit</th><br>      <th>count</th><br>      <th>weight</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>0</td><br>      <td>apple</td><br>      <td>11</td><br>      <td>0.661412</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>1</td><br>      <td>orange</td><br>      <td>6</td><br>      <td>2.661072</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>2</td><br>      <td>apple</td><br>      <td>10</td><br>      <td>3.956839</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>3</td><br>      <td>apple</td><br>      <td>10</td><br>      <td>3.491835</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>4</td><br>      <td>apple</td><br>      <td>6</td><br>      <td>2.954149</td><br>    </tr><br>    <tr><br>      <th>5</th><br>      <td>5</td><br>      <td>orange</td><br>      <td>12</td><br>      <td>3.967850</td><br>    </tr><br>    <tr><br>      <th>6</th><br>      <td>6</td><br>      <td>apple</td><br>      <td>8</td><br>      <td>0.093289</td><br>    </tr><br>    <tr><br>      <th>7</th><br>      <td>7</td><br>      <td>apple</td><br>      <td>3</td><br>      <td>3.056569</td><br>    </tr><br>  </tbody><br></table><br></div>
 
 

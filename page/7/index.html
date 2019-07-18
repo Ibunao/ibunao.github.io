@@ -733,6 +733,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/01/mysql/mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/01/mysql/mysql/" itemprop="url">
+                  mysql基础操作
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-07-01 11:56:02" itemprop="dateCreated datePublished" datetime="2017-07-01T11:56:02+08:00">2017-07-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-13 23:11:15" itemprop="dateModified" datetime="2018-12-13T23:11:15+08:00">2018-12-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/01/mysql/mysql/" class="leancloud_visitors" data-flag-title="mysql基础操作">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h2><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span>  <span class="keyword">database</span>  数据库名  [<span class="keyword">charset</span>  字符编码名] [<span class="keyword">collate</span>  排序规则名];</div></pre></td></tr></table></figure>
+<h4 id="查看mysql中的所有字符编码名-字符集"><a href="#查看mysql中的所有字符编码名-字符集" class="headerlink" title="查看mysql中的所有字符编码名(字符集)"></a>查看mysql中的所有字符编码名(字符集)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">charset</span>;</div></pre></td></tr></table></figure>
+<h4 id="查看所有的排序规则名"><a href="#查看所有的排序规则名" class="headerlink" title="查看所有的排序规则名"></a>查看所有的排序规则名</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">collation</span>;</div></pre></td></tr></table></figure>
+<h4 id="创建数据库示例"><a href="#创建数据库示例" class="headerlink" title="创建数据库示例"></a>创建数据库示例</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">test</span> <span class="keyword">CHARSET</span> utf8;</div></pre></td></tr></table></figure>
+<h3 id="修改数据库"><a href="#修改数据库" class="headerlink" title="修改数据库"></a>修改数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span>  <span class="keyword">database</span>  数据库名  [<span class="keyword">charset</span>  字符编码名] [<span class="keyword">collate</span>  排序规则名];</div></pre></td></tr></table></figure>
+<h3 id="备份数据库"><a href="#备份数据库" class="headerlink" title="备份数据库"></a>备份数据库</h3><p>不需要进入mysql服务执行<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump  -h要备份的数据库所在的服务器  -u用户名  -p  数据库名 &gt;  完整目标文件名</div></pre></td></tr></table></figure></p>
+<h4 id="备份示例"><a href="#备份示例" class="headerlink" title="备份示例"></a>备份示例</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -hlocalhost -uroot -p test &gt; /Users/echo-ding/Documents/ding/test.sql</div></pre></td></tr></table></figure>
+<h3 id="恢复数据库"><a href="#恢复数据库" class="headerlink" title="恢复数据库"></a>恢复数据库</h3><ol>
+<li><p>创建需要导入的数据库  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">test</span> <span class="keyword">CHARSET</span> utf8;</div></pre></td></tr></table></figure>
+</li>
+<li><p>将数据还原  注意：先要创建还原的数据库test</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -hlocalhost -uroot -p test &lt; /Users/echo-ding/Documents/ding/test.sql</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>也可以直接执行sql文件的语句<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/01/mysql/mysql/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/01/atom/Atom上手/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1064,206 +1264,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/07/01/atom/小技巧/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2017/07/01/mysql/mysql/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
-      <meta itemprop="image" content="/images/my.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不孬">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/01/mysql/mysql/" itemprop="url">
-                  mysql基础操作
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-07-01 11:56:02" itemprop="dateCreated datePublished" datetime="2017-07-01T11:56:02+08:00">2017-07-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-13 23:11:15" itemprop="dateModified" datetime="2018-12-13T23:11:15+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/07/01/mysql/mysql/" class="leancloud_visitors" data-flag-title="mysql基础操作">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h2><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span>  <span class="keyword">database</span>  数据库名  [<span class="keyword">charset</span>  字符编码名] [<span class="keyword">collate</span>  排序规则名];</div></pre></td></tr></table></figure>
-<h4 id="查看mysql中的所有字符编码名-字符集"><a href="#查看mysql中的所有字符编码名-字符集" class="headerlink" title="查看mysql中的所有字符编码名(字符集)"></a>查看mysql中的所有字符编码名(字符集)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">charset</span>;</div></pre></td></tr></table></figure>
-<h4 id="查看所有的排序规则名"><a href="#查看所有的排序规则名" class="headerlink" title="查看所有的排序规则名"></a>查看所有的排序规则名</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">collation</span>;</div></pre></td></tr></table></figure>
-<h4 id="创建数据库示例"><a href="#创建数据库示例" class="headerlink" title="创建数据库示例"></a>创建数据库示例</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">test</span> <span class="keyword">CHARSET</span> utf8;</div></pre></td></tr></table></figure>
-<h3 id="修改数据库"><a href="#修改数据库" class="headerlink" title="修改数据库"></a>修改数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span>  <span class="keyword">database</span>  数据库名  [<span class="keyword">charset</span>  字符编码名] [<span class="keyword">collate</span>  排序规则名];</div></pre></td></tr></table></figure>
-<h3 id="备份数据库"><a href="#备份数据库" class="headerlink" title="备份数据库"></a>备份数据库</h3><p>不需要进入mysql服务执行<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump  -h要备份的数据库所在的服务器  -u用户名  -p  数据库名 &gt;  完整目标文件名</div></pre></td></tr></table></figure></p>
-<h4 id="备份示例"><a href="#备份示例" class="headerlink" title="备份示例"></a>备份示例</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -hlocalhost -uroot -p test &gt; /Users/echo-ding/Documents/ding/test.sql</div></pre></td></tr></table></figure>
-<h3 id="恢复数据库"><a href="#恢复数据库" class="headerlink" title="恢复数据库"></a>恢复数据库</h3><ol>
-<li><p>创建需要导入的数据库  </p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">test</span> <span class="keyword">CHARSET</span> utf8;</div></pre></td></tr></table></figure>
-</li>
-<li><p>将数据还原  注意：先要创建还原的数据库test</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -hlocalhost -uroot -p test &lt; /Users/echo-ding/Documents/ding/test.sql</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>也可以直接执行sql文件的语句<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/01/mysql/mysql/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
