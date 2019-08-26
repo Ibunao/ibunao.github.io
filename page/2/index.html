@@ -348,6 +348,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bunao.win/2019/01/03/yii/yii-apidoc扩展/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="echo-ding">
+      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
+      <meta itemprop="image" content="/images/my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不孬">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/03/yii/yii-apidoc扩展/" itemprop="url">
+                  yii-apidoc的使用
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-03 00:00:02 / 修改时间：00:18:55" itemprop="dateCreated datePublished" datetime="2019-01-03T00:00:02+08:00">2019-01-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/03/yii/yii-apidoc扩展/" class="leancloud_visitors" data-flag-title="yii-apidoc的使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们可以通过 <code>yii-apidoc</code> 来通过反射拿取备注的方式生成类的说明文档，也可以根据md文件转换成说明文档，这里主要运用的是md来转换成使用文档，和 hexo 的原理一样    </p>
+<h2 id="安装apidoc"><a href="#安装apidoc" class="headerlink" title="安装apidoc"></a>安装apidoc</h2><p><a href="https://github.com/yiisoft/yii2-apidoc" target="_blank" rel="external">文档说明</a>  </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">composer <span class="keyword">require</span> yiisoft/yii2-apidoc</div></pre></td></tr></table></figure>
+<p>安装的时候可能会进行报错<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">...</div><div class="line"></div><div class="line">Your requirements could not be resolved to an installable set of packages.</div><div class="line"></div><div class="line">  Problem <span class="number">1</span></div><div class="line">    - Conclusion: don<span class="string">'t install yiisoft/yii2-apidoc 2.1.1</span></div><div class="line">    - Conclusion: remove cebe/markdown 1.1.2</div><div class="line">    - Installation request for yiisoft/yii2-apidoc ^2.1 -&gt; satisfiable by yiisof</div><div class="line">t/yii2-apidoc[2.1.0, 2.1.1].</div><div class="line">    - Conclusion: don't install cebe/markdown <span class="number">1.1</span><span class="number">.2</span></div><div class="line">    - yiisoft/yii2-apidoc <span class="number">2.1</span><span class="number">.0</span> requires cebe/markdown-latex ~<span class="number">1.0</span> -&gt; satisfiable</div><div class="line"> by cebe/markdown-latex[<span class="number">1.0</span><span class="number">.0</span>, <span class="number">1.1</span><span class="number">.0</span>, <span class="number">1.1</span><span class="number">.1</span>, <span class="number">1.1</span><span class="number">.2</span>, <span class="number">1.1</span><span class="number">.3</span>, <span class="number">1.1</span><span class="number">.4</span>].</div><div class="line"></div><div class="line">...</div><div class="line">...</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/03/yii/yii-apidoc扩展/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/12/26/yii/Ip访问速率控制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1285,198 +1461,11 @@ scrapy基本使用初学scrapy时写的一个参考用的项目，scrapy的一�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bunao.win/2018/11/09/yii/Excel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="echo-ding">
-      <meta itemprop="description" content="纸上得来终觉浅，绝知此事要躬行。">
-      <meta itemprop="image" content="/images/my.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不孬">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/yii/Excel/" itemprop="url">
-                  Yii-Excel
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 00:00:02" itemprop="dateCreated datePublished" datetime="2018-11-09T00:00:02+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-10 00:14:10" itemprop="dateModified" datetime="2018-11-10T00:14:10+08:00">2018-11-10</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/yii/" itemprop="url" rel="index"><span itemprop="name">yii</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/09/yii/Excel/" class="leancloud_visitors" data-flag-title="Yii-Excel">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>对excel的操作常用的操作一般还是比较简单的，如果直接去看 <code>phpexcel</code> 可能会感觉方法太多而无从下手，我们这里直接用经过封装过的 <code>yii-excel</code> 来进行学习就相对简单的多，最后也提供了一个更简单的写excel的和读写csv的两个类供参考学习<br>用到的两张表放在最后附件了，自行下载，用到的两个模型类是通过 <code>gii</code> 直接创建的  </p>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="安装-yii-excel"><a href="#安装-yii-excel" class="headerlink" title="安装 yii-excel"></a>安装 <code>yii-excel</code></h3><p>直接进项目执行<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">composer <span class="keyword">require</span> --prefer-dist moonlandsoft/yii2-phpexcel <span class="string">"*"</span></div></pre></td></tr></table></figure></p>
-<p>安装后 <code>vendor</code> 目录下将会多两个文件夹 <code>moonlandsoft/yii-phpexcel</code> 和 <code>phpoffice/phpexcel</code><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/09/yii/Excel/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1523,7 +1512,7 @@ scrapy基本使用初学scrapy时写的一个参考用的项目，scrapy的一�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1705,7 +1694,9 @@ scrapy基本使用初学scrapy时写的一个参考用的项目，scrapy的一�
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
